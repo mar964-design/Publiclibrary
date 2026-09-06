@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search | Academic Knowledge Library</title>
+    <meta name="description" content="Search formulas, laws, definitions, concepts and other academic resources." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/search.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Search | Academic Knowledge Library" />
+    <meta property="og:description" content="Search formulas, laws, definitions, concepts and other academic resources." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/search.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Search | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Search formulas, laws, definitions, concepts and other academic resources." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== HERO / SEARCH AREA ===== */
+        .search-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .search-hero h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .search-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        .search-hero .search-wrapper {
+            display: flex;
+            max-width: 700px;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .search-hero .search-wrapper input {
+            flex: 1;
+            padding: 14px 22px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            font-family: var(--font);
+            background: transparent;
+        }
+        .search-hero .search-wrapper button {
+            padding: 14px 28px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background var(--transition);
+        }
+        .search-hero .search-wrapper button:hover {
+            background: #1a4f7a;
+        }
+
+        /* ===== FILTERS BAR ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .filters-bar .type-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .filters-bar .type-tabs .tab {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .filters-bar .type-tabs .tab:hover {
+            background: var(--primary-bg);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+        .filters-bar .type-tabs .tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        .filters-bar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: flex-end;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 130px;
+            flex: 1 0 auto;
+        }
+        .filters-bar .filter-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .filters-bar .filter-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filters-bar .sort-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .sort-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filters-bar .filter-chips .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+        .filters-bar .filter-chips .chip .remove-chip {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .chip .remove-chip:hover {
+            color: var(--primary);
+        }
+        .filters-bar .filter-chips .clear-all {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .clear-all:hover {
+            color: var(--primary);
+        }
+        .filters-bar .mobile-filter-toggle {
+            display: none;
+            margin-top: 8px;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            width: 100%;
+        }
+        .filters-bar .mobile-filter-toggle i {
+            margin-right: 6px;
+        }
+
+        /* ===== SEARCH RESULTS ===== */
+        .result-count {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== RESULT CARD ===== */
+        .result-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .result-card .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 12px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            margin-bottom: 8px;
+        }
+        .result-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .result-card h3 a {
+            color: var(--text);
+        }
+        .result-card h3 a:hover {
+            color: var(--primary);
+        }
+        .result-card .excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin: 8px 0 12px;
+            line-height: 1.6;
+        }
+        .result-card .excerpt mark {
+            background: #ffeb3b;
+            padding: 0 2px;
+            font-weight: 500;
+        }
+        .result-card .formula-preview {
+            margin: 8px 0 12px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+        .result-card .formula-preview .katex-display {
+            margin: 0;
+        }
+        .result-card .hierarchy {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .result-card .hierarchy span {
+            display: inline-block;
+        }
+        .result-card .hierarchy .sep {
+            margin: 0 4px;
+            color: var(--border);
+        }
+        .result-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        .result-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .result-card .card-actions .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        .result-card .card-actions .btn-outline-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .result-card .card-actions .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: color var(--transition);
+            padding: 4px 8px;
+        }
+        .result-card .card-actions .bookmark-btn.bookmarked {
+            color: var(--primary);
+        }
+        .result-card .card-actions .bookmark-btn:hover {
+            color: var(--primary);
+        }
+        .result-card .card-actions .share-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            padding: 4px 8px;
+            transition: color var(--transition);
+        }
+        .result-card .card-actions .share-btn:hover {
+            color: var(--primary);
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.excerpt {
+            height: 60px;
+            width: 90%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+        .load-more-container .btn {
+            min-width: 160px;
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 200px;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== MOBILE FILTER DRAWER ===== */
+        .filter-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+        }
+        .filter-drawer-overlay.open {
+            display: block;
+        }
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 80vh;
+            background: var(--white);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 24px 20px;
+            z-index: 2001;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .filter-drawer.open {
+            transform: translateY(0);
+        }
+        .filter-drawer .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .filter-drawer .drawer-header h3 {
+            font-size: 1.2rem;
+        }
+        .filter-drawer .drawer-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+        .filter-drawer .filter-group {
+            margin-bottom: 16px;
+        }
+        .filter-drawer .filter-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .filter-drawer .filter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.95rem;
+        }
+        .filter-drawer .drawer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .filter-drawer .drawer-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .result-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .skeleton-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .search-hero h1 {
+                font-size: 1.8rem;
+            }
+            .search-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .search-hero .search-wrapper {
+                flex-direction: column;
+                border-radius: var(--radius);
+            }
+            .search-hero .search-wrapper input {
+                border-radius: var(--radius) var(--radius) 0 0;
+                padding: 12px 16px;
+            }
+            .search-hero .search-wrapper button {
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .filters-bar .filter-row {
+                display: none;
+            }
+            .filters-bar .mobile-filter-toggle {
+                display: block;
+            }
+            .filters-bar .filter-chips {
+                margin-top: 8px;
+            }
+            .filter-drawer-overlay.open,
+            .filter-drawer.open {
+                display: block;
+            }
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            .skeleton-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-bar {
+                padding: 12px 16px;
+            }
+            .filters-bar .type-tabs {
+                gap: 4px;
+            }
+            .filters-bar .type-tabs .tab {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .result-card .card-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html" class="active">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <span class="current">Search</span>
+        </nav>
+    </div>
+
+    <!-- ===== SEARCH HERO ===== -->
+    <section class="search-hero">
+        <div class="container">
+            <h1>Search Academic Knowledge</h1>
+            <p>Find formulas, laws, definitions, concepts and other academic resources.</p>
+            <div class="search-wrapper" role="search">
+                <input type="text" id="searchInput" placeholder="Search formulas, laws, concepts, definitions..." aria-label="Search the library" />
+                <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTERS BAR ===== -->
+    <section class="container">
+        <div class="filters-bar">
+            <div class="type-tabs" id="typeTabs">
+                <button class="tab active" data-type="all">All</button>
+                <button class="tab" data-type="formula">Formula</button>
+                <button class="tab" data-type="law">Law</button>
+                <button class="tab" data-type="definition">Definition</button>
+                <button class="tab" data-type="concept">Concept</button>
+                <button class="tab" data-type="theorem">Theorem</button>
+                <button class="tab" data-type="rule">Rule</button>
+                <button class="tab" data-type="identity">Identity</button>
+                <button class="tab" data-type="constant">Constant</button>
+                <button class="tab" data-type="graph">Graph</button>
+                <button class="tab" data-type="example">Example</button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="subjectFilter">Subject</label>
+                    <select id="subjectFilter">
+                        <option value="">All Subjects</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="chapterFilter">Chapter</label>
+                    <select id="chapterFilter">
+                        <option value="">All Chapters</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="topicFilter">Topic</label>
+                    <select id="topicFilter">
+                        <option value="">All Topics</option>
+                    </select>
+                </div>
+                <div class="sort-group">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="relevance">Most Relevant</option>
+                        <option value="recent">Recently Updated</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="views">Most Viewed</option>
+                        <option value="bookmarks">Most Bookmarked</option>
+                        <option value="az">A–Z</option>
+                        <option value="za">Z–A</option>
+                    </select>
+                </div>
+            </div>
+            <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                <i class="fas fa-sliders-h"></i> Filters
+            </button>
+            <div class="filter-chips" id="filterChips"></div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container" id="resultsSection">
+        <div id="resultCount" class="result-count">Enter a search term above.</div>
+        <div class="result-grid" id="resultGrid">
+            <!-- Skeleton or empty state -->
+        </div>
+        <div class="load-more-container" id="loadMoreContainer">
+            <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+        </div>
+    </section>
+
+    <!-- ===== MOBILE FILTER DRAWER ===== -->
+    <div class="filter-drawer-overlay" id="filterDrawerOverlay"></div>
+    <div class="filter-drawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Search filters">
+        <div class="drawer-header">
+            <h3>Filters</h3>
+            <button class="drawer-close" id="drawerClose" aria-label="Close filters">&times;</button>
+        </div>
+        <div class="filter-group">
+            <label for="drawerType">Type</label>
+            <select id="drawerType">
+                <option value="all">All</option>
+                <option value="formula">Formula</option>
+                <option value="law">Law</option>
+                <option value="definition">Definition</option>
+                <option value="concept">Concept</option>
+                <option value="theorem">Theorem</option>
+                <option value="rule">Rule</option>
+                <option value="identity">Identity</option>
+                <option value="constant">Constant</option>
+                <option value="graph">Graph</option>
+                <option value="example">Example</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerSubject">Subject</label>
+            <select id="drawerSubject">
+                <option value="">All Subjects</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerChapter">Chapter</label>
+            <select id="drawerChapter">
+                <option value="">All Chapters</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerTopic">Topic</label>
+            <select id="drawerTopic">
+                <option value="">All Topics</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerSort">Sort</label>
+            <select id="drawerSort">
+                <option value="relevance">Most Relevant</option>
+                <option value="recent">Recently Updated</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="views">Most Viewed</option>
+                <option value="bookmarks">Most Bookmarked</option>
+                <option value="az">A–Z</option>
+                <option value="za">Z–A</option>
+            </select>
+        </div>
+        <div class="drawer-actions">
+            <button class="btn btn-outline" id="drawerClear">Clear</button>
+            <button class="btn btn-primary" id="drawerApply">Apply</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth, db } from "../js/firebase-config.js";
+        import {
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            startAfter,
+            getDocs,
+            getCountFromServer
+        } from "firebase/firestore";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        import { addBookmark, removeBookmark, isBookmarked, getUserBookmarks } from "../js/bookmarks.js";
+        import { getSubjects, getChapters, getTopics } from "../js/firestore.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const typeTabs = document.getElementById('typeTabs');
+        const subjectFilter = document.getElementById('subjectFilter');
+        const chapterFilter = document.getElementById('chapterFilter');
+        const topicFilter = document.getElementById('topicFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const filterChips = document.getElementById('filterChips');
+        const resultCount = document.getElementById('resultCount');
+        const resultGrid = document.getElementById('resultGrid');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+        const filterDrawer = document.getElementById('filterDrawer');
+        const filterDrawerOverlay = document.getElementById('filterDrawerOverlay');
+        const drawerClose = document.getElementById('drawerClose');
+        const drawerType = document.getElementById('drawerType');
+        const drawerSubject = document.getElementById('drawerSubject');
+        const drawerChapter = document.getElementById('drawerChapter');
+        const drawerTopic = document.getElementById('drawerTopic');
+        const drawerSort = document.getElementById('drawerSort');
+        const drawerApply = document.getElementById('drawerApply');
+        const drawerClear = document.getElementById('drawerClear');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            query: '',
+            type: 'all',
+            subjectId: '',
+            chapterId: '',
+            topicId: '',
+            sort: 'relevance',
+            results: [],
+            totalCount: 0,
+            lastDoc: null,
+            hasMore: true,
+            loading: false,
+            initialLoad: true,
+            pageSize: 24,
+            subjects: [],
+            chapters: [],
+            topics: [],
+            subjectMap: {},
+            chapterMap: {},
+            topicMap: {},
+            bookmarkMap: new Map(),
+            user: null
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Helper: sanitize HTML (basic)
+        // ------------------------------------------------------------------
+        function sanitizeHTML(html) {
+            if (!html) return '';
+            return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                .replace(/on\w+="[^"]*"/g, '')
+                .replace(/on\w+='[^']*'/g, '')
+                .replace(/javascript:/gi, '');
+        }
+
+        // ------------------------------------------------------------------
+        // Load metadata (subjects, chapters, topics)
+        // ------------------------------------------------------------------
+        async function loadMetadata() {
+            try {
+                const subjects = await getSubjects();
+                state.subjects = subjects;
+                subjects.forEach(s => state.subjectMap[s.id] = s);
+
+                const chapters = await getChapters(null, 'published');
+                state.chapters = chapters;
+                chapters.forEach(c => state.chapterMap[c.id] = c);
+
+                const topics = await getTopics(null, null, 'published');
+                state.topics = topics;
+                topics.forEach(t => state.topicMap[t.id] = t);
+
+                // Populate dropdowns
+                const subjectOpts = '<option value="">All Subjects</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                subjectFilter.innerHTML = subjectOpts;
+                drawerSubject.innerHTML = subjectOpts;
+
+                // Restore from URL
+                const params = new URLSearchParams(window.location.search);
+                const q = params.get('q');
+                if (q) {
+                    searchInput.value = q;
+                    state.query = q;
+                }
+                const type = params.get('type');
+                if (type && ['formula', 'law', 'definition', 'concept', 'theorem', 'rule', 'identity', 'constant', 'graph',
+                        'example'
+                    ].includes(type)) {
+                    state.type = type;
+                    activateTab(type);
+                }
+                const subject = params.get('subject');
+                if (subject && subjects.some(s => s.id === subject)) {
+                    state.subjectId = subject;
+                    subjectFilter.value = subject;
+                    drawerSubject.value = subject;
+                    await updateChapterFilter(subject, true);
+                }
+                const chapter = params.get('chapter');
+                if (chapter && chapters.some(c => c.id === chapter)) {
+                    state.chapterId = chapter;
+                    chapterFilter.value = chapter;
+                    drawerChapter.value = chapter;
+                    await updateTopicFilter(chapter, true);
+                }
+                const topic = params.get('topic');
+                if (topic && topics.some(t => t.id === topic)) {
+                    state.topicId = topic;
+                    topicFilter.value = topic;
+                    drawerTopic.value = topic;
+                }
+                const sort = params.get('sort');
+                if (sort && ['relevance', 'recent', 'newest', 'oldest', 'views', 'bookmarks', 'az', 'za'].includes(sort)) {
+                    state.sort = sort;
+                    sortSelect.value = sort;
+                    drawerSort.value = sort;
+                }
+
+                updateFilterChips();
+
+                // If query present, perform search
+                if (state.query) {
+                    performSearch(true);
+                } else {
+                    showEmptyState('Enter a search term above.', 'fa-search');
+                }
+
+            } catch (e) {
+                console.warn('Error loading metadata:', e);
+                showToast('Failed to load filters metadata.', 'error');
+            }
+        }
+
+        function activateTab(type) {
+            typeTabs.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.type === type);
+            });
+            drawerType.value = type;
+        }
+
+        async function updateChapterFilter(subjectId, silent = false) {
+            const chapters = state.chapters.filter(c => c.subjectId === subjectId);
+            const opts = '<option value="">All Chapters</option>' +
+                chapters.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            chapterFilter.innerHTML = opts;
+            drawerChapter.innerHTML = opts;
+            if (!silent) {
+                // Reset topic
+                topicFilter.innerHTML = '<option value="">All Topics</option>';
+                drawerTopic.innerHTML = '<option value="">All Topics</option>';
+                state.topicId = '';
+                topicFilter.value = '';
+                drawerTopic.value = '';
+            } else {
+                // Restore from state
+                if (state.chapterId && chapters.some(c => c.id === state.chapterId)) {
+                    chapterFilter.value = state.chapterId;
+                    drawerChapter.value = state.chapterId;
+                    await updateTopicFilter(state.chapterId, true);
+                } else {
+                    state.chapterId = '';
+                    chapterFilter.value = '';
+                    drawerChapter.value = '';
+                    topicFilter.innerHTML = '<option value="">All Topics</option>';
+                    drawerTopic.innerHTML = '<option value="">All Topics</option>';
+                    state.topicId = '';
+                    topicFilter.value = '';
+                    drawerTopic.value = '';
+                }
+            }
+        }
+
+        async function updateTopicFilter(chapterId, silent = false) {
+            const topics = state.topics.filter(t => t.chapterId === chapterId);
+            const opts = '<option value="">All Topics</option>' +
+                topics.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+            topicFilter.innerHTML = opts;
+            drawerTopic.innerHTML = opts;
+            if (!silent) {
+                state.topicId = '';
+                topicFilter.value = '';
+                drawerTopic.value = '';
+            } else {
+                if (state.topicId && topics.some(t => t.id === state.topicId)) {
+                    topicFilter.value = state.topicId;
+                    drawerTopic.value = state.topicId;
+                } else {
+                    state.topicId = '';
+                    topicFilter.value = '';
+                    drawerTopic.value = '';
+                }
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update filter chips
+        // ------------------------------------------------------------------
+        function updateFilterChips() {
+            const chips = [];
+            if (state.type !== 'all') {
+                const label = state.type.charAt(0).toUpperCase() + state.type.slice(1);
+                chips.push({ type: 'type', value: state.type, label });
+            }
+            if (state.subjectId && state.subjectMap[state.subjectId]) {
+                chips.push({ type: 'subject', value: state.subjectId, label: state.subjectMap[state.subjectId].name });
+            }
+            if (state.chapterId && state.chapterMap[state.chapterId]) {
+                chips.push({ type: 'chapter', value: state.chapterId, label: state.chapterMap[state.chapterId].name });
+            }
+            if (state.topicId && state.topicMap[state.topicId]) {
+                chips.push({ type: 'topic', value: state.topicId, label: state.topicMap[state.topicId].name });
+            }
+            if (state.query) {
+                chips.push({ type: 'query', label: `"${state.query}"` });
+            }
+
+            if (chips.length === 0) {
+                filterChips.innerHTML = '';
+                return;
+            }
+
+            filterChips.innerHTML = chips.map(chip => {
+                let removeAttr = '';
+                if (chip.type !== 'query') {
+                    removeAttr = `data-type="${chip.type}" data-value="${chip.value}"`;
+                }
+                return `
+                    <span class="chip">
+                        ${chip.label}
+                        <button class="remove-chip" ${removeAttr} aria-label="Remove filter">&times;</button>
+                    </span>
+                `;
+            }).join('') + `<button class="clear-all" id="clearAllFilters">Clear All</button>`;
+
+            filterChips.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const type = btn.dataset.type;
+                    const value = btn.dataset.value;
+                    if (type === 'type') {
+                        state.type = 'all';
+                        activateTab('all');
+                        updateFilterChips();
+                        updateURL();
+                        performSearch(true);
+                    } else if (type === 'subject') {
+                        state.subjectId = '';
+                        subjectFilter.value = '';
+                        drawerSubject.value = '';
+                        updateChapterFilter('', true);
+                        updateFilterChips();
+                        updateURL();
+                        performSearch(true);
+                    } else if (type === 'chapter') {
+                        state.chapterId = '';
+                        chapterFilter.value = '';
+                        drawerChapter.value = '';
+                        updateTopicFilter('', true);
+                        updateFilterChips();
+                        updateURL();
+                        performSearch(true);
+                    } else if (type === 'topic') {
+                        state.topicId = '';
+                        topicFilter.value = '';
+                        drawerTopic.value = '';
+                        updateFilterChips();
+                        updateURL();
+                        performSearch(true);
+                    } else if (type === 'query') {
+                        searchInput.value = '';
+                        state.query = '';
+                        updateFilterChips();
+                        updateURL();
+                        performSearch(true);
+                    }
+                });
+            });
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', () => {
+                state.type = 'all';
+                state.subjectId = '';
+                state.chapterId = '';
+                state.topicId = '';
+                state.query = '';
+                searchInput.value = '';
+                activateTab('all');
+                subjectFilter.value = '';
+                chapterFilter.value = '';
+                topicFilter.value = '';
+                drawerType.value = 'all';
+                drawerSubject.value = '';
+                drawerChapter.value = '';
+                drawerTopic.value = '';
+                updateChapterFilter('', true);
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // URL synchronization
+        // ------------------------------------------------------------------
+        function updateURL() {
+            const params = new URLSearchParams();
+            if (state.query) params.set('q', state.query);
+            if (state.type !== 'all') params.set('type', state.type);
+            if (state.subjectId) params.set('subject', state.subjectId);
+            if (state.chapterId) params.set('chapter', state.chapterId);
+            if (state.topicId) params.set('topic', state.topicId);
+            if (state.sort !== 'relevance') params.set('sort', state.sort);
+            const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // ------------------------------------------------------------------
+        // Search function
+        // ------------------------------------------------------------------
+        async function performSearch(reset = true) {
+            if (state.loading) return;
+            state.loading = true;
+
+            if (reset) {
+                state.results = [];
+                state.lastDoc = null;
+                state.hasMore = true;
+                state.totalCount = 0;
+                resultGrid.innerHTML = renderSkeletons(state.pageSize);
+                resultCount.textContent = 'Searching...';
+                loadMoreContainer.style.display = 'none';
+            }
+
+            try {
+                // Build Firestore query
+                let constraints = [
+                    where('status', '==', 'published')
+                ];
+                if (state.type !== 'all') {
+                    constraints.push(where('type', '==', state.type));
+                }
+                if (state.subjectId) {
+                    constraints.push(where('subjectId', '==', state.subjectId));
+                }
+                if (state.chapterId) {
+                    constraints.push(where('chapterId', '==', state.chapterId));
+                }
+                if (state.topicId) {
+                    constraints.push(where('topicId', '==', state.topicId));
+                }
+
+                // Sorting
+                let orderField = 'updatedAt';
+                let orderDirection = 'desc';
+                if (state.sort === 'az') { orderField = 'title';
+                    orderDirection = 'asc'; }
+                if (state.sort === 'za') { orderField = 'title';
+                    orderDirection = 'desc'; }
+                if (state.sort === 'newest') { orderField = 'createdAt';
+                    orderDirection = 'desc'; }
+                if (state.sort === 'oldest') { orderField = 'createdAt';
+                    orderDirection = 'asc'; }
+                if (state.sort === 'views') { orderField = 'views';
+                    orderDirection = 'desc'; }
+                if (state.sort === 'bookmarks') { orderField = 'bookmarks';
+                    orderDirection = 'desc'; }
+
+                const orderByField = (state.sort === 'relevance' || state.sort === 'recent') ? 'updatedAt' : orderField;
+                const orderDir = (state.sort === 'relevance' || state.sort === 'recent') ? 'desc' : orderDirection;
+
+                let q = query(collection(db, 'contents'), ...constraints, orderBy(orderByField, orderDir), limit(state
+                    .pageSize));
+                if (state.lastDoc && !reset) {
+                    q = query(q, startAfter(state.lastDoc));
+                }
+
+                const snapshot = await getDocs(q);
+                const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                state.lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+                state.hasMore = snapshot.docs.length === state.pageSize;
+
+                if (reset) {
+                    state.results = docs;
+                } else {
+                    state.results = [...state.results, ...docs];
+                }
+
+                // Get total count (first time only)
+                if (reset && state.totalCount === 0 && !state.query) {
+                    // Only if no search query (since client-side search will reduce)
+                    const countQuery = query(collection(db, 'contents'), ...constraints);
+                    const countSnap = await getCountFromServer(countQuery);
+                    state.totalCount = countSnap.data().count;
+                }
+
+                // Apply client-side search ranking if query exists
+                let finalResults = state.results;
+                if (state.query) {
+                    const ranked = rankResults(state.results, state.query);
+                    finalResults = ranked;
+                    // Update total count to ranked count (approximate)
+                    if (reset) {
+                        state.totalCount = ranked.length;
+                    }
+                }
+
+                // Store final results for display
+                state.displayedResults = finalResults;
+
+                renderResults(finalResults);
+
+                if (reset && finalResults.length === 0) {
+                    showEmptyState('No results found. Try a different search term or adjust filters.', 'fa-search');
+                    resultCount.textContent = '0 results';
+                    loadMoreContainer.style.display = 'none';
+                }
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Search error:', err);
+                state.loading = false;
+                showToast('Search failed. Please try again.', 'error');
+                resultGrid.innerHTML = `
+                    <div class="error-state" style="grid-column:1/-1;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Search is temporarily unavailable. Please check your connection and try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', () => performSearch(true));
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Ranking function (client-side)
+        // ------------------------------------------------------------------
+        function rankResults(results, query) {
+            const q = query.trim().toLowerCase();
+            if (!q) return results;
+
+            const scored = results.map(item => {
+                let score = 0;
+                const title = (item.title || '').toLowerCase();
+                const keywords = (item.keywords || []).join(' ').toLowerCase();
+                const statement = (item.statement || item.definition || item.shortDescription || '').toLowerCase();
+                const topic = state.topicMap[item.topicId]?.name?.toLowerCase() || '';
+
+                if (title === q) score += 40;
+                if (title.includes(q)) score += 25;
+                if (keywords.includes(q)) score += 20;
+                if (topic.includes(q)) score += 10;
+                if (statement.includes(q)) score += 5;
+
+                const popularity = (item.views || 0) + (item.bookmarks || 0) * 2;
+                score += Math.min(popularity / 10, 5);
+
+                return { ...item, _score: score };
+            });
+
+            scored.sort((a, b) => (b._score || 0) - (a._score || 0));
+            return scored.filter(item => item._score > 0);
+        }
+
+        // ------------------------------------------------------------------
+        // Render results
+        // ------------------------------------------------------------------
+        function renderResults(results) {
+            if (!results || results.length === 0) {
+                resultGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <i class="fas fa-search"></i>
+                        <p>No results found. Try a different search term or adjust filters.</p>
+                        <button class="btn btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                    </div>
+                `;
+                document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                    clearAllFilters();
+                });
+                resultCount.textContent = '0 results';
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            const cards = results.map(item => renderResultCard(item)).join('');
+            resultGrid.innerHTML = cards;
+
+            // Update count
+            const total = state.totalCount || results.length;
+            if (state.query) {
+                resultCount.textContent = `${results.length} result${results.length > 1 ? 's' : ''} found`;
+            } else {
+                resultCount.textContent = `${total} result${total > 1 ? 's' : ''} found`;
+            }
+
+            // Show load more if there are more results from Firestore and no search query (or if we have more pages)
+            // For client-side search, we may have already loaded all; but we still use pagination for filters without query.
+            if (state.hasMore && !state.query) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+            // KaTeX
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(resultGrid, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+
+            // Update SEO
+            updateSEO();
+            updateStructuredData(results);
+        }
+
+        // ------------------------------------------------------------------
+        // Render single result card
+        // ------------------------------------------------------------------
+        function renderResultCard(item) {
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const label = typeLabels[item.type] || item.type || 'Content';
+            const subject = state.subjectMap[item.subjectId];
+            const chapter = state.chapterMap[item.chapterId];
+            const topic = state.topicMap[item.topicId];
+
+            const subjectName = subject ? subject.name : 'Unknown Subject';
+            const chapterName = chapter ? chapter.name : 'Unknown Chapter';
+            const topicName = topic ? topic.name : 'Unknown Topic';
+
+            const isBookmarked = state.bookmarkMap.get(item.id) || false;
+            const bookmarkIcon = isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+            const bookmarkClass = isBookmarked ? 'bookmarked' : '';
+
+            // Excerpt: choose most relevant field
+            let excerpt = '';
+            if (item.statement) excerpt = item.statement;
+            else if (item.definition) excerpt = item.definition;
+            else if (item.shortDescription) excerpt = item.shortDescription;
+            else if (item.explanation) excerpt = item.explanation;
+            // Truncate if needed
+            if (excerpt.length > 200) excerpt = excerpt.slice(0, 200) + '...';
+
+            // Highlight search terms if query exists
+            if (state.query && excerpt) {
+                const q = state.query.trim().toLowerCase();
+                const parts = excerpt.split(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'));
+                excerpt = parts.map(part =>
+                    part.toLowerCase() === q ? `<mark>${part}</mark>` : part
+                ).join('');
+            }
+
+            // Formula preview
+            let formulaHtml = '';
+            if (item.type === 'formula' && item.formula) {
+                formulaHtml = `<div class="formula-preview" data-formula="${sanitizeHTML(item.formula)}">${sanitizeHTML(item.formula)}</div>`;
+            }
+
+            return `
+                <div class="result-card" data-id="${item.id}">
+                    <span class="badge">${label}</span>
+                    <h3><a href="content.html?contentId=${item.id}">${sanitizeHTML(item.title)}</a></h3>
+                    ${formulaHtml}
+                    ${excerpt ? `<div class="excerpt">${excerpt}</div>` : ''}
+                    <div class="hierarchy">
+                        <span>${sanitizeHTML(subjectName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(chapterName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(topicName)}</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="content.html?contentId=${item.id}" class="btn btn-sm btn-secondary">View Details</a>
+                        <button class="bookmark-btn ${bookmarkClass}" data-content-id="${item.id}" aria-label="Bookmark">
+                            <i class="${bookmarkIcon}"></i>
+                        </button>
+                        <button class="share-btn" data-content-id="${item.id}" aria-label="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render skeletons
+        // ------------------------------------------------------------------
+        function renderSkeletons(count) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line excerpt"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // ------------------------------------------------------------------
+        // Show empty state
+        // ------------------------------------------------------------------
+        function showEmptyState(message, icon = 'fa-search') {
+            resultGrid.innerHTML = `
+                <div class="empty-state" style="grid-column:1/-1;">
+                    <i class="fas ${icon}"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+            resultCount.textContent = '';
+            loadMoreContainer.style.display = 'none';
+        }
+
+        // ------------------------------------------------------------------
+        // Clear all filters
+        // ------------------------------------------------------------------
+        function clearAllFilters() {
+            state.type = 'all';
+            state.subjectId = '';
+            state.chapterId = '';
+            state.topicId = '';
+            state.query = '';
+            searchInput.value = '';
+            activateTab('all');
+            subjectFilter.value = '';
+            chapterFilter.value = '';
+            topicFilter.value = '';
+            drawerType.value = 'all';
+            drawerSubject.value = '';
+            drawerChapter.value = '';
+            drawerTopic.value = '';
+            updateChapterFilter('', true);
+            updateFilterChips();
+            updateURL();
+            performSearch(true);
+        }
+
+        // ------------------------------------------------------------------
+        // Bookmark toggle
+        // ------------------------------------------------------------------
+        async function toggleBookmark(contentId, btnElement) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Please log in to bookmark this item.', 'warning');
+                return;
+            }
+            const icon = btnElement.querySelector('i');
+            const isBookmarkedNow = state.bookmarkMap.get(contentId) || false;
+            try {
+                if (isBookmarkedNow) {
+                    await removeBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, false);
+                    icon.className = 'far fa-bookmark';
+                    btnElement.classList.remove('bookmarked');
+                    showToast('Bookmark removed.', 'success');
+                } else {
+                    await addBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, true);
+                    icon.className = 'fas fa-bookmark';
+                    btnElement.classList.add('bookmarked');
+                    showToast('Bookmark added!', 'success');
+                }
+            } catch (err) {
+                showToast('Failed to update bookmark.', 'error');
+                console.error(err);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Share
+        // ------------------------------------------------------------------
+        async function shareContent(contentId) {
+            const item = state.results.find(r => r.id === contentId);
+            if (!item) return;
+            const url = `${window.location.origin}/pages/content.html?contentId=${contentId}`;
+            const title = item.title || 'Content';
+            const text = item.shortDescription || item.statement || `Check out "${title}" on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        async function copyLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard.', 'success');
+            } catch {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Event Listeners
+        // ------------------------------------------------------------------
+        function setupEventListeners() {
+            // Search button
+            searchBtn.addEventListener('click', () => {
+                const val = searchInput.value.trim();
+                if (val) {
+                    state.query = val;
+                    updateFilterChips();
+                    updateURL();
+                    performSearch(true);
+                } else {
+                    showToast('Please enter a search term.', 'warning');
+                }
+            });
+
+            // Enter key
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchBtn.click();
+                }
+            });
+
+            // Type tabs
+            typeTabs.addEventListener('click', (e) => {
+                const tab = e.target.closest('.tab');
+                if (!tab) return;
+                const type = tab.dataset.type;
+                state.type = type;
+                typeTabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                drawerType.value = type;
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+            });
+
+            // Subject filter
+            subjectFilter.addEventListener('change', async () => {
+                const val = subjectFilter.value;
+                state.subjectId = val;
+                drawerSubject.value = val;
+                if (val) {
+                    await updateChapterFilter(val, false);
+                } else {
+                    chapterFilter.innerHTML = '<option value="">All Chapters</option>';
+                    drawerChapter.innerHTML = '<option value="">All Chapters</option>';
+                    topicFilter.innerHTML = '<option value="">All Topics</option>';
+                    drawerTopic.innerHTML = '<option value="">All Topics</option>';
+                    state.chapterId = '';
+                    state.topicId = '';
+                }
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+            });
+
+            // Chapter filter
+            chapterFilter.addEventListener('change', async () => {
+                const val = chapterFilter.value;
+                state.chapterId = val;
+                drawerChapter.value = val;
+                if (val) {
+                    await updateTopicFilter(val, false);
+                } else {
+                    topicFilter.innerHTML = '<option value="">All Topics</option>';
+                    drawerTopic.innerHTML = '<option value="">All Topics</option>';
+                    state.topicId = '';
+                }
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+            });
+
+            // Topic filter
+            topicFilter.addEventListener('change', () => {
+                const val = topicFilter.value;
+                state.topicId = val;
+                drawerTopic.value = val;
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+            });
+
+            // Sort
+            sortSelect.addEventListener('change', () => {
+                state.sort = sortSelect.value;
+                drawerSort.value = state.sort;
+                updateURL();
+                performSearch(true);
+            });
+
+            // Load more
+            loadMoreBtn.addEventListener('click', () => {
+                performSearch(false);
+            });
+
+            // Mobile filter toggle
+            mobileFilterToggle.addEventListener('click', () => {
+                openDrawer();
+            });
+
+            // Drawer close
+            drawerClose.addEventListener('click', closeDrawer);
+            filterDrawerOverlay.addEventListener('click', closeDrawer);
+
+            // Drawer apply
+            drawerApply.addEventListener('click', () => {
+                const type = drawerType.value;
+                const subject = drawerSubject.value;
+                const chapter = drawerChapter.value;
+                const topic = drawerTopic.value;
+                const sort = drawerSort.value;
+
+                state.type = type;
+                state.subjectId = subject;
+                state.chapterId = chapter;
+                state.topicId = topic;
+                state.sort = sort;
+
+                activateTab(type);
+                subjectFilter.value = subject;
+                chapterFilter.value = chapter;
+                topicFilter.value = topic;
+                sortSelect.value = sort;
+
+                if (subject) {
+                    updateChapterFilter(subject, true);
+                } else {
+                    updateChapterFilter('', true);
+                }
+                if (chapter) {
+                    updateTopicFilter(chapter, true);
+                } else {
+                    updateTopicFilter('', true);
+                }
+
+                updateFilterChips();
+                updateURL();
+                performSearch(true);
+                closeDrawer();
+            });
+
+            drawerClear.addEventListener('click', () => {
+                drawerType.value = 'all';
+                drawerSubject.value = '';
+                drawerChapter.value = '';
+                drawerTopic.value = '';
+                drawerSort.value = 'relevance';
+                // Update main filters too?
+                // We'll let apply do the work
+            });
+
+            // Event delegation for bookmark and share buttons
+            resultGrid.addEventListener('click', async (e) => {
+                const bookmarkBtn = e.target.closest('.bookmark-btn');
+                if (bookmarkBtn) {
+                    e.preventDefault();
+                    const contentId = bookmarkBtn.dataset.contentId;
+                    if (contentId) {
+                        await toggleBookmark(contentId, bookmarkBtn);
+                    }
+                    return;
+                }
+                const shareBtn = e.target.closest('.share-btn');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const contentId = shareBtn.dataset.contentId;
+                    if (contentId) {
+                        await shareContent(contentId);
+                    }
+                    return;
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Drawer functions
+        // ------------------------------------------------------------------
+        function openDrawer() {
+            filterDrawer.classList.add('open');
+            filterDrawerOverlay.classList.add('open');
+            // Sync drawer values with current state
+            drawerType.value = state.type;
+            drawerSubject.value = state.subjectId;
+            drawerChapter.value = state.chapterId;
+            drawerTopic.value = state.topicId;
+            drawerSort.value = state.sort;
+            // Update chapter/topic options
+            if (state.subjectId) {
+                updateChapterFilter(state.subjectId, true);
+            }
+            if (state.chapterId) {
+                updateTopicFilter(state.chapterId, true);
+            }
+        }
+
+        function closeDrawer() {
+            filterDrawer.classList.remove('open');
+            filterDrawerOverlay.classList.remove('open');
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            state.user = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+            if (user) {
+                loadUserBookmarks();
+            } else {
+                state.bookmarkMap.clear();
+                // Re-render results to remove bookmarks
+                if (state.results.length > 0) {
+                    renderResults(state.results);
+                }
+            }
+        }
+
+        async function loadUserBookmarks() {
+            const user = getCurrentUser();
+            if (!user) return;
+            try {
+                const bookmarks = await getUserBookmarks(user.uid);
+                const ids = bookmarks.map(b => b.id);
+                state.bookmarkMap.clear();
+                ids.forEach(id => state.bookmarkMap.set(id, true));
+                // Re-render to reflect bookmark states
+                if (state.results.length > 0) {
+                    renderResults(state.results);
+                }
+            } catch (e) {
+                console.warn('Could not load bookmarks:', e);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // SEO / JSON-LD
+        // ------------------------------------------------------------------
+        function updateSEO() {
+            const title = state.query ? `Search results for "${state.query}" | Academic Knowledge Library` :
+                'Search | Academic Knowledge Library';
+            const description = state.query ?
+                `Search results for "${state.query}" across formulas, laws, definitions, concepts and more.` :
+                'Search formulas, laws, definitions, concepts and other academic resources.';
+            const url = window.location.href;
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+        }
+
+        function updateStructuredData(results) {
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (!jsonLd) return;
+            try {
+                const data = JSON.parse(jsonLd.textContent);
+                const title = state.query ? `Search results for "${state.query}"` : 'Search | Academic Knowledge Library';
+                data.name = title;
+                data.description = state.query ?
+                    `Search results for "${state.query}" across formulas, laws, definitions, concepts and more.` :
+                    'Search formulas, laws, definitions, concepts and other academic resources.';
+                data.url = window.location.href;
+                data.mainEntity.itemListElement = results.slice(0, 10).map((item, i) => ({
+                    '@type': 'ListItem',
+                    'position': i + 1,
+                    'name': item.title || 'Content',
+                    'url': `https://eco-lab-e2f48.web.app/pages/content.html?contentId=${item.id}`
+                }));
+                jsonLd.textContent = JSON.stringify(data);
+            } catch (e) { /* ignore */ }
+        }
+
+        // ------------------------------------------------------------------
+        // Init
+        // ------------------------------------------------------------------
+        async function init() {
+            renderAuthUI(await getCurrentUser());
+            observeAuthState((user) => {
+                renderAuthUI(user);
+                if (user) {
+                    loadUserBookmarks();
+                }
+            });
+
+            await loadMetadata();
+            setupEventListeners();
+
+            // If no query, show empty state with tips
+            if (!state.query) {
+                showEmptyState('Enter a search term above to find academic resources.', 'fa-search');
+            }
+
+            // Initial JSON-LD
+            const initialJsonLd = {
+                "@context": "https://schema.org",
+                "@type": "SearchResultsPage",
+                "name": "Search | Academic Knowledge Library",
+                "description": "Search formulas, laws, definitions, concepts and other academic resources.",
+                "url": window.location.href,
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "itemListElement": []
+                }
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(initialJsonLd);
+            document.head.appendChild(script);
+
+            console.log('✅ Search page loaded.');
+        }
+
+        init();
+    </script>
+</body>
+</html>

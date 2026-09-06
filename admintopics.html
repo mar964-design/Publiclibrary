@@ -1,0 +1,1321 @@
+<!-- admin/topics.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topic Management — Eco Lab Admin</title>
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../css/admin.css" />
+
+    <style>
+        /* Topics page specific styles */
+        .topics-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .topics-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-header .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .topics-header .breadcrumb span {
+            color: var(--text-primary, #111827);
+        }
+        .topics-header .subtitle {
+            margin: 0.25rem 0 0;
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .topics-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+        }
+        .filter-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .filter-bar label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary, #374151);
+            white-space: nowrap;
+        }
+        .filter-bar select,
+        .filter-bar input[type="text"] {
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            font-size: 0.8rem;
+            background: #fff;
+            min-width: 120px;
+        }
+        .filter-bar select:focus,
+        .filter-bar input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .filter-bar .search-wrapper {
+            position: relative;
+            flex: 1 1 180px;
+        }
+        .filter-bar .search-wrapper i {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+        .filter-bar .search-wrapper input {
+            padding-left: 28px;
+            width: 100%;
+        }
+        .filter-bar .btn-clear {
+            background: transparent;
+            border: 1px solid var(--border-light, #d1d5db);
+            padding: 0.35rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-secondary, #374151);
+            transition: 0.2s;
+        }
+        .filter-bar .btn-clear:hover {
+            background: #f3f4f6;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            background: #fff;
+        }
+        .topics-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .topics-table th {
+            text-align: left;
+            padding: 0.7rem 1rem;
+            background: #f9fafb;
+            font-weight: 600;
+            color: var(--text-secondary, #374151);
+            border-bottom: 1px solid var(--border-light, #e5e7eb);
+            white-space: nowrap;
+        }
+        .topics-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        .topics-table tr:last-child td {
+            border-bottom: none;
+        }
+        .topics-table .topic-name {
+            font-weight: 500;
+            color: var(--text-primary, #111827);
+        }
+        .topics-table .topic-slug {
+            font-size: 0.7rem;
+            color: var(--text-muted, #6b7280);
+            font-family: monospace;
+        }
+        .topics-table .breadcrumb-cell {
+            font-size: 0.75rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .topics-table .breadcrumb-cell i {
+            margin: 0 0.2rem;
+            font-size: 0.6rem;
+        }
+        .topics-table .status-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .status-badge.published { background: #dcfce7; color: #166534; }
+        .status-badge.draft { background: #fef3c7; color: #92400e; }
+        .status-badge.archived { background: #f3f4f6; color: #4b5563; }
+
+        .content-count {
+            font-size: 0.8rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        /* Mobile card */
+        .topic-card-mobile {
+            display: none;
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .topic-card-mobile:last-child { border-bottom: none; }
+        .topic-card-mobile .card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        .topic-card-mobile .card-title {
+            font-weight: 600;
+        }
+        .topic-card-mobile .card-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        @media (max-width: 768px) {
+            .topics-table thead { display: none; }
+            .topics-table tbody tr {
+                display: block;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .topics-table tbody tr:last-child { border-bottom: none; }
+            .topics-table td { display: none; }
+            .topic-card-mobile { display: block; }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-bar .filter-group {
+                flex-wrap: wrap;
+            }
+            .filter-bar select,
+            .filter-bar input {
+                min-width: 100%;
+            }
+            .topics-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .topics-actions {
+                justify-content: stretch;
+            }
+            .topics-actions .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #fff;
+            border-radius: 1rem;
+            max-width: 560px;
+            width: 100%;
+            max-height: 94vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+        .modal-box h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .modal-box .form-group {
+            margin-bottom: 1rem;
+        }
+        .modal-box label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .modal-box label .required {
+            color: #dc2626;
+        }
+        .modal-box input,
+        .modal-box select,
+        .modal-box textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .modal-box input:focus,
+        .modal-box select:focus,
+        .modal-box textarea:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .modal-box .form-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-row .form-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .modal-box .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-error {
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        /* Dropdown actions */
+        .actions-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .actions-dropdown .dropdown-toggle {
+            background: transparent;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary, #374151);
+        }
+        .actions-dropdown .dropdown-toggle:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light, #e5e7eb);
+            min-width: 160px;
+            z-index: 50;
+            padding: 0.25rem 0;
+        }
+        .actions-dropdown .dropdown-menu.open {
+            display: block;
+        }
+        .actions-dropdown .dropdown-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.4rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 0.8rem;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-primary, #111827);
+            transition: 0.15s;
+        }
+        .actions-dropdown .dropdown-menu button:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu button.danger {
+            color: #dc2626;
+        }
+        .actions-dropdown .dropdown-menu button.danger:hover {
+            background: #fee2e2;
+        }
+
+        /* State placeholder */
+        .state-placeholder {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .state-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+            color: #d1d5db;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 0.7rem 1rem;
+            border-radius: 0.5rem;
+            background: #1f2937;
+            color: #fff;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: #065f46; }
+        .toast.error { background: #991b1b; }
+        .toast.warning { background: #78350f; }
+        .toast i { font-size: 1rem; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Reorder handle */
+        .drag-handle {
+            cursor: grab;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            user-select: none;
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+        .drag-handle:active { cursor: grabbing; }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin Navigation">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-text">Eco Lab</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="chapters.html"><i class="fas fa-layer-group"></i> Chapters</a>
+            <a href="topics.html" class="active"><i class="fas fa-tag"></i> Topics</a>
+            <a href="content.html"><i class="fas fa-file-alt"></i> Content</a>
+            <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="storage.html"><i class="fas fa-database"></i> Storage</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main" id="adminMain">
+        <header class="admin-topbar">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="topbar-right">
+                <span class="admin-user" id="adminUserEmail">admin@example.com</span>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Header -->
+            <div class="topics-header">
+                <div>
+                    <h1><i class="fas fa-tag" style="color:var(--primary);"></i> Topic Management</h1>
+                    <div class="breadcrumb">Admin <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i> <span>Topics</span></div>
+                    <div class="subtitle">Manage topics within your chapters.</div>
+                </div>
+                <div class="topics-actions">
+                    <button class="btn btn-primary" id="addTopicBtn"><i class="fas fa-plus"></i> Add Topic</button>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filterBar">
+                <div class="filter-group">
+                    <label for="filterSubject">Subject</label>
+                    <select id="filterSubject"><option value="">All Subjects</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterChapter">Chapter</label>
+                    <select id="filterChapter"><option value="">All Chapters</option></select>
+                </div>
+                <div class="filter-group search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="filterSearch" placeholder="Search topics..." />
+                </div>
+                <div class="filter-group">
+                    <label for="filterStatus">Status</label>
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterSort">Sort</label>
+                    <select id="filterSort">
+                        <option value="order">Display Order</option>
+                        <option value="name_asc">Name A–Z</option>
+                        <option value="name_desc">Name Z–A</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="updated">Recently Updated</option>
+                    </select>
+                </div>
+                <button class="btn-clear" id="clearFiltersBtn"><i class="fas fa-times"></i> Clear Filters</button>
+            </div>
+
+            <!-- Table -->
+            <div class="table-wrap" id="topicsContainer">
+                <table class="topics-table" id="topicsTable">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Chapter</th>
+                            <th>Subject</th>
+                            <th>Order</th>
+                            <th>Status</th>
+                            <th>Content</th>
+                            <th style="text-align:right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topicsBody">
+                        <!-- rows injected by JS -->
+                    </tbody>
+                </table>
+                <div id="mobileTopicsContainer">
+                    <!-- mobile cards injected by JS -->
+                </div>
+                <div id="topicsState" class="state-placeholder" style="display:none;">
+                    <!-- empty/loading/error states -->
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;font-size:0.875rem;color:var(--text-muted);">
+                <span id="paginationInfo">Showing 0 topics</span>
+                <div style="display:flex;gap:0.5rem;">
+                    <button class="btn btn-outline" id="prevPageBtn" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+                    <button class="btn btn-outline" id="nextPageBtn">Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="topicModal" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <h2 id="modalTitle">Add Topic</h2>
+            <form id="topicForm" novalidate>
+                <input type="hidden" id="topicId" />
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formSubject">Subject <span class="required">*</span></label>
+                        <select id="formSubject" required><option value="">Select Subject</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formChapter">Chapter <span class="required">*</span></label>
+                        <select id="formChapter" required><option value="">Select Chapter</option></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formName">Topic Name <span class="required">*</span></label>
+                    <input type="text" id="formName" placeholder="e.g. Demand" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="formSlug">Slug</label>
+                    <div style="display:flex;gap:0.5rem;">
+                        <input type="text" id="formSlug" placeholder="auto-generated" style="flex:1;" />
+                        <button type="button" class="btn btn-outline" id="generateSlugBtn" style="flex:0;">Generate</button>
+                    </div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">Leave blank to auto-generate from name.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formDescription">Description</label>
+                    <textarea id="formDescription" rows="2" placeholder="Optional description"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formStatus">Status</label>
+                        <select id="formStatus">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formOrder">Display Order</label>
+                        <input type="number" id="formOrder" min="0" step="1" value="1" />
+                    </div>
+                </div>
+
+                <div id="formError" class="form-error"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="modalCancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modalSubmitBtn">Save Topic</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer" role="alert" aria-live="polite"></div>
+
+    <!-- Firebase & Admin JS -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-functions-compat.js"></script>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script type="module">
+        // Firebase setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGMAmDqACu2QfHJ3Ms5-amyOajqzQgUZg",
+            authDomain: "eco-lab-e2f48.firebaseapp.com",
+            projectId: "eco-lab-e2f48",
+            storageBucket: "eco-lab-e2f48.firebasestorage.app",
+            messagingSenderId: "836995560981",
+            appId: "1:836995560981:web:fc790ecae541525db0401c"
+        };
+
+        let app;
+        try { app = firebase.app(); } catch (_) { app = firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const functions = firebase.functions();
+
+        // DOM refs
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const topicsBody = $('#topicsBody');
+        const mobileContainer = $('#mobileTopicsContainer');
+        const stateEl = $('#topicsState');
+        const filterSubject = $('#filterSubject');
+        const filterChapter = $('#filterChapter');
+        const filterSearch = $('#filterSearch');
+        const filterStatus = $('#filterStatus');
+        const filterSort = $('#filterSort');
+        const clearFiltersBtn = $('#clearFiltersBtn');
+        const addTopicBtn = $('#addTopicBtn');
+        const modal = $('#topicModal');
+        const modalTitle = $('#modalTitle');
+        const topicForm = $('#topicForm');
+        const topicIdInput = $('#topicId');
+        const formSubject = $('#formSubject');
+        const formChapter = $('#formChapter');
+        const formName = $('#formName');
+        const formSlug = $('#formSlug');
+        const formDescription = $('#formDescription');
+        const formStatus = $('#formStatus');
+        const formOrder = $('#formOrder');
+        const formError = $('#formError');
+        const modalSubmitBtn = $('#modalSubmitBtn');
+        const modalCancelBtn = $('#modalCancelBtn');
+        const generateSlugBtn = $('#generateSlugBtn');
+        const prevPageBtn = $('#prevPageBtn');
+        const nextPageBtn = $('#nextPageBtn');
+        const paginationInfo = $('#paginationInfo');
+        const toastContainer = $('#toastContainer');
+
+        // --- State ---
+        let allSubjects = [];
+        let allChapters = [];
+        let allTopics = [];
+        let filteredTopics = [];
+        let currentPage = 0;
+        const PAGE_SIZE = 20;
+        let lastDoc = null;
+        let editingId = null;
+
+        // --- Helper functions ---
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'success') {
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-triangle-exclamation' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${escapeHtml(message)}`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 4000);
+            }, 4000);
+        }
+
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
+        function formatDate(ts) {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // --- Auth Guard ---
+        async function requireAdmin() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (!user) { window.location.href = '../login.html'; reject(); return; }
+                    try {
+                        const token = await user.getIdTokenResult();
+                        if (token.claims.admin !== true) { window.location.href = '../access-denied.html'; reject(); return; }
+                        resolve(user);
+                    } catch (e) { window.location.href = '../login.html'; reject(e); }
+                });
+            });
+        }
+
+        // --- Data Loaders ---
+        async function loadSubjects() {
+            const snap = await db.collection('subjects').orderBy('name').get();
+            allSubjects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allSubjects;
+        }
+
+        async function loadChapters(subjectId = null) {
+            let q = db.collection('chapters').orderBy('name');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            const snap = await q.get();
+            allChapters = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allChapters;
+        }
+
+        async function loadTopics(subjectId = null, chapterId = null, status = null, search = '', sort = 'order') {
+            let q = db.collection('topics');
+            const constraints = [];
+
+            // Build query with filters
+            let queryRef = db.collection('topics');
+
+            if (subjectId) queryRef = queryRef.where('subjectId', '==', subjectId);
+            if (chapterId) queryRef = queryRef.where('chapterId', '==', chapterId);
+            if (status) queryRef = queryRef.where('status', '==', status);
+
+            // Sorting
+            let orderField = 'order';
+            let orderDir = 'asc';
+            if (sort === 'name_asc') { orderField = 'name'; orderDir = 'asc'; }
+            else if (sort === 'name_desc') { orderField = 'name'; orderDir = 'desc'; }
+            else if (sort === 'newest') { orderField = 'createdAt'; orderDir = 'desc'; }
+            else if (sort === 'oldest') { orderField = 'createdAt'; orderDir = 'asc'; }
+            else if (sort === 'updated') { orderField = 'updatedAt'; orderDir = 'desc'; }
+            else { orderField = 'order'; orderDir = 'asc'; }
+
+            queryRef = queryRef.orderBy(orderField, orderDir);
+            queryRef = queryRef.limit(PAGE_SIZE + 1);
+
+            if (lastDoc && currentPage > 0) {
+                queryRef = queryRef.startAfter(lastDoc);
+            }
+
+            const snap = await queryRef.get();
+            let topics = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            const hasMore = topics.length > PAGE_SIZE;
+            if (hasMore) topics.pop();
+            lastDoc = topics.length > 0 ? snap.docs[topics.length - 1] : null;
+
+            // Client-side search filter
+            if (search) {
+                const s = search.toLowerCase();
+                topics = topics.filter(t =>
+                    (t.name || '').toLowerCase().includes(s) ||
+                    (t.slug || '').toLowerCase().includes(s) ||
+                    (t.description || '').toLowerCase().includes(s)
+                );
+            }
+
+            return { topics, hasMore };
+        }
+
+        // --- Get content count for topics ---
+        async function getContentCounts(topicIds) {
+            if (!topicIds || topicIds.length === 0) return {};
+            try {
+                const counts = {};
+                // Batch query for content counts
+                const batches = [];
+                const batchSize = 10;
+                for (let i = 0; i < topicIds.length; i += batchSize) {
+                    const batch = topicIds.slice(i, i + batchSize);
+                    batches.push(batch);
+                }
+
+                for (const batch of batches) {
+                    const snap = await db.collection('contents')
+                        .where('topicId', 'in', batch)
+                        .get();
+                    snap.docs.forEach(doc => {
+                        const topicId = doc.data().topicId;
+                        counts[topicId] = (counts[topicId] || 0) + 1;
+                    });
+                }
+                return counts;
+            } catch (e) {
+                console.warn('Could not fetch content counts:', e);
+                return {};
+            }
+        }
+
+        // --- Render ---
+        async function renderTopics(topics) {
+            const subjectMap = Object.fromEntries(allSubjects.map(s => [s.id, s]));
+            const chapterMap = Object.fromEntries(allChapters.map(c => [c.id, c]));
+
+            if (!topics || topics.length === 0) {
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = `
+                    <i class="fas fa-inbox"></i>
+                    <p>No topics found. Create your first topic for this chapter.</p>
+                    <button class="btn btn-primary" id="emptyAddBtn"><i class="fas fa-plus"></i> Add Topic</button>
+                `;
+                topicsBody.innerHTML = '';
+                mobileContainer.innerHTML = '';
+                return;
+            }
+            stateEl.style.display = 'none';
+
+            // Get content counts
+            const topicIds = topics.map(t => t.id);
+            const contentCounts = await getContentCounts(topicIds);
+
+            let tableHtml = '';
+            let mobileHtml = '';
+
+            topics.forEach((topic, idx) => {
+                const subject = subjectMap[topic.subjectId] || { name: 'Unknown' };
+                const chapter = chapterMap[topic.chapterId] || { name: 'Unknown' };
+                const statusClass = topic.status || 'draft';
+                const contentCount = contentCounts[topic.id] || 0;
+
+                // Breadcrumb
+                const breadcrumb = `${escapeHtml(subject.name)} → ${escapeHtml(chapter.name)} → ${escapeHtml(topic.name)}`;
+
+                // Table row
+                tableHtml += `
+                    <tr data-topic-id="${topic.id}" data-order="${topic.order || 0}">
+                        <td>
+                            <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+                            <div class="topic-name">${escapeHtml(topic.name || '')}</div>
+                            <div class="topic-slug">/${escapeHtml(topic.slug || '')}</div>
+                        </td>
+                        <td>${escapeHtml(chapter.name)}</td>
+                        <td>${escapeHtml(subject.name)}</td>
+                        <td>${topic.order || 0}</td>
+                        <td><span class="status-badge ${statusClass}">${statusClass}</span></td>
+                        <td><span class="content-count">${contentCount}</span></td>
+                        <td style="text-align:right;">
+                            <div class="actions-dropdown">
+                                <button class="dropdown-toggle" data-topic-id="${topic.id}" aria-label="Actions"><i class="fas fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu" data-topic-id="${topic.id}">
+                                    <button data-action="edit" data-id="${topic.id}"><i class="fas fa-pen"></i> Edit</button>
+                                    <button data-action="view" data-id="${topic.id}"><i class="fas fa-eye"></i> View</button>
+                                    <button data-action="archive" data-id="${topic.id}"><i class="fas fa-archive"></i> Archive</button>
+                                    <button data-action="delete" data-id="${topic.id}" class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+                // Mobile card
+                mobileHtml += `
+                    <div class="topic-card-mobile" data-topic-id="${topic.id}">
+                        <div class="card-row">
+                            <span class="card-title">${escapeHtml(topic.name)}</span>
+                            <span class="status-badge ${statusClass}">${statusClass}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="card-meta">${escapeHtml(chapter.name)}</span>
+                            <span class="card-meta">${escapeHtml(subject.name)}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="card-meta"><i class="fas fa-sort"></i> ${topic.order || 0}</span>
+                            <span class="card-meta"><i class="fas fa-file-alt"></i> ${contentCount}</span>
+                        </div>
+                        <div class="card-row" style="margin-top:0.5rem;gap:0.3rem;">
+                            <button class="btn btn-sm btn-outline" data-action="edit" data-id="${topic.id}"><i class="fas fa-pen"></i></button>
+                            <button class="btn btn-sm btn-outline" data-action="view" data-id="${topic.id}"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-outline" data-action="archive" data-id="${topic.id}"><i class="fas fa-archive"></i></button>
+                            <button class="btn btn-sm btn-outline" data-action="delete" data-id="${topic.id}" style="color:#dc2626;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            topicsBody.innerHTML = tableHtml;
+            mobileContainer.innerHTML = mobileHtml;
+
+            // Attach dropdown events
+            $$('.dropdown-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const menu = btn.parentElement.querySelector('.dropdown-menu');
+                    $$('.dropdown-menu.open').forEach(m => m !== menu && m.classList.remove('open'));
+                    menu.classList.toggle('open');
+                });
+            });
+
+            $$('.dropdown-menu button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.dataset.action;
+                    const id = btn.dataset.id;
+                    const menu = btn.closest('.dropdown-menu');
+                    if (menu) menu.classList.remove('open');
+                    handleAction(action, id);
+                });
+            });
+
+            // Mobile action buttons
+            mobileContainer.querySelectorAll('[data-action]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const action = btn.dataset.action;
+                    const id = btn.dataset.id;
+                    handleAction(action, id);
+                });
+            });
+
+            // Close dropdowns on outside click
+            document.addEventListener('click', () => {
+                $$('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+            });
+
+            // Empty state add button
+            const emptyAdd = document.getElementById('emptyAddBtn');
+            if (emptyAdd) emptyAdd.addEventListener('click', openAddModal);
+
+            paginationInfo.textContent = `Showing ${topics.length} topics`;
+        }
+
+        // --- Action Handlers ---
+        function handleAction(action, id) {
+            const topic = allTopics.find(t => t.id === id);
+            if (!topic) return;
+
+            switch (action) {
+                case 'edit':
+                    openEditModal(topic);
+                    break;
+                case 'view':
+                    viewTopic(topic);
+                    break;
+                case 'archive':
+                    archiveTopic(topic);
+                    break;
+                case 'delete':
+                    deleteTopic(topic);
+                    break;
+            }
+        }
+
+        // --- View Topic ---
+        function viewTopic(topic) {
+            const subject = allSubjects.find(s => s.id === topic.subjectId);
+            const chapter = allChapters.find(c => c.id === topic.chapterId);
+            if (subject && chapter && topic.status === 'published') {
+                const url = `../topic.html?subject=${encodeURIComponent(subject.slug || subject.id)}&chapter=${encodeURIComponent(chapter.slug || chapter.id)}&slug=${encodeURIComponent(topic.slug || topic.id)}`;
+                window.open(url, '_blank');
+            } else {
+                showToast('Topic is not published or missing hierarchy data.', 'warning');
+            }
+        }
+
+        // --- Archive Topic ---
+        async function archiveTopic(topic) {
+            if (!confirm(`Archive "${topic.name}"? Archived topics will not normally appear on the public website.`)) return;
+            try {
+                await db.collection('topics').doc(topic.id).update({
+                    status: 'archived',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('Topic archived successfully', 'success');
+                await refreshTopics();
+            } catch (e) {
+                showToast('Error archiving: ' + e.message, 'error');
+            }
+        }
+
+        // --- Delete Topic ---
+        async function deleteTopic(topic) {
+            // Check dependencies
+            try {
+                const contentSnap = await db.collection('contents')
+                    .where('topicId', '==', topic.id)
+                    .limit(1)
+                    .get();
+
+                if (!contentSnap.empty) {
+                    // Get count
+                    const countSnap = await db.collection('contents')
+                        .where('topicId', '==', topic.id)
+                        .count()
+                        .get();
+                    const count = countSnap.data().count || 0;
+                    showToast(`Cannot delete this topic. This topic contains ${count} content items. Please remove or reassign the content first.`, 'warning');
+                    return;
+                }
+            } catch (e) {
+                // If contents collection doesn't exist or error, proceed with caution
+                console.warn('Could not check dependencies:', e);
+            }
+
+            if (!confirm(`Delete "${topic.name}" permanently? This action cannot be undone.`)) return;
+
+            try {
+                await db.collection('topics').doc(topic.id).delete();
+                showToast('Topic deleted successfully', 'success');
+                await refreshTopics();
+            } catch (e) {
+                showToast('Error deleting: ' + e.message, 'error');
+            }
+        }
+
+        // --- Modal Operations ---
+        function openAddModal() {
+            editingId = null;
+            modalTitle.textContent = 'Add Topic';
+            modalSubmitBtn.textContent = 'Save Topic';
+            topicForm.reset();
+            topicIdInput.value = '';
+            formOrder.value = allTopics.length + 1;
+            formError.style.display = 'none';
+            formError.textContent = '';
+            modal.classList.add('active');
+            populateFormSelects();
+        }
+
+        function openEditModal(topic) {
+            editingId = topic.id;
+            modalTitle.textContent = 'Edit Topic';
+            modalSubmitBtn.textContent = 'Update Topic';
+            topicIdInput.value = topic.id;
+
+            formSubject.value = topic.subjectId || '';
+            onSubjectChange();
+            setTimeout(() => {
+                formChapter.value = topic.chapterId || '';
+                onChapterChange();
+            }, 100);
+            formName.value = topic.name || '';
+            formSlug.value = topic.slug || '';
+            formDescription.value = topic.description || '';
+            formStatus.value = topic.status || 'draft';
+            formOrder.value = topic.order || 1;
+
+            formError.style.display = 'none';
+            formError.textContent = '';
+            modal.classList.add('active');
+        }
+
+        function populateFormSelects() {
+            const subjectOptions = allSubjects.map(s =>
+                `<option value="${s.id}">${escapeHtml(s.name)}</option>`
+            ).join('');
+            formSubject.innerHTML = `<option value="">Select Subject</option>${subjectOptions}`;
+        }
+
+        async function onSubjectChange() {
+            const subjectId = formSubject.value;
+            const chapters = subjectId ? allChapters.filter(c => c.subjectId === subjectId) : allChapters;
+            const options = chapters.map(c =>
+                `<option value="${c.id}">${escapeHtml(c.name)}</option>`
+            ).join('');
+            formChapter.innerHTML = `<option value="">Select Chapter</option>${options}`;
+        }
+
+        async function onChapterChange() {
+            // No additional logic needed for topics
+        }
+
+        // --- Save Topic ---
+        async function saveTopic(e) {
+            e.preventDefault();
+
+            const subjectId = formSubject.value;
+            const chapterId = formChapter.value;
+            const name = formName.value.trim();
+            const slug = formSlug.value.trim() || slugify(name);
+            const description = formDescription.value.trim();
+            const status = formStatus.value;
+            const order = parseInt(formOrder.value) || 1;
+
+            // Validation
+            if (!subjectId || !chapterId || !name) {
+                formError.textContent = 'Please fill in all required fields (Subject, Chapter, Topic Name)';
+                formError.style.display = 'block';
+                return;
+            }
+
+            // Validate hierarchy
+            const subject = allSubjects.find(s => s.id === subjectId);
+            const chapter = allChapters.find(c => c.id === chapterId);
+            if (!subject || !chapter) {
+                formError.textContent = 'Invalid Subject or Chapter. Please select valid options.';
+                formError.style.display = 'block';
+                return;
+            }
+            if (chapter.subjectId !== subjectId) {
+                formError.textContent = 'Chapter does not belong to selected Subject.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            // Check slug uniqueness within subject+chapter
+            const existing = allTopics.filter(t =>
+                t.subjectId === subjectId &&
+                t.chapterId === chapterId &&
+                t.slug === slug &&
+                t.id !== editingId
+            );
+            if (existing.length > 0) {
+                formError.textContent = 'A topic with this slug already exists in this chapter. Please use a different slug.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            formError.style.display = 'none';
+
+            const data = {
+                subjectId,
+                chapterId,
+                name,
+                slug: slug || slugify(name),
+                description,
+                status,
+                order,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                if (editingId) {
+                    await db.collection('topics').doc(editingId).update(data);
+                    showToast('Topic updated successfully', 'success');
+                } else {
+                    data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await db.collection('topics').add(data);
+                    showToast('Topic created successfully', 'success');
+                }
+                modal.classList.remove('active');
+                await refreshTopics();
+            } catch (e) {
+                console.error('Save error:', e);
+                formError.textContent = 'Error: ' + (e.message || 'Unknown error');
+                formError.style.display = 'block';
+                showToast('Failed to save topic', 'error');
+            }
+        }
+
+        // --- Refresh ---
+        async function refreshTopics() {
+            const subjectId = filterSubject.value || null;
+            const chapterId = filterChapter.value || null;
+            const status = filterStatus.value || null;
+            const search = filterSearch.value || '';
+            const sort = filterSort.value || 'order';
+
+            const result = await loadTopics(subjectId, chapterId, status, search, sort);
+            allTopics = result.topics;
+            await renderTopics(allTopics);
+        }
+
+        // --- Filter handlers ---
+        async function updateChapterFilter() {
+            const subjectId = filterSubject.value;
+            await loadChapters(subjectId || null);
+            const options = allChapters.map(c =>
+                `<option value="${c.id}">${escapeHtml(c.name)}</option>`
+            ).join('');
+            filterChapter.innerHTML = `<option value="">All Chapters</option>${options}`;
+            filterChapter.value = '';
+            refreshTopics();
+        }
+
+        // --- Init ---
+        async function init() {
+            try {
+                await requireAdmin();
+
+                // Load data
+                await loadSubjects();
+                await loadChapters();
+                await refreshTopics();
+
+                // Populate filter dropdowns
+                const subjectOptions = allSubjects.map(s =>
+                    `<option value="${s.id}">${escapeHtml(s.name)}</option>`
+                ).join('');
+                filterSubject.innerHTML = `<option value="">All Subjects</option>${subjectOptions}`;
+
+                const chapterOptions = allChapters.map(c =>
+                    `<option value="${c.id}">${escapeHtml(c.name)}</option>`
+                ).join('');
+                filterChapter.innerHTML = `<option value="">All Chapters</option>${chapterOptions}`;
+
+                // Filter events
+                filterSubject.addEventListener('change', updateChapterFilter);
+                filterChapter.addEventListener('change', refreshTopics);
+                filterSearch.addEventListener('input', debounce(refreshTopics, 300));
+                filterStatus.addEventListener('change', refreshTopics);
+                filterSort.addEventListener('change', refreshTopics);
+
+                clearFiltersBtn.addEventListener('click', () => {
+                    filterSubject.value = '';
+                    filterChapter.value = '';
+                    filterSearch.value = '';
+                    filterStatus.value = '';
+                    filterSort.value = 'order';
+                    refreshTopics();
+                });
+
+                // Add topic
+                addTopicBtn.addEventListener('click', openAddModal);
+
+                // Form events
+                formSubject.addEventListener('change', onSubjectChange);
+                formChapter.addEventListener('change', onChapterChange);
+
+                generateSlugBtn.addEventListener('click', () => {
+                    const name = formName.value.trim();
+                    if (name) formSlug.value = slugify(name);
+                });
+
+                formName.addEventListener('input', () => {
+                    if (!formSlug.value) formSlug.value = slugify(formName.value);
+                });
+
+                // Modal events
+                modalCancelBtn.addEventListener('click', () => modal.classList.remove('active'));
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('active');
+                });
+
+                topicForm.addEventListener('submit', saveTopic);
+
+                // Pagination
+                prevPageBtn.addEventListener('click', () => {
+                    if (currentPage > 0) { currentPage--; refreshTopics(); }
+                });
+                nextPageBtn.addEventListener('click', () => {
+                    currentPage++;
+                    refreshTopics();
+                });
+
+                // Sidebar toggle
+                document.getElementById('sidebarToggle').addEventListener('click', () => {
+                    document.getElementById('adminSidebar').classList.toggle('open');
+                });
+
+                // Logout
+                document.getElementById('sidebarLogout').addEventListener('click', () => {
+                    auth.signOut().then(() => window.location.href = '../login.html');
+                });
+
+                // Admin user email
+                auth.onAuthStateChanged(user => {
+                    if (user) document.getElementById('adminUserEmail').textContent = user.email || 'admin';
+                });
+
+                // Keyboard shortcut
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                    }
+                });
+
+            } catch (e) {
+                console.error('Init error:', e);
+                showToast('Failed to initialize: ' + e.message, 'error');
+            }
+        }
+
+        // Debounce helper
+        function debounce(fn, ms) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn(...args), ms);
+            };
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

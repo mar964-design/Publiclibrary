@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Law Library | Academic Knowledge Library</title>
+    <meta name="description" content="Browse and search academic laws organized by subject, chapter and topic." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/laws.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Law Library | Academic Knowledge Library" />
+    <meta property="og:description" content="Browse and search academic laws organized by subject, chapter and topic." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/laws.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Law Library | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Browse and search academic laws organized by subject, chapter and topic." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .page-hero h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+        .page-hero .hero-stats {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-hero .hero-stats i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== SEARCH & FILTERS ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .filters-bar .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+            margin-bottom: 16px;
+        }
+        .filters-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .filters-bar .search-wrapper input {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .filters-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .filters-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .filters-bar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: flex-end;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex: 1 0 auto;
+        }
+        .filters-bar .filter-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .filters-bar .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filters-bar .sort-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .sort-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filters-bar .filter-chips .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+        .filters-bar .filter-chips .chip .remove-chip {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .chip .remove-chip:hover {
+            color: var(--primary);
+        }
+        .filters-bar .filter-chips .clear-all {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .clear-all:hover {
+            color: var(--primary);
+        }
+
+        /* ===== LAW GRID ===== */
+        .law-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== LAW CARD ===== */
+        .law-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .law-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .law-card .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 12px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            margin-bottom: 8px;
+        }
+        .law-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .law-card h3 a {
+            color: var(--text);
+        }
+        .law-card h3 a:hover {
+            color: var(--primary);
+        }
+        .law-card .law-preview {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin: 8px 0 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+        .law-card .formula-preview {
+            margin: 8px 0 12px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+        .law-card .formula-preview .katex-display {
+            margin: 0;
+        }
+        .law-card .hierarchy {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .law-card .hierarchy span {
+            display: inline-block;
+        }
+        .law-card .hierarchy .sep {
+            margin: 0 4px;
+            color: var(--border);
+        }
+        .law-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        .law-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .law-card .card-actions .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        .law-card .card-actions .btn-outline-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .law-card .card-actions .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: color var(--transition);
+            padding: 4px 8px;
+        }
+        .law-card .card-actions .bookmark-btn.bookmarked {
+            color: var(--primary);
+        }
+        .law-card .card-actions .bookmark-btn:hover {
+            color: var(--primary);
+        }
+        .law-card .card-actions .share-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            padding: 4px 8px;
+            transition: color var(--transition);
+        }
+        .law-card .card-actions .share-btn:hover {
+            color: var(--primary);
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.statement {
+            height: 60px;
+            width: 90%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+        .load-more-container .btn {
+            min-width: 160px;
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 200px;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .law-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            .skeleton-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            .page-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .filters-bar .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filters-bar .filter-group {
+                min-width: 100%;
+            }
+            .filters-bar .sort-group {
+                justify-content: space-between;
+            }
+            .law-grid {
+                grid-template-columns: 1fr;
+            }
+            .skeleton-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-bar {
+                padding: 16px;
+            }
+            .filters-bar .search-wrapper input {
+                font-size: 0.9rem;
+            }
+            .law-card .card-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html" class="active">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <span class="current">Laws</span>
+        </nav>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Law Library</h1>
+            <p>Explore important academic laws organized by subject, chapter and topic.</p>
+            <div class="hero-stats" id="heroStats">
+                <i class="fas fa-gavel"></i>
+                <span id="lawCount">Loading...</span> Published Laws
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTERS BAR ===== -->
+    <section class="container">
+        <div class="filters-bar">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search laws..." aria-label="Search laws" />
+                <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="subjectFilter">Subject</label>
+                    <select id="subjectFilter">
+                        <option value="">All Subjects</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="chapterFilter">Chapter</label>
+                    <select id="chapterFilter">
+                        <option value="">All Chapters</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="topicFilter">Topic</label>
+                    <select id="topicFilter">
+                        <option value="">All Topics</option>
+                    </select>
+                </div>
+                <div class="sort-group">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="relevance">Most Relevant</option>
+                        <option value="recent">Recently Updated</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="views">Most Viewed</option>
+                        <option value="bookmarks">Most Bookmarked</option>
+                        <option value="az">A–Z</option>
+                        <option value="za">Z–A</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-chips" id="filterChips"></div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container" id="resultsSection">
+        <div id="resultCount" class="section-subtitle" style="margin-bottom:1rem;">Loading laws...</div>
+        <div class="law-grid" id="lawGrid">
+            <!-- Skeleton cards will be rendered here -->
+        </div>
+        <div class="load-more-container" id="loadMoreContainer">
+            <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports from shared modules
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth, db } from "../js/firebase-config.js";
+        import {
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            startAfter,
+            getDocs,
+            getDoc,
+            doc,
+            getCountFromServer
+        } from "firebase/firestore";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        import { addBookmark, removeBookmark, isBookmarked, getUserBookmarks } from "../js/bookmarks.js";
+        import { getSubjects, getChapters, getTopics } from "../js/firestore.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const lawGrid = document.getElementById('lawGrid');
+        const resultCount = document.getElementById('resultCount');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const subjectFilter = document.getElementById('subjectFilter');
+        const chapterFilter = document.getElementById('chapterFilter');
+        const topicFilter = document.getElementById('topicFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const filterChips = document.getElementById('filterChips');
+        const heroStats = document.getElementById('lawCount');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            subjects: [],
+            chapters: [],
+            topics: [],
+            allLaws: [],
+            displayedLaws: [],
+            lastDoc: null,
+            hasMore: true,
+            loading: false,
+            initialLoad: true,
+            totalCount: 0,
+            searchQuery: '',
+            subjectId: '',
+            chapterId: '',
+            topicId: '',
+            sortBy: 'relevance',
+            pageSize: 24,
+            subjectMap: {},
+            chapterMap: {},
+            topicMap: {},
+            bookmarkMap: new Map(),
+            user: null
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Helper: sanitize HTML (basic)
+        // ------------------------------------------------------------------
+        function sanitizeHTML(html) {
+            if (!html) return '';
+            return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                .replace(/on\w+="[^"]*"/g, '')
+                .replace(/on\w+='[^']*'/g, '')
+                .replace(/javascript:/gi, '');
+        }
+
+        // ------------------------------------------------------------------
+        // Load metadata (subjects, chapters, topics) for filters and display
+        // ------------------------------------------------------------------
+        async function loadMetadata() {
+            try {
+                const subjects = await getSubjects();
+                state.subjects = subjects;
+                subjects.forEach(s => state.subjectMap[s.id] = s);
+
+                const chapters = await getChapters(null, 'published');
+                state.chapters = chapters;
+                chapters.forEach(c => state.chapterMap[c.id] = c);
+
+                const topics = await getTopics(null, null, 'published');
+                state.topics = topics;
+                topics.forEach(t => state.topicMap[t.id] = t);
+
+                subjectFilter.innerHTML = '<option value="">All Subjects</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+                const params = new URLSearchParams(window.location.search);
+                const urlSubject = params.get('subject');
+                if (urlSubject && subjects.some(s => s.id === urlSubject)) {
+                    subjectFilter.value = urlSubject;
+                    state.subjectId = urlSubject;
+                    await updateChapterFilter(urlSubject);
+                }
+                const urlChapter = params.get('chapter');
+                if (urlChapter && chapters.some(c => c.id === urlChapter)) {
+                    chapterFilter.value = urlChapter;
+                    state.chapterId = urlChapter;
+                    await updateTopicFilter(urlChapter);
+                }
+                const urlTopic = params.get('topic');
+                if (urlTopic && topics.some(t => t.id === urlTopic)) {
+                    topicFilter.value = urlTopic;
+                    state.topicId = urlTopic;
+                }
+                const urlQ = params.get('q');
+                if (urlQ) {
+                    searchInput.value = urlQ;
+                    state.searchQuery = urlQ;
+                    clearSearch.classList.add('visible');
+                }
+                updateFilterChips();
+
+            } catch (e) {
+                console.warn('Error loading metadata:', e);
+                showToast('Failed to load filters metadata.', 'error');
+            }
+        }
+
+        async function updateChapterFilter(subjectId) {
+            chapterFilter.innerHTML = '<option value="">All Chapters</option>';
+            const chapters = state.chapters.filter(c => c.subjectId === subjectId);
+            chapters.forEach(c => {
+                chapterFilter.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+            });
+            topicFilter.innerHTML = '<option value="">All Topics</option>';
+            if (state.chapterId && chapters.some(c => c.id === state.chapterId)) {
+                chapterFilter.value = state.chapterId;
+                await updateTopicFilter(state.chapterId);
+            } else {
+                state.chapterId = '';
+                chapterFilter.value = '';
+                topicFilter.value = '';
+                state.topicId = '';
+            }
+        }
+
+        async function updateTopicFilter(chapterId) {
+            topicFilter.innerHTML = '<option value="">All Topics</option>';
+            const topics = state.topics.filter(t => t.chapterId === chapterId);
+            topics.forEach(t => {
+                topicFilter.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+            });
+            if (state.topicId && topics.some(t => t.id === state.topicId)) {
+                topicFilter.value = state.topicId;
+            } else {
+                state.topicId = '';
+                topicFilter.value = '';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update filter chips
+        // ------------------------------------------------------------------
+        function updateFilterChips() {
+            const chips = [];
+            if (state.subjectId && state.subjectMap[state.subjectId]) {
+                chips.push({ type: 'subject', id: state.subjectId, label: state.subjectMap[state.subjectId].name });
+            }
+            if (state.chapterId && state.chapterMap[state.chapterId]) {
+                chips.push({ type: 'chapter', id: state.chapterId, label: state.chapterMap[state.chapterId].name });
+            }
+            if (state.topicId && state.topicMap[state.topicId]) {
+                chips.push({ type: 'topic', id: state.topicId, label: state.topicMap[state.topicId].name });
+            }
+            if (state.searchQuery) {
+                chips.push({ type: 'search', label: `"${state.searchQuery}"` });
+            }
+
+            if (chips.length === 0) {
+                filterChips.innerHTML = '';
+                return;
+            }
+
+            filterChips.innerHTML = chips.map(chip => {
+                const removeAttr = chip.type !== 'search' ? `data-id="${chip.id}" data-type="${chip.type}"` : '';
+                return `
+                    <span class="chip">
+                        ${chip.label}
+                        <button class="remove-chip" ${removeAttr} aria-label="Remove filter">&times;</button>
+                    </span>
+                `;
+            }).join('') + `<button class="clear-all" id="clearAllFilters">Clear All</button>`;
+
+            filterChips.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const type = btn.dataset.type;
+                    const id = btn.dataset.id;
+                    if (type === 'subject') { subjectFilter.value = '';
+                        state.subjectId = '';
+                        updateChapterFilter(''); }
+                    if (type === 'chapter') { chapterFilter.value = '';
+                        state.chapterId = '';
+                        updateTopicFilter(''); }
+                    if (type === 'topic') { topicFilter.value = '';
+                        state.topicId = ''; }
+                    if (type === 'search') {
+                        searchInput.value = '';
+                        state.searchQuery = '';
+                        clearSearch.classList.remove('visible');
+                    }
+                    updateFilterChips();
+                    updateURL();
+                    loadLaws(true);
+                });
+            });
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', () => {
+                subjectFilter.value = '';
+                chapterFilter.value = '';
+                topicFilter.value = '';
+                searchInput.value = '';
+                state.subjectId = '';
+                state.chapterId = '';
+                state.topicId = '';
+                state.searchQuery = '';
+                clearSearch.classList.remove('visible');
+                updateFilterChips();
+                updateURL();
+                loadLaws(true);
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // URL synchronization
+        // ------------------------------------------------------------------
+        function updateURL() {
+            const params = new URLSearchParams();
+            if (state.searchQuery) params.set('q', state.searchQuery);
+            if (state.subjectId) params.set('subject', state.subjectId);
+            if (state.chapterId) params.set('chapter', state.chapterId);
+            if (state.topicId) params.set('topic', state.topicId);
+            const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // ------------------------------------------------------------------
+        // Load laws with pagination
+        // ------------------------------------------------------------------
+        async function loadLaws(reset = true) {
+            if (state.loading) return;
+            state.loading = true;
+
+            if (reset) {
+                state.allLaws = [];
+                state.displayedLaws = [];
+                state.lastDoc = null;
+                state.hasMore = true;
+                lawGrid.innerHTML = renderSkeletons(state.pageSize);
+                resultCount.textContent = 'Loading laws...';
+                loadMoreContainer.style.display = 'none';
+            }
+
+            try {
+                let constraints = [
+                    where('type', '==', 'law'),
+                    where('status', '==', 'published')
+                ];
+                if (state.subjectId) constraints.push(where('subjectId', '==', state.subjectId));
+                if (state.chapterId) constraints.push(where('chapterId', '==', state.chapterId));
+                if (state.topicId) constraints.push(where('topicId', '==', state.topicId));
+
+                let orderField = 'updatedAt';
+                let orderDirection = 'desc';
+                if (state.sortBy === 'az') { orderField = 'title';
+                    orderDirection = 'asc'; }
+                if (state.sortBy === 'za') { orderField = 'title';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'newest') { orderField = 'createdAt';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'oldest') { orderField = 'createdAt';
+                    orderDirection = 'asc'; }
+                if (state.sortBy === 'views') { orderField = 'views';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'bookmarks') { orderField = 'bookmarks';
+                    orderDirection = 'desc'; }
+
+                const orderByField = (state.sortBy === 'relevance' || state.sortBy === 'recent') ? 'updatedAt' : orderField;
+                const orderDir = (state.sortBy === 'relevance' || state.sortBy === 'recent') ? 'desc' : orderDirection;
+
+                let q = query(collection(db, 'contents'), ...constraints, orderBy(orderByField, orderDir), limit(state
+                    .pageSize));
+                if (state.lastDoc && !reset) {
+                    q = query(q, startAfter(state.lastDoc));
+                }
+
+                const snapshot = await getDocs(q);
+                const laws = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                state.lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+                state.hasMore = snapshot.docs.length === state.pageSize;
+
+                if (reset) {
+                    state.allLaws = laws;
+                } else {
+                    state.allLaws = [...state.allLaws, ...laws];
+                }
+
+                applyClientSideFilters();
+
+                if (reset && state.totalCount === 0) {
+                    const countQuery = query(collection(db, 'contents'), ...constraints);
+                    const countSnap = await getCountFromServer(countQuery);
+                    state.totalCount = countSnap.data().count;
+                    heroStats.textContent = state.totalCount;
+                }
+
+                if (reset && state.allLaws.length === 0) {
+                    lawGrid.innerHTML = `
+                        <div class="empty-state" style="grid-column:1/-1;">
+                            <i class="fas fa-gavel"></i>
+                            <p>No laws found. Try adjusting your filters.</p>
+                            <button class="btn btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                        </div>
+                    `;
+                    document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                        clearAllFilters();
+                    });
+                    resultCount.textContent = '0 laws found';
+                    loadMoreContainer.style.display = 'none';
+                }
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Error loading laws:', err);
+                state.loading = false;
+                showToast('Failed to load laws. Please try again.', 'error');
+                lawGrid.innerHTML = `
+                    <div class="error-state" style="grid-column:1/-1;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Unable to load laws. Please check your connection and try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', () => loadLaws(true));
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Client-side filtering (search) and sorting
+        // ------------------------------------------------------------------
+        function applyClientSideFilters() {
+            const query = state.searchQuery.trim().toLowerCase();
+            let filtered = state.allLaws;
+
+            if (query) {
+                filtered = filtered.filter(f => {
+                    const title = (f.title || '').toLowerCase();
+                    const keywords = (f.keywords || []).join(' ').toLowerCase();
+                    const statement = (f.statement || f.definition || f.shortDescription || '').toLowerCase();
+                    const subject = state.subjectMap[f.subjectId]?.name?.toLowerCase() || '';
+                    const chapter = state.chapterMap[f.chapterId]?.name?.toLowerCase() || '';
+                    const topic = state.topicMap[f.topicId]?.name?.toLowerCase() || '';
+                    return title.includes(query) || keywords.includes(query) || statement.includes(query) ||
+                        subject.includes(query) || chapter.includes(query) || topic.includes(query);
+                });
+            }
+
+            const sort = state.sortBy;
+            if (sort === 'az') {
+                filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            } else if (sort === 'za') {
+                filtered.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
+            } else if (sort === 'newest') {
+                filtered.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+            } else if (sort === 'oldest') {
+                filtered.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            } else if (sort === 'views') {
+                filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+            } else if (sort === 'bookmarks') {
+                filtered.sort((a, b) => (b.bookmarks || 0) - (a.bookmarks || 0));
+            } else {
+                if (state.searchQuery) {
+                    const q = state.searchQuery.toLowerCase();
+                    filtered = filtered.map(f => {
+                        let score = 0;
+                        const title = (f.title || '').toLowerCase();
+                        const keywords = (f.keywords || []).join(' ').toLowerCase();
+                        const statement = (f.statement || f.definition || f.shortDescription || '').toLowerCase();
+                        const topicName = state.topicMap[f.topicId]?.name?.toLowerCase() || '';
+                        if (title === q) score += 40;
+                        if (title.includes(q)) score += 25;
+                        if (keywords.includes(q)) score += 20;
+                        if (topicName.includes(q)) score += 10;
+                        if (statement.includes(q)) score += 5;
+                        const popularity = (f.views || 0) + (f.bookmarks || 0) * 2;
+                        score += Math.min(popularity / 10, 5);
+                        return { ...f, _score: score };
+                    });
+                    filtered.sort((a, b) => (b._score || 0) - (a._score || 0));
+                } else {
+                    // Keep Firestore order (updatedAt desc)
+                }
+            }
+
+            state.displayedLaws = filtered;
+            renderLaws();
+            updateResultCount(filtered.length);
+        }
+
+        // ------------------------------------------------------------------
+        // Render laws
+        // ------------------------------------------------------------------
+        function renderLaws() {
+            if (state.displayedLaws.length === 0 && state.allLaws.length > 0) {
+                lawGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <i class="fas fa-search"></i>
+                        <p>No laws match your search.</p>
+                        <button class="btn btn-outline" id="clearSearchBtn">Clear Search</button>
+                    </div>
+                `;
+                document.getElementById('clearSearchBtn')?.addEventListener('click', () => {
+                    searchInput.value = '';
+                    state.searchQuery = '';
+                    clearSearch.classList.remove('visible');
+                    updateFilterChips();
+                    updateURL();
+                    applyClientSideFilters();
+                });
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            const cards = state.displayedLaws.map(l => renderLawCard(l)).join('');
+            lawGrid.innerHTML = cards;
+
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(lawGrid, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+
+            if (state.hasMore && state.displayedLaws.length < state.totalCount) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Render a single law card
+        // ------------------------------------------------------------------
+        function renderLawCard(law) {
+            const subject = state.subjectMap[law.subjectId];
+            const chapter = state.chapterMap[law.chapterId];
+            const topic = state.topicMap[law.topicId];
+
+            const subjectName = subject ? subject.name : 'Unknown Subject';
+            const chapterName = chapter ? chapter.name : 'Unknown Chapter';
+            const topicName = topic ? topic.name : 'Unknown Topic';
+
+            const isBookmarked = state.bookmarkMap.get(law.id) || false;
+            const bookmarkIcon = isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+            const bookmarkClass = isBookmarked ? 'bookmarked' : '';
+
+            // Preview: use statement, fallback to definition, then shortDescription
+            let previewText = law.statement || law.definition || law.shortDescription || '';
+            // Remove HTML tags for safety
+            previewText = sanitizeHTML(previewText);
+
+            // Formula preview
+            let formulaHtml = '';
+            if (law.formula) {
+                formulaHtml = `<div class="formula-preview" data-formula="${sanitizeHTML(law.formula)}">${sanitizeHTML(law.formula)}</div>`;
+            }
+
+            return `
+                <div class="law-card" data-id="${law.id}">
+                    <span class="badge">Law</span>
+                    <h3><a href="content.html?contentId=${law.id}">${sanitizeHTML(law.title)}</a></h3>
+                    ${previewText ? `<div class="law-preview">${previewText}</div>` : ''}
+                    ${formulaHtml}
+                    <div class="hierarchy">
+                        <span>${sanitizeHTML(subjectName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(chapterName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(topicName)}</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="content.html?contentId=${law.id}" class="btn btn-sm btn-secondary">View Details</a>
+                        <button class="bookmark-btn ${bookmarkClass}" data-content-id="${law.id}" aria-label="Bookmark">
+                            <i class="${bookmarkIcon}"></i>
+                        </button>
+                        <button class="share-btn" data-content-id="${law.id}" aria-label="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render skeleton cards
+        // ------------------------------------------------------------------
+        function renderSkeletons(count) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line statement"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // ------------------------------------------------------------------
+        // Update result count
+        // ------------------------------------------------------------------
+        function updateResultCount(count) {
+            const total = state.totalCount;
+            if (total === 0) {
+                resultCount.textContent = 'No laws found';
+            } else if (state.searchQuery || state.subjectId || state.chapterId || state.topicId) {
+                resultCount.textContent = `Showing ${count} of ${total} laws`;
+            } else {
+                resultCount.textContent = `${total} laws`;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Clear all filters
+        // ------------------------------------------------------------------
+        function clearAllFilters() {
+            subjectFilter.value = '';
+            chapterFilter.value = '';
+            topicFilter.value = '';
+            searchInput.value = '';
+            state.subjectId = '';
+            state.chapterId = '';
+            state.topicId = '';
+            state.searchQuery = '';
+            clearSearch.classList.remove('visible');
+            updateFilterChips();
+            updateURL();
+            loadLaws(true);
+        }
+
+        // ------------------------------------------------------------------
+        // Bookmark toggle
+        // ------------------------------------------------------------------
+        async function toggleBookmark(contentId, btnElement) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Please log in to bookmark this law.', 'warning');
+                return;
+            }
+            const icon = btnElement.querySelector('i');
+            const isBookmarkedNow = state.bookmarkMap.get(contentId) || false;
+            try {
+                if (isBookmarkedNow) {
+                    await removeBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, false);
+                    icon.className = 'far fa-bookmark';
+                    btnElement.classList.remove('bookmarked');
+                    showToast('Bookmark removed.', 'success');
+                } else {
+                    await addBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, true);
+                    icon.className = 'fas fa-bookmark';
+                    btnElement.classList.add('bookmarked');
+                    showToast('Bookmark added!', 'success');
+                }
+            } catch (err) {
+                showToast('Failed to update bookmark.', 'error');
+                console.error(err);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Share
+        // ------------------------------------------------------------------
+        async function shareLaw(contentId) {
+            const law = state.allLaws.find(l => l.id === contentId);
+            if (!law) return;
+            const url = `${window.location.origin}/pages/content.html?contentId=${contentId}`;
+            const title = law.title || 'Law';
+            const text = law.statement || law.shortDescription || `Check out "${title}" on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        async function copyLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard.', 'success');
+            } catch {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Event Listeners
+        // ------------------------------------------------------------------
+        function setupEventListeners() {
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const val = searchInput.value;
+                    state.searchQuery = val;
+                    if (val.trim() === '') {
+                        clearSearch.classList.remove('visible');
+                    } else {
+                        clearSearch.classList.add('visible');
+                    }
+                    updateFilterChips();
+                    updateURL();
+                    applyClientSideFilters();
+                }, 300);
+            });
+
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                state.searchQuery = '';
+                clearSearch.classList.remove('visible');
+                updateFilterChips();
+                updateURL();
+                applyClientSideFilters();
+                searchInput.focus();
+            });
+
+            subjectFilter.addEventListener('change', async () => {
+                const val = subjectFilter.value;
+                state.subjectId = val;
+                if (val) {
+                    await updateChapterFilter(val);
+                } else {
+                    chapterFilter.innerHTML = '<option value="">All Chapters</option>';
+                    topicFilter.innerHTML = '<option value="">All Topics</option>';
+                    state.chapterId = '';
+                    state.topicId = '';
+                }
+                updateFilterChips();
+                updateURL();
+                loadLaws(true);
+            });
+
+            chapterFilter.addEventListener('change', async () => {
+                const val = chapterFilter.value;
+                state.chapterId = val;
+                if (val) {
+                    await updateTopicFilter(val);
+                } else {
+                    topicFilter.innerHTML = '<option value="">All Topics</option>';
+                    state.topicId = '';
+                }
+                updateFilterChips();
+                updateURL();
+                loadLaws(true);
+            });
+
+            topicFilter.addEventListener('change', () => {
+                state.topicId = topicFilter.value;
+                updateFilterChips();
+                updateURL();
+                loadLaws(true);
+            });
+
+            sortSelect.addEventListener('change', () => {
+                state.sortBy = sortSelect.value;
+                applyClientSideFilters();
+            });
+
+            loadMoreBtn.addEventListener('click', () => {
+                loadLaws(false);
+            });
+
+            lawGrid.addEventListener('click', async (e) => {
+                const bookmarkBtn = e.target.closest('.bookmark-btn');
+                if (bookmarkBtn) {
+                    e.preventDefault();
+                    const contentId = bookmarkBtn.dataset.contentId;
+                    if (contentId) {
+                        await toggleBookmark(contentId, bookmarkBtn);
+                    }
+                    return;
+                }
+                const shareBtn = e.target.closest('.share-btn');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const contentId = shareBtn.dataset.contentId;
+                    if (contentId) {
+                        await shareLaw(contentId);
+                    }
+                    return;
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            state.user = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+            if (user) {
+                loadUserBookmarks();
+            } else {
+                state.bookmarkMap.clear();
+                applyClientSideFilters();
+            }
+        }
+
+        async function loadUserBookmarks() {
+            const user = getCurrentUser();
+            if (!user) return;
+            try {
+                const bookmarks = await getUserBookmarks(user.uid);
+                const ids = bookmarks.map(b => b.id);
+                state.bookmarkMap.clear();
+                ids.forEach(id => state.bookmarkMap.set(id, true));
+                applyClientSideFilters();
+            } catch (e) {
+                console.warn('Could not load bookmarks:', e);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Init
+        // ------------------------------------------------------------------
+        async function init() {
+            renderAuthUI(await getCurrentUser());
+            observeAuthState((user) => {
+                renderAuthUI(user);
+                if (user) {
+                    loadUserBookmarks();
+                }
+            });
+
+            await loadMetadata();
+
+            const params = new URLSearchParams(window.location.search);
+            const sortParam = params.get('sort');
+            if (sortParam && ['relevance', 'recent', 'newest', 'oldest', 'views', 'bookmarks', 'az', 'za'].includes(
+                    sortParam)) {
+                sortSelect.value = sortParam;
+                state.sortBy = sortParam;
+            }
+
+            setupEventListeners();
+            loadLaws(true);
+
+            // JSON-LD initialization
+            const initialJsonLd = {
+                "@context": "https://schema.org",
+                "@type": "CollectionPage",
+                "name": "Law Library | Academic Knowledge Library",
+                "description": "Browse and search academic laws organized by subject, chapter and topic.",
+                "url": window.location.href,
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "itemListElement": []
+                }
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(initialJsonLd);
+            document.head.appendChild(script);
+        }
+
+        // Override renderLaws to update SEO/JSON-LD
+        const originalRender = renderLaws;
+        renderLaws = function() {
+            originalRender();
+            updateSEO();
+            updateStructuredData();
+        };
+
+        function updateSEO() {
+            const title = 'Law Library | Academic Knowledge Library';
+            const description = 'Browse and search academic laws organized by subject, chapter and topic.';
+            const url = window.location.href;
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+        }
+
+        function updateStructuredData() {
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (!jsonLd) return;
+            try {
+                const data = JSON.parse(jsonLd.textContent);
+                data.name = 'Law Library | Academic Knowledge Library';
+                data.description = 'Browse and search academic laws organized by subject, chapter and topic.';
+                data.url = window.location.href;
+                data.mainEntity.itemListElement = state.displayedLaws.slice(0, 10).map((l, i) => ({
+                    '@type': 'ListItem',
+                    'position': i + 1,
+                    'name': l.title || 'Law',
+                    'url': `https://eco-lab-e2f48.web.app/pages/content.html?contentId=${l.id}`
+                }));
+                jsonLd.textContent = JSON.stringify(data);
+            } catch (e) { /* ignore */ }
+        }
+
+        init();
+        console.log('✅ Laws page loaded.');
+    </script>
+</body>
+</html>

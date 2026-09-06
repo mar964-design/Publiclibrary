@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Author | Academic Knowledge Library</title>
+    <meta name="description" content="View the published academic resources and contributions by this author on Academic Knowledge Library." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/author.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Author | Academic Knowledge Library" />
+    <meta property="og:description" content="View the published academic resources and contributions by this author." />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/author.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Author | Academic Knowledge Library" />
+    <meta name="twitter:description" content="View the published academic resources and contributions by this author." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== AUTHOR HERO ===== */
+        .author-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .author-hero .profile-grid {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+        .author-hero .profile-avatar {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        .author-hero .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .author-hero .profile-info {
+            flex: 1;
+        }
+        .author-hero .profile-info h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .author-hero .profile-info .role {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+        .author-hero .profile-info .specialization {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .author-hero .profile-info .bio {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .author-hero .profile-info .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .author-hero .profile-info .links a {
+            color: white;
+            opacity: 0.8;
+            transition: opacity var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.95rem;
+        }
+        .author-hero .profile-info .links a:hover {
+            opacity: 1;
+        }
+        .author-hero .profile-info .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .author-hero .profile-info .actions .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .author-hero .profile-info .actions .btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .author-hero .profile-info .actions .btn-primary-action {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+        .author-hero .profile-info .actions .btn-primary-action:hover {
+            background: var(--primary-bg);
+            transform: translateY(-2px);
+        }
+        .author-hero .profile-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 16px;
+        }
+        .author-hero .profile-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .author-hero .profile-stats .stat-item i {
+            font-size: 1.1rem;
+        }
+        .author-hero .profile-stats .stat-item .num {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ===== SEARCH & FILTERS ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .filters-bar .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+            margin-bottom: 12px;
+        }
+        .filters-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .filters-bar .search-wrapper input {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .filters-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .filters-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .filters-bar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: flex-end;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 130px;
+            flex: 1 0 auto;
+        }
+        .filters-bar .filter-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .filters-bar .filter-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filters-bar .sort-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .sort-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filters-bar .filter-chips .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+        .filters-bar .filter-chips .chip .remove-chip {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .chip .remove-chip:hover {
+            color: var(--primary);
+        }
+        .filters-bar .filter-chips .clear-all {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .clear-all:hover {
+            color: var(--primary);
+        }
+        .filters-bar .mobile-filter-toggle {
+            display: none;
+            margin-top: 8px;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            width: 100%;
+        }
+        .filters-bar .mobile-filter-toggle i {
+            margin-right: 6px;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== CONTENT CARD (reused) ===== */
+        .content-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .content-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .content-card .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 12px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            margin-bottom: 8px;
+        }
+        .content-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .content-card h3 a {
+            color: var(--text);
+        }
+        .content-card h3 a:hover {
+            color: var(--primary);
+        }
+        .content-card .formula-preview {
+            margin: 8px 0 12px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+        .content-card .formula-preview .katex-display {
+            margin: 0;
+        }
+        .content-card .short-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            flex: 1;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .content-card .hierarchy {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .content-card .hierarchy span {
+            display: inline-block;
+        }
+        .content-card .hierarchy .sep {
+            margin: 0 4px;
+            color: var(--border);
+        }
+        .content-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        .content-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .content-card .card-actions .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        .content-card .card-actions .btn-outline-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .content-card .card-actions .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: color var(--transition);
+            padding: 4px 8px;
+        }
+        .content-card .card-actions .bookmark-btn.bookmarked {
+            color: var(--primary);
+        }
+        .content-card .card-actions .bookmark-btn:hover {
+            color: var(--primary);
+        }
+        .content-card .card-actions .share-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            padding: 4px 8px;
+            transition: color var(--transition);
+        }
+        .content-card .card-actions .share-btn:hover {
+            color: var(--primary);
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.excerpt {
+            height: 60px;
+            width: 90%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+        .load-more-container .btn {
+            min-width: 160px;
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state,
+        .not-found-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 200px;
+        }
+        .empty-state i,
+        .error-state i,
+        .not-found-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .not-found-state i {
+            color: var(--border);
+        }
+        .empty-state .btn,
+        .error-state .btn,
+        .not-found-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== MOBILE FILTER DRAWER ===== */
+        .filter-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+        }
+        .filter-drawer-overlay.open {
+            display: block;
+        }
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 80vh;
+            background: var(--white);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 24px 20px;
+            z-index: 2001;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .filter-drawer.open {
+            transform: translateY(0);
+        }
+        .filter-drawer .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .filter-drawer .drawer-header h3 {
+            font-size: 1.2rem;
+        }
+        .filter-drawer .drawer-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+        .filter-drawer .filter-group {
+            margin-bottom: 16px;
+        }
+        .filter-drawer .filter-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .filter-drawer .filter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.95rem;
+        }
+        .filter-drawer .drawer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .filter-drawer .drawer-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            .skeleton-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            .author-hero .profile-grid {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .author-hero .profile-info .bio {
+                max-width: 100%;
+            }
+            .author-hero .profile-info .links {
+                justify-content: center;
+            }
+            .author-hero .profile-info .actions {
+                justify-content: center;
+            }
+            .author-hero .profile-stats {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .author-hero .profile-info h1 {
+                font-size: 1.8rem;
+            }
+            .author-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .author-hero .profile-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .filters-bar .filter-row {
+                display: none;
+            }
+            .filters-bar .mobile-filter-toggle {
+                display: block;
+            }
+            .filters-bar .filter-chips {
+                margin-top: 8px;
+            }
+            .filter-drawer-overlay.open,
+            .filter-drawer.open {
+                display: block;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .skeleton-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-bar {
+                padding: 12px 16px;
+            }
+            .author-hero .profile-avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 2rem;
+            }
+            .content-card .card-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="authors.html">Authors</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <a href="authors.html">Authors</a>
+            <span>›</span>
+            <span class="current" id="breadcrumbAuthor">Loading...</span>
+        </nav>
+    </div>
+
+    <!-- ===== AUTHOR HERO ===== -->
+    <section class="author-hero" id="authorHero">
+        <div class="container">
+            <div id="heroContent">
+                <!-- Dynamically rendered -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTERS BAR ===== -->
+    <section class="container" id="filtersSection">
+        <div class="filters-bar">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search this author's resources..." aria-label="Search resources" />
+                <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="typeFilter">Type</label>
+                    <select id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="formula">Formula</option>
+                        <option value="law">Law</option>
+                        <option value="definition">Definition</option>
+                        <option value="concept">Concept</option>
+                        <option value="theorem">Theorem</option>
+                        <option value="rule">Rule</option>
+                        <option value="identity">Identity</option>
+                        <option value="constant">Constant</option>
+                        <option value="graph">Graph</option>
+                        <option value="example">Example</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="subjectFilter">Subject</label>
+                    <select id="subjectFilter">
+                        <option value="">All Subjects</option>
+                    </select>
+                </div>
+                <div class="sort-group">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="relevance">Most Relevant</option>
+                        <option value="recent">Recently Updated</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="views">Most Viewed</option>
+                        <option value="bookmarks">Most Bookmarked</option>
+                        <option value="az">A–Z</option>
+                        <option value="za">Z–A</option>
+                    </select>
+                </div>
+            </div>
+            <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                <i class="fas fa-sliders-h"></i> Filters
+            </button>
+            <div class="filter-chips" id="filterChips"></div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container" id="resultsSection">
+        <div id="resultCount" class="result-count" style="margin-bottom:1rem;">Loading resources...</div>
+        <div class="content-grid" id="contentGrid">
+            <!-- Skeleton cards will be rendered here -->
+        </div>
+        <div class="load-more-container" id="loadMoreContainer">
+            <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+        </div>
+    </section>
+
+    <!-- ===== MOBILE FILTER DRAWER ===== -->
+    <div class="filter-drawer-overlay" id="filterDrawerOverlay"></div>
+    <div class="filter-drawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Filter resources">
+        <div class="drawer-header">
+            <h3>Filters</h3>
+            <button class="drawer-close" id="drawerClose" aria-label="Close filters">&times;</button>
+        </div>
+        <div class="filter-group">
+            <label for="drawerType">Type</label>
+            <select id="drawerType">
+                <option value="all">All Types</option>
+                <option value="formula">Formula</option>
+                <option value="law">Law</option>
+                <option value="definition">Definition</option>
+                <option value="concept">Concept</option>
+                <option value="theorem">Theorem</option>
+                <option value="rule">Rule</option>
+                <option value="identity">Identity</option>
+                <option value="constant">Constant</option>
+                <option value="graph">Graph</option>
+                <option value="example">Example</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerSubject">Subject</label>
+            <select id="drawerSubject">
+                <option value="">All Subjects</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="drawerSort">Sort</label>
+            <select id="drawerSort">
+                <option value="relevance">Most Relevant</option>
+                <option value="recent">Recently Updated</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="views">Most Viewed</option>
+                <option value="bookmarks">Most Bookmarked</option>
+                <option value="az">A–Z</option>
+                <option value="za">Z–A</option>
+            </select>
+        </div>
+        <div class="drawer-actions">
+            <button class="btn btn-outline" id="drawerClear">Clear</button>
+            <button class="btn btn-primary" id="drawerApply">Apply</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="authors.html">Authors</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports from shared modules (assume they exist)
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth, db } from "../js/firebase-config.js";
+        import {
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            startAfter,
+            getDocs,
+            getDoc,
+            doc,
+            getCountFromServer
+        } from "firebase/firestore";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        import { addBookmark, removeBookmark, isBookmarked, getUserBookmarks } from "../js/bookmarks.js";
+        import { getSubjects, getChapters, getTopics } from "../js/firestore.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const heroContent = document.getElementById('heroContent');
+        const contentGrid = document.getElementById('contentGrid');
+        const resultCount = document.getElementById('resultCount');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const typeFilter = document.getElementById('typeFilter');
+        const subjectFilter = document.getElementById('subjectFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const filterChips = document.getElementById('filterChips');
+        const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+        const filterDrawer = document.getElementById('filterDrawer');
+        const filterDrawerOverlay = document.getElementById('filterDrawerOverlay');
+        const drawerClose = document.getElementById('drawerClose');
+        const drawerType = document.getElementById('drawerType');
+        const drawerSubject = document.getElementById('drawerSubject');
+        const drawerSort = document.getElementById('drawerSort');
+        const drawerApply = document.getElementById('drawerApply');
+        const drawerClear = document.getElementById('drawerClear');
+        const breadcrumbAuthor = document.getElementById('breadcrumbAuthor');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            author: null,
+            resources: [],
+            filteredResources: [],
+            displayedResources: [],
+            searchQuery: '',
+            type: 'all',
+            subjectId: '',
+            sortBy: 'relevance',
+            pageSize: 24,
+            lastDoc: null,
+            hasMore: true,
+            loading: false,
+            initialLoad: true,
+            totalResources: 0,
+            subjectMap: {},
+            chapterMap: {},
+            topicMap: {},
+            bookmarkMap: new Map(),
+            user: null,
+            subjects: []
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Helper: sanitize HTML (basic)
+        // ------------------------------------------------------------------
+        function sanitizeHTML(html) {
+            if (!html) return '';
+            return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                .replace(/on\w+="[^"]*"/g, '')
+                .replace(/on\w+='[^']*'/g, '')
+                .replace(/javascript:/gi, '');
+        }
+
+        // ------------------------------------------------------------------
+        // Load author
+        // ------------------------------------------------------------------
+        async function loadAuthor() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const authorId = params.get('authorId');
+
+            try {
+                let author = null;
+                if (slug) {
+                    const q = query(collection(db, 'authors'), where('slug', '==', slug), limit(1));
+                    const snap = await getDocs(q);
+                    if (!snap.empty) {
+                        const doc = snap.docs[0];
+                        author = { id: doc.id, ...doc.data() };
+                    }
+                } else if (authorId) {
+                    const docSnap = await getDoc(doc(db, 'authors', authorId));
+                    if (docSnap.exists()) {
+                        author = { id: docSnap.id, ...docSnap.data() };
+                    }
+                }
+
+                if (!author) {
+                    showNotFound('Author not found');
+                    return;
+                }
+
+                // Check status
+                const status = author.status || 'published';
+                if (status !== 'published' && status !== 'active') {
+                    showNotFound('Author not found');
+                    return;
+                }
+
+                state.author = author;
+                renderAuthorProfile(author);
+                updateBreadcrumb(author);
+                updateSEO(author);
+
+                // Load subjects for filter
+                await loadSubjects();
+
+                // Load resources
+                await loadResources(true);
+
+            } catch (err) {
+                console.error('Error loading author:', err);
+                showError('Unable to load author profile. Please try again.');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load subjects for filter
+        // ------------------------------------------------------------------
+        async function loadSubjects() {
+            try {
+                const subjects = await getSubjects();
+                state.subjects = subjects;
+                subjects.forEach(s => state.subjectMap[s.id] = s);
+                const opts = '<option value="">All Subjects</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                subjectFilter.innerHTML = opts;
+                drawerSubject.innerHTML = opts;
+            } catch (e) {
+                console.warn('Could not load subjects:', e);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load resources with pagination
+        // ------------------------------------------------------------------
+        async function loadResources(reset = true) {
+            if (state.loading) return;
+            if (!state.author) return;
+
+            state.loading = true;
+
+            if (reset) {
+                state.resources = [];
+                state.filteredResources = [];
+                state.displayedResources = [];
+                state.lastDoc = null;
+                state.hasMore = true;
+                contentGrid.innerHTML = renderSkeletons(state.pageSize);
+                resultCount.textContent = 'Loading resources...';
+                loadMoreContainer.style.display = 'none';
+            }
+
+            try {
+                // Query contents where authorId == author.id and status == published
+                const constraints = [
+                    where('authorId', '==', state.author.id),
+                    where('status', '==', 'published')
+                ];
+                // Apply type filter if not 'all'
+                if (state.type !== 'all') {
+                    constraints.push(where('type', '==', state.type));
+                }
+                // Subject filter
+                if (state.subjectId) {
+                    constraints.push(where('subjectId', '==', state.subjectId));
+                }
+
+                // Sorting
+                let orderField = 'updatedAt';
+                let orderDirection = 'desc';
+                if (state.sortBy === 'az') { orderField = 'title';
+                    orderDirection = 'asc'; }
+                if (state.sortBy === 'za') { orderField = 'title';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'newest') { orderField = 'createdAt';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'oldest') { orderField = 'createdAt';
+                    orderDirection = 'asc'; }
+                if (state.sortBy === 'views') { orderField = 'views';
+                    orderDirection = 'desc'; }
+                if (state.sortBy === 'bookmarks') { orderField = 'bookmarks';
+                    orderDirection = 'desc'; }
+
+                const orderByField = (state.sortBy === 'relevance' || state.sortBy === 'recent') ? 'updatedAt' : orderField;
+                const orderDir = (state.sortBy === 'relevance' || state.sortBy === 'recent') ? 'desc' : orderDirection;
+
+                let q = query(collection(db, 'contents'), ...constraints, orderBy(orderByField, orderDir), limit(state
+                    .pageSize));
+                if (state.lastDoc && !reset) {
+                    q = query(q, startAfter(state.lastDoc));
+                }
+
+                const snapshot = await getDocs(q);
+                const resources = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                state.lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+                state.hasMore = snapshot.docs.length === state.pageSize;
+
+                if (reset) {
+                    state.resources = resources;
+                } else {
+                    state.resources = [...state.resources, ...resources];
+                }
+
+                // Get total count (first time only)
+                if (reset && state.totalResources === 0) {
+                    // Count all resources for this author with status published and filters
+                    const countConstraints = constraints.filter(c => c.field !== undefined); // remove invalid? we'll reconstruct
+                    const countQuery = query(collection(db, 'contents'), ...constraints);
+                    const countSnap = await getCountFromServer(countQuery);
+                    state.totalResources = countSnap.data().count;
+                }
+
+                // Apply client-side search and sorting (search query)
+                applyClientSideFilters();
+
+                if (reset && state.resources.length === 0) {
+                    contentGrid.innerHTML = `
+                        <div class="empty-state" style="grid-column:1/-1;">
+                            <i class="fas fa-file-alt"></i>
+                            <p>No published resources found for this author.</p>
+                        </div>
+                    `;
+                    resultCount.textContent = '0 resources';
+                    loadMoreContainer.style.display = 'none';
+                }
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Error loading resources:', err);
+                state.loading = false;
+                showToast('Failed to load resources. Please try again.', 'error');
+                contentGrid.innerHTML = `
+                    <div class="error-state" style="grid-column:1/-1;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Unable to load resources. Please check your connection and try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', () => loadResources(true));
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Client-side filtering (search) and sorting
+        // ------------------------------------------------------------------
+        function applyClientSideFilters() {
+            const query = state.searchQuery.trim().toLowerCase();
+            let filtered = state.resources;
+
+            if (query) {
+                filtered = filtered.filter(res => {
+                    const title = (res.title || '').toLowerCase();
+                    const keywords = (res.keywords || []).join(' ').toLowerCase();
+                    const desc = (res.shortDescription || res.definition || res.statement || '').toLowerCase();
+                    const subject = state.subjectMap[res.subjectId]?.name?.toLowerCase() || '';
+                    return title.includes(query) || keywords.includes(query) || desc.includes(query) || subject
+                        .includes(query);
+                });
+            }
+
+            // Sorting (client-side)
+            const sort = state.sortBy;
+            if (sort === 'az') {
+                filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            } else if (sort === 'za') {
+                filtered.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
+            } else if (sort === 'newest') {
+                filtered.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+            } else if (sort === 'oldest') {
+                filtered.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            } else if (sort === 'views') {
+                filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+            } else if (sort === 'bookmarks') {
+                filtered.sort((a, b) => (b.bookmarks || 0) - (a.bookmarks || 0));
+            } else {
+                // relevance: use existing order from Firestore (updatedAt desc)
+                // but we can also re-rank based on search query if needed
+                if (state.searchQuery) {
+                    const q = state.searchQuery.toLowerCase();
+                    filtered = filtered.map(res => {
+                        let score = 0;
+                        const title = (res.title || '').toLowerCase();
+                        const keywords = (res.keywords || []).join(' ').toLowerCase();
+                        const desc = (res.shortDescription || res.definition || res.statement || '').toLowerCase();
+                        const subject = state.subjectMap[res.subjectId]?.name?.toLowerCase() || '';
+                        if (title === q) score += 40;
+                        if (title.includes(q)) score += 25;
+                        if (keywords.includes(q)) score += 20;
+                        if (subject.includes(q)) score += 10;
+                        if (desc.includes(q)) score += 5;
+                        const popularity = (res.views || 0) + (res.bookmarks || 0) * 2;
+                        score += Math.min(popularity / 10, 5);
+                        return { ...res, _score: score };
+                    });
+                    filtered.sort((a, b) => (b._score || 0) - (a._score || 0));
+                }
+            }
+
+            state.filteredResources = filtered;
+            renderResources(filtered);
+            updateResultCount(filtered.length);
+        }
+
+        // ------------------------------------------------------------------
+        // Render resources
+        // ------------------------------------------------------------------
+        function renderResources(resources) {
+            if (!resources || resources.length === 0) {
+                contentGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <i class="fas fa-search"></i>
+                        <p>No resources match your search or filters.</p>
+                        <button class="btn btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                    </div>
+                `;
+                document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                    clearAllFilters();
+                });
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            const cards = resources.map(res => renderContentCard(res)).join('');
+            contentGrid.innerHTML = cards;
+
+            // KaTeX
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(contentGrid, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+
+            // Update load more visibility
+            if (state.hasMore && resources.length < state.totalResources) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Render author profile
+        // ------------------------------------------------------------------
+        function renderAuthorProfile(author) {
+            const photoUrl = author.photoURL || '';
+            const name = author.name || 'Anonymous';
+            const role = author.role || '';
+            const specialization = author.specialization || '';
+            const bio = author.bio || '';
+            const website = author.website || '';
+            const socialLinks = author.socialLinks || {};
+            const contentCount = author.contentCount !== undefined ? author.contentCount : null;
+
+            const avatarHtml = photoUrl ?
+                `<img src="${photoUrl}" alt="Portrait of ${sanitizeHTML(name)}" loading="eager" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-user\\'></i>'" />` :
+                `<i class="fas fa-user"></i>`;
+
+            // Social links
+            let socialHtml = '';
+            if (socialLinks) {
+                const socialMap = {
+                    website: { icon: 'fa-globe', label: 'Website' },
+                    linkedin: { icon: 'fa-linkedin', label: 'LinkedIn' },
+                    github: { icon: 'fa-github', label: 'GitHub' },
+                    twitter: { icon: 'fa-twitter', label: 'Twitter' },
+                    facebook: { icon: 'fa-facebook', label: 'Facebook' },
+                    youtube: { icon: 'fa-youtube', label: 'YouTube' },
+                    instagram: { icon: 'fa-instagram', label: 'Instagram' }
+                };
+                for (const [key, value] of Object.entries(socialLinks)) {
+                    if (value && socialMap[key]) {
+                        const url = value.startsWith('http') ? value : `https://${value}`;
+                        socialHtml += `<a href="${url}" target="_blank" rel="noopener noreferrer"><i class="fab ${socialMap[key].icon}"></i> ${socialMap[key].label}</a>`;
+                    }
+                }
+            }
+
+            heroContent.innerHTML = `
+                <div class="profile-grid">
+                    <div class="profile-avatar">${avatarHtml}</div>
+                    <div class="profile-info">
+                        <h1>${sanitizeHTML(name)}</h1>
+                        ${role ? `<div class="role">${sanitizeHTML(role)}</div>` : ''}
+                        ${specialization ? `<div class="specialization">${sanitizeHTML(specialization)}</div>` : ''}
+                        ${bio ? `<div class="bio">${sanitizeHTML(bio)}</div>` : ''}
+                        <div class="links">
+                            ${website ? `<a href="${website}" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Website</a>` : ''}
+                            ${socialHtml}
+                        </div>
+                        <div class="profile-stats">
+                            ${contentCount !== null ? `<span class="stat-item"><i class="fas fa-file-alt"></i> <span class="num">${contentCount}</span> Resources</span>` : ''}
+                            ${author.createdAt ? `<span class="stat-item"><i class="fas fa-clock"></i> Joined ${new Date(author.createdAt.toMillis?.() || Date.now()).toLocaleDateString()}</span>` : ''}
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary-action" id="shareProfileBtn"><i class="fas fa-share-alt"></i> Share Profile</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Share button
+            document.getElementById('shareProfileBtn')?.addEventListener('click', () => {
+                shareAuthorProfile();
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Render content card
+        // ------------------------------------------------------------------
+        function renderContentCard(content) {
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const label = typeLabels[content.type] || content.type || 'Content';
+            const subject = state.subjectMap[content.subjectId];
+            const chapter = state.chapterMap[content.chapterId];
+            const topic = state.topicMap[content.topicId];
+
+            const subjectName = subject ? subject.name : 'Unknown Subject';
+            const chapterName = chapter ? chapter.name : 'Unknown Chapter';
+            const topicName = topic ? topic.name : 'Unknown Topic';
+
+            const isBookmarked = state.bookmarkMap.get(content.id) || false;
+            const bookmarkIcon = isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+            const bookmarkClass = isBookmarked ? 'bookmarked' : '';
+
+            // Formula preview
+            let formulaHtml = '';
+            if (content.type === 'formula' && content.formula) {
+                formulaHtml = `<div class="formula-preview" data-formula="${sanitizeHTML(content.formula)}">${sanitizeHTML(content.formula)}</div>`;
+            }
+
+            const desc = content.shortDescription || content.definition || content.statement || '';
+
+            return `
+                <div class="content-card" data-id="${content.id}">
+                    <span class="badge">${label}</span>
+                    <h3><a href="content.html?contentId=${content.id}">${sanitizeHTML(content.title)}</a></h3>
+                    ${formulaHtml}
+                    ${desc ? `<div class="short-desc">${sanitizeHTML(desc)}</div>` : ''}
+                    <div class="hierarchy">
+                        <span>${sanitizeHTML(subjectName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(chapterName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(topicName)}</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="content.html?contentId=${content.id}" class="btn btn-sm btn-secondary">View Details</a>
+                        <button class="bookmark-btn ${bookmarkClass}" data-content-id="${content.id}" aria-label="Bookmark">
+                            <i class="${bookmarkIcon}"></i>
+                        </button>
+                        <button class="share-btn" data-content-id="${content.id}" aria-label="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render skeleton cards
+        // ------------------------------------------------------------------
+        function renderSkeletons(count) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line excerpt"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // ------------------------------------------------------------------
+        // Update result count
+        // ------------------------------------------------------------------
+        function updateResultCount(count) {
+            const total = state.totalResources;
+            if (total === 0) {
+                resultCount.textContent = '0 resources';
+            } else if (state.searchQuery || state.type !== 'all' || state.subjectId) {
+                resultCount.textContent = `Showing ${count} of ${total} resources`;
+            } else {
+                resultCount.textContent = `${total} resources`;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update filter chips
+        // ------------------------------------------------------------------
+        function updateFilterChips() {
+            const chips = [];
+            if (state.searchQuery) {
+                chips.push({ type: 'search', label: `"${state.searchQuery}"` });
+            }
+            if (state.type !== 'all') {
+                const label = state.type.charAt(0).toUpperCase() + state.type.slice(1);
+                chips.push({ type: 'type', value: state.type, label });
+            }
+            if (state.subjectId && state.subjectMap[state.subjectId]) {
+                chips.push({ type: 'subject', value: state.subjectId, label: state.subjectMap[state.subjectId].name });
+            }
+
+            if (chips.length === 0) {
+                filterChips.innerHTML = '';
+                return;
+            }
+
+            filterChips.innerHTML = chips.map(chip => {
+                let removeAttr = '';
+                if (chip.type !== 'search') {
+                    removeAttr = `data-type="${chip.type}" data-value="${chip.value}"`;
+                }
+                return `
+                    <span class="chip">
+                        ${chip.label}
+                        <button class="remove-chip" ${removeAttr} aria-label="Remove filter">&times;</button>
+                    </span>
+                `;
+            }).join('') + `<button class="clear-all" id="clearAllFilters">Clear All</button>`;
+
+            filterChips.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const type = btn.dataset.type;
+                    const value = btn.dataset.value;
+                    if (type === 'type') {
+                        state.type = 'all';
+                        typeFilter.value = 'all';
+                        drawerType.value = 'all';
+                        updateFilterChips();
+                        updateURL();
+                        loadResources(true);
+                    } else if (type === 'subject') {
+                        state.subjectId = '';
+                        subjectFilter.value = '';
+                        drawerSubject.value = '';
+                        updateFilterChips();
+                        updateURL();
+                        loadResources(true);
+                    } else if (type === 'search') {
+                        searchInput.value = '';
+                        state.searchQuery = '';
+                        clearSearch.classList.remove('visible');
+                        updateFilterChips();
+                        updateURL();
+                        applyClientSideFilters();
+                    }
+                });
+            });
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', () => {
+                state.type = 'all';
+                state.subjectId = '';
+                state.searchQuery = '';
+                searchInput.value = '';
+                clearSearch.classList.remove('visible');
+                typeFilter.value = 'all';
+                subjectFilter.value = '';
+                drawerType.value = 'all';
+                drawerSubject.value = '';
+                updateFilterChips();
+                updateURL();
+                loadResources(true);
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // URL synchronization
+        // ------------------------------------------------------------------
+        function updateURL() {
+            const params = new URLSearchParams();
+            if (state.searchQuery) params.set('q', state.searchQuery);
+            if (state.type !== 'all') params.set('type', state.type);
+            if (state.subjectId) params.set('subject', state.subjectId);
+            if (state.sortBy !== 'relevance') params.set('sort', state.sortBy);
+            const current = new URLSearchParams(window.location.search);
+            const slug = current.get('slug');
+            const authorId = current.get('authorId');
+            if (slug) params.set('slug', slug);
+            if (authorId) params.set('authorId', authorId);
+            const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // ------------------------------------------------------------------
+        // Clear all filters
+        // ------------------------------------------------------------------
+        function clearAllFilters() {
+            state.type = 'all';
+            state.subjectId = '';
+            state.searchQuery = '';
+            searchInput.value = '';
+            clearSearch.classList.remove('visible');
+            typeFilter.value = 'all';
+            subjectFilter.value = '';
+            drawerType.value = 'all';
+            drawerSubject.value = '';
+            updateFilterChips();
+            updateURL();
+            loadResources(true);
+        }
+
+        // ------------------------------------------------------------------
+        // Share author profile
+        // ------------------------------------------------------------------
+        async function shareAuthorProfile() {
+            const author = state.author;
+            if (!author) return;
+            const slug = author.slug || author.id;
+            const url = `${window.location.origin}/pages/author.html?slug=${slug}`;
+            const title = author.name || 'Author';
+            const text = `Check out ${title} on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        async function copyLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard.', 'success');
+            } catch {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Share content (reused from other pages)
+        // ------------------------------------------------------------------
+        async function shareContent(contentId) {
+            const content = state.resources.find(r => r.id === contentId);
+            if (!content) return;
+            const url = `${window.location.origin}/pages/content.html?contentId=${contentId}`;
+            const title = content.title || 'Content';
+            const text = content.shortDescription || content.definition || `Check out "${title}" on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Bookmark toggle
+        // ------------------------------------------------------------------
+        async function toggleBookmark(contentId, btnElement) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Please log in to bookmark this item.', 'warning');
+                return;
+            }
+            const icon = btnElement.querySelector('i');
+            const isBookmarkedNow = state.bookmarkMap.get(contentId) || false;
+            try {
+                if (isBookmarkedNow) {
+                    await removeBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, false);
+                    icon.className = 'far fa-bookmark';
+                    btnElement.classList.remove('bookmarked');
+                    showToast('Bookmark removed.', 'success');
+                } else {
+                    await addBookmark(user.uid, contentId);
+                    state.bookmarkMap.set(contentId, true);
+                    icon.className = 'fas fa-bookmark';
+                    btnElement.classList.add('bookmarked');
+                    showToast('Bookmark added!', 'success');
+                }
+            } catch (err) {
+                showToast('Failed to update bookmark.', 'error');
+                console.error(err);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Event Listeners
+        // ------------------------------------------------------------------
+        function setupEventListeners() {
+            // Search
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const val = searchInput.value;
+                    state.searchQuery = val;
+                    if (val.trim() === '') {
+                        clearSearch.classList.remove('visible');
+                    } else {
+                        clearSearch.classList.add('visible');
+                    }
+                    updateFilterChips();
+                    updateURL();
+                    applyClientSideFilters();
+                }, 300);
+            });
+
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                state.searchQuery = '';
+                clearSearch.classList.remove('visible');
+                updateFilterChips();
+                updateURL();
+                applyClientSideFilters();
+                searchInput.focus();
+            });
+
+            // Type filter
+            typeFilter.addEventListener('change', () => {
+                state.type = typeFilter.value;
+                drawerType.value = state.type;
+                updateFilterChips();
+                updateURL();
+                loadResources(true);
+            });
+
+            // Subject filter
+            subjectFilter.addEventListener('change', () => {
+                state.subjectId = subjectFilter.value;
+                drawerSubject.value = state.subjectId;
+                updateFilterChips();
+                updateURL();
+                loadResources(true);
+            });
+
+            // Sort
+            sortSelect.addEventListener('change', () => {
+                state.sortBy = sortSelect.value;
+                drawerSort.value = state.sortBy;
+                updateURL();
+                applyClientSideFilters();
+            });
+
+            // Load more
+            loadMoreBtn.addEventListener('click', () => {
+                loadResources(false);
+            });
+
+            // Mobile filter toggle
+            mobileFilterToggle.addEventListener('click', () => {
+                openDrawer();
+            });
+
+            // Drawer close
+            drawerClose.addEventListener('click', closeDrawer);
+            filterDrawerOverlay.addEventListener('click', closeDrawer);
+
+            // Drawer apply
+            drawerApply.addEventListener('click', () => {
+                const type = drawerType.value;
+                const subject = drawerSubject.value;
+                const sort = drawerSort.value;
+
+                state.type = type;
+                state.subjectId = subject;
+                state.sortBy = sort;
+
+                typeFilter.value = type;
+                subjectFilter.value = subject;
+                sortSelect.value = sort;
+
+                updateFilterChips();
+                updateURL();
+                loadResources(true);
+                closeDrawer();
+            });
+
+            drawerClear.addEventListener('click', () => {
+                drawerType.value = 'all';
+                drawerSubject.value = '';
+                drawerSort.value = 'relevance';
+            });
+
+            // Event delegation for bookmark and share buttons
+            contentGrid.addEventListener('click', async (e) => {
+                const bookmarkBtn = e.target.closest('.bookmark-btn');
+                if (bookmarkBtn) {
+                    e.preventDefault();
+                    const contentId = bookmarkBtn.dataset.contentId;
+                    if (contentId) {
+                        await toggleBookmark(contentId, bookmarkBtn);
+                    }
+                    return;
+                }
+                const shareBtn = e.target.closest('.share-btn');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const contentId = shareBtn.dataset.contentId;
+                    if (contentId) {
+                        await shareContent(contentId);
+                    }
+                    return;
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Drawer functions
+        // ------------------------------------------------------------------
+        function openDrawer() {
+            filterDrawer.classList.add('open');
+            filterDrawerOverlay.classList.add('open');
+            drawerType.value = state.type;
+            drawerSubject.value = state.subjectId;
+            drawerSort.value = state.sortBy;
+        }
+
+        function closeDrawer() {
+            filterDrawer.classList.remove('open');
+            filterDrawerOverlay.classList.remove('open');
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            state.user = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+            if (user) {
+                loadUserBookmarks();
+            } else {
+                state.bookmarkMap.clear();
+                // Re-render to remove bookmarks
+                if (state.resources.length > 0) {
+                    applyClientSideFilters();
+                }
+            }
+        }
+
+        async function loadUserBookmarks() {
+            const user = getCurrentUser();
+            if (!user) return;
+            try {
+                const bookmarks = await getUserBookmarks(user.uid);
+                const ids = bookmarks.map(b => b.id);
+                state.bookmarkMap.clear();
+                ids.forEach(id => state.bookmarkMap.set(id, true));
+                // Re-render resources to reflect bookmark states
+                if (state.resources.length > 0) {
+                    applyClientSideFilters();
+                }
+            } catch (e) {
+                console.warn('Could not load bookmarks:', e);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Helper: show not found
+        // ------------------------------------------------------------------
+        function showNotFound(message) {
+            heroContent.innerHTML = `
+                <div class="not-found-state" style="color:white;padding:20px;">
+                    <i class="fas fa-user" style="color:rgba(255,255,255,0.4);"></i>
+                    <h2 style="color:white;font-size:1.8rem;">${message}</h2>
+                    <p style="opacity:0.8;max-width:500px;margin:0 auto;">The author you're looking for doesn't exist or is no longer publicly available.</p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
+                        <a href="authors.html" class="btn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Browse Authors</a>
+                        <a href="../index.html" class="btn" style="background:white;color:var(--primary-dark);">Go Home</a>
+                    </div>
+                </div>
+            `;
+            contentGrid.innerHTML = '';
+            resultCount.textContent = '';
+            loadMoreContainer.style.display = 'none';
+            breadcrumbAuthor.textContent = 'Not Found';
+            document.title = 'Author Not Found | Academic Knowledge Library';
+        }
+
+        // ------------------------------------------------------------------
+        // Helper: show error
+        // ------------------------------------------------------------------
+        function showError(message) {
+            heroContent.innerHTML = `
+                <div class="error-state" style="color:white;padding:20px;">
+                    <i class="fas fa-exclamation-circle" style="color:rgba(255,255,255,0.5);"></i>
+                    <p style="opacity:0.9;max-width:500px;margin:0 auto;">${message}</p>
+                    <button class="btn" id="retryBtn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Try Again</button>
+                </div>
+            `;
+            document.getElementById('retryBtn')?.addEventListener('click', () => {
+                window.location.reload();
+            });
+            contentGrid.innerHTML = '';
+            resultCount.textContent = '';
+            loadMoreContainer.style.display = 'none';
+        }
+
+        // ------------------------------------------------------------------
+        // Update breadcrumb
+        // ------------------------------------------------------------------
+        function updateBreadcrumb(author) {
+            breadcrumbAuthor.textContent = author.name || 'Author';
+        }
+
+        // ------------------------------------------------------------------
+        // SEO
+        // ------------------------------------------------------------------
+        function updateSEO(author) {
+            const name = author.name || 'Author';
+            const title = `${name} | Academic Knowledge Library`;
+            const description = author.bio || `View the published academic resources and contributions by ${name} on Academic Knowledge Library.`;
+            const url = window.location.href;
+            const image = author.photoURL || 'https://eco-lab-e2f48.web.app/assets/og-image.jpg';
+
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+            document.querySelector('meta[property="og:image"]')?.setAttribute('content', image);
+            document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', image);
+
+            // JSON-LD
+            updateStructuredData(author);
+        }
+
+        function updateStructuredData(author) {
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (!jsonLd) return;
+            try {
+                const data = JSON.parse(jsonLd.textContent);
+                const name = author.name || 'Author';
+                data.name = `${name} | Academic Knowledge Library`;
+                data.description = author.bio || `View the published academic resources and contributions by ${name}.`;
+                data.url = window.location.href;
+                data.mainEntity = {
+                    '@type': 'Person',
+                    'name': name,
+                    'description': author.bio || '',
+                    'image': author.photoURL || '',
+                    'url': window.location.href,
+                    'jobTitle': author.role || '',
+                    'sameAs': []
+                };
+                if (author.website) data.mainEntity.sameAs.push(author.website);
+                if (author.socialLinks) {
+                    for (const [key, value] of Object.entries(author.socialLinks)) {
+                        if (value) data.mainEntity.sameAs.push(value);
+                    }
+                }
+                // Breadcrumb
+                data.breadcrumb = {
+                    '@context': 'https://schema.org',
+                    '@type': 'BreadcrumbList',
+                    'itemListElement': [
+                        { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://eco-lab-e2f48.web.app/' },
+                        { '@type': 'ListItem', 'position': 2, 'name': 'Authors',
+                            'item': 'https://eco-lab-e2f48.web.app/pages/authors.html' },
+                        { '@type': 'ListItem', 'position': 3, 'name': name,
+                            'item': window.location.href }
+                    ]
+                };
+                jsonLd.textContent = JSON.stringify(data);
+            } catch (e) { /* ignore */ }
+        }
+
+        // ------------------------------------------------------------------
+        // Init
+        // ------------------------------------------------------------------
+        async function init() {
+            renderAuthUI(await getCurrentUser());
+            observeAuthState((user) => {
+                renderAuthUI(user);
+                if (user) {
+                    loadUserBookmarks();
+                }
+            });
+
+            // Restore from URL
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            if (q) {
+                searchInput.value = q;
+                state.searchQuery = q;
+                clearSearch.classList.add('visible');
+            }
+            const type = params.get('type');
+            if (type && ['formula', 'law', 'definition', 'concept', 'theorem', 'rule', 'identity', 'constant', 'graph',
+                    'example'
+                ].includes(type)) {
+                state.type = type;
+                typeFilter.value = type;
+                drawerType.value = type;
+            }
+            const subject = params.get('subject');
+            if (subject) {
+                // Will be set after subjects loaded
+            }
+            const sort = params.get('sort');
+            if (sort && ['relevance', 'recent', 'newest', 'oldest', 'views', 'bookmarks', 'az', 'za'].includes(sort)) {
+                state.sortBy = sort;
+                sortSelect.value = sort;
+                drawerSort.value = sort;
+            }
+
+            // Initial JSON-LD
+            const initialJsonLd = {
+                "@context": "https://schema.org",
+                "@type": "ProfilePage",
+                "name": "Author | Academic Knowledge Library",
+                "description": "View the published academic resources and contributions by this author.",
+                "url": window.location.href,
+                "mainEntity": {
+                    "@type": "Person",
+                    "name": "Author"
+                }
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(initialJsonLd);
+            document.head.appendChild(script);
+
+            // Load author and resources
+            await loadAuthor();
+
+            // Set up event listeners after load
+            setupEventListeners();
+
+            // If subjects loaded, apply subject filter from URL
+            if (subject) {
+                // Wait for subjects to be loaded
+                if (state.subjects.length > 0) {
+                    const subj = state.subjects.find(s => s.id === subject);
+                    if (subj) {
+                        state.subjectId = subject;
+                        subjectFilter.value = subject;
+                        drawerSubject.value = subject;
+                        updateFilterChips();
+                        updateURL();
+                        loadResources(true);
+                    }
+                }
+            }
+
+            console.log('✅ Author page loaded.');
+        }
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Subjects | Academic Knowledge Library</title>
+    <meta name="description" content="Browse academic subjects and explore formulas, laws, definitions, concepts, theorems and examples in one organized knowledge library." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/subjects.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Explore Subjects | Academic Knowledge Library" />
+    <meta property="og:description" content="Browse academic subjects and explore formulas, laws, definitions, concepts, theorems and examples in one organized knowledge library." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/subjects.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Explore Subjects | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Browse academic subjects and explore formulas, laws, definitions, concepts, theorems and examples in one organized knowledge library." />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Explore Subjects | Academic Knowledge Library",
+            "description": "Browse academic subjects and explore formulas, laws, definitions, concepts, theorems and examples in one organized knowledge library.",
+            "url": "https://eco-lab-e2f48.web.app/pages/subjects.html",
+            "about": {
+                "@type": "Thing",
+                "name": "Academic Subjects"
+            },
+            "mainEntity": {
+                "@type": "ItemList",
+                "itemListElement": []
+            }
+        }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .page-hero h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+        .page-hero .subjects-count {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-hero .subjects-count i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== SEARCH & FILTER ===== */
+        .search-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 32px;
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .search-filter-bar .search-wrapper {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+        .search-filter-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .search-filter-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 8px;
+        }
+        .search-filter-bar .search-wrapper input {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .search-filter-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .search-filter-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .search-filter-bar .sort-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-filter-bar .sort-wrapper label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .search-filter-bar .sort-wrapper select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .search-filter-bar .result-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* ===== SUBJECT GRID ===== */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== SUBJECT CARD ===== */
+        .subject-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .subject-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .subject-card .card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            overflow: hidden;
+        }
+        .subject-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .subject-card .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .subject-card .card-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .subject-card .card-body p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+        .subject-card .card-body .stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .subject-card .card-body .stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .subject-card .card-body .card-cta {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: gap var(--transition);
+        }
+        .subject-card .card-body .card-cta:hover {
+            gap: 12px;
+        }
+        .subject-card .card-body .card-cta i {
+            transition: transform var(--transition);
+        }
+        .subject-card .card-body .card-cta:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ===== SKELETON ===== */
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 260px;
+        }
+        .skeleton-card .skeleton-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #e2e8f0;
+        }
+        .skeleton-card .skeleton-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 80%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.stats {
+            width: 40%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            .page-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .search-filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px;
+            }
+            .search-filter-bar .search-wrapper {
+                width: 100%;
+            }
+            .search-filter-bar .sort-wrapper {
+                justify-content: space-between;
+            }
+            .search-filter-bar .result-count {
+                margin-left: 0;
+                text-align: center;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .subject-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html" class="active">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <span>Subjects</span>
+        </nav>
+    </div>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Explore Subjects</h1>
+            <p>Browse academic subjects and explore formulas, laws, definitions, concepts, theorems, examples and more.</p>
+            <div class="subjects-count">
+                <i class="fas fa-book"></i>
+                <span id="subjectsCount">Loading...</span> Subjects Available
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEARCH & FILTER BAR ===== -->
+    <section class="container">
+        <div class="search-filter-bar">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="subjectSearch" placeholder="Search subjects..." aria-label="Search subjects" />
+                <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="sort-wrapper">
+                <label for="sortSelect">Sort</label>
+                <select id="sortSelect">
+                    <option value="recommended">Recommended</option>
+                    <option value="az">A–Z</option>
+                    <option value="za">Z–A</option>
+                    <option value="recent">Recently Added</option>
+                </select>
+            </div>
+            <div class="result-count" id="resultCount">Showing 0 subjects</div>
+        </div>
+    </section>
+
+    <!-- ===== SUBJECT GRID ===== -->
+    <section class="container" id="subjectsSection">
+        <div class="subject-grid" id="subjectGrid">
+            <!-- Skeleton cards will be rendered by JavaScript -->
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Import shared Firebase services and data-layer functions
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth } from "../js/firebase-config.js";
+        import { getSubjects } from "../js/firestore.js";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const subjectGrid = document.getElementById('subjectGrid');
+        const subjectsCountEl = document.getElementById('subjectsCount');
+        const resultCountEl = document.getElementById('resultCount');
+        const searchInput = document.getElementById('subjectSearch');
+        const clearBtn = document.getElementById('clearSearch');
+        const sortSelect = document.getElementById('sortSelect');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            subjects: [],
+            filteredSubjects: [],
+            loading: false,
+            error: null,
+            searchQuery: '',
+            sortBy: 'recommended'
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper (shared with index.html)
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Render Skeletons
+        // ------------------------------------------------------------------
+        function renderSkeletons(count = 8) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-image"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line medium"></div>
+                            <div class="skeleton-line long"></div>
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line stats"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            subjectGrid.innerHTML = html;
+            subjectsCountEl.textContent = 'Loading...';
+            resultCountEl.textContent = 'Loading subjects...';
+        }
+
+        // ------------------------------------------------------------------
+        // Render Subject Card
+        // ------------------------------------------------------------------
+        function renderSubjectCard(subject) {
+            const imageHtml = subject.imageUrl ?
+                `<img src="${subject.imageUrl}" alt="${subject.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\'fas fa-book\'></i>'" />` :
+                `<i class="fas fa-book"></i>`;
+
+            // Stats: if subject has chapterCount, topicCount, contentCount fields, display them
+            let statsHtml = '';
+            const stats = [];
+            if (subject.chapterCount !== undefined && subject.chapterCount !== null) {
+                stats.push(`<span><i class="fas fa-book-open"></i> ${subject.chapterCount} Chapters</span>`);
+            }
+            if (subject.topicCount !== undefined && subject.topicCount !== null) {
+                stats.push(`<span><i class="fas fa-tags"></i> ${subject.topicCount} Topics</span>`);
+            }
+            if (subject.contentCount !== undefined && subject.contentCount !== null) {
+                stats.push(`<span><i class="fas fa-file-alt"></i> ${subject.contentCount} Resources</span>`);
+            }
+            if (stats.length > 0) {
+                statsHtml = `<div class="stats">${stats.join('')}</div>`;
+            }
+
+            return `
+                <div class="subject-card">
+                    <div class="card-image">${imageHtml}</div>
+                    <div class="card-body">
+                        <h3>${subject.name}</h3>
+                        <p>${subject.description || ''}</p>
+                        ${statsHtml}
+                        <a href="subject.html?slug=${subject.slug}" class="card-cta">
+                            Explore Subject <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render Subjects
+        // ------------------------------------------------------------------
+        function renderSubjects() {
+            if (state.error) {
+                subjectGrid.innerHTML = `
+                    <div class="error-state" style="grid-column:1/-1;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>${state.error}</p>
+                        <button class="btn btn-sm" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', loadSubjects);
+                subjectsCountEl.textContent = 'Error';
+                resultCountEl.textContent = 'Error loading subjects';
+                return;
+            }
+
+            const items = state.filteredSubjects;
+            if (items.length === 0) {
+                subjectGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <i class="fas fa-search"></i>
+                        <p>No subjects found matching your search.</p>
+                        <button class="btn btn-sm btn-outline" id="clearSearchBtn">Clear Search</button>
+                    </div>
+                `;
+                document.getElementById('clearSearchBtn')?.addEventListener('click', () => {
+                    searchInput.value = '';
+                    clearBtn.classList.remove('visible');
+                    applyFilters();
+                });
+                subjectsCountEl.textContent = state.subjects.length;
+                resultCountEl.textContent = `Showing 0 of ${state.subjects.length} subjects`;
+                return;
+            }
+
+            subjectGrid.innerHTML = items.map(renderSubjectCard).join('');
+            subjectsCountEl.textContent = state.subjects.length;
+            resultCountEl.textContent = `Showing ${items.length} of ${state.subjects.length} subjects`;
+        }
+
+        // ------------------------------------------------------------------
+        // Filter & Sort
+        // ------------------------------------------------------------------
+        function applyFilters() {
+            const query = state.searchQuery.trim().toLowerCase();
+            let filtered = state.subjects;
+
+            if (query) {
+                filtered = filtered.filter(subject =>
+                    subject.name.toLowerCase().includes(query) ||
+                    (subject.description && subject.description.toLowerCase().includes(query))
+                );
+            }
+
+            // Sort
+            const sort = state.sortBy;
+            switch (sort) {
+                case 'az':
+                    filtered.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'za':
+                    filtered.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'recent':
+                    filtered.sort((a, b) => {
+                        const aTime = a.createdAt?.toMillis?.() || 0;
+                        const bTime = b.createdAt?.toMillis?.() || 0;
+                        return bTime - aTime;
+                    });
+                    break;
+                default: // recommended
+                    filtered.sort((a, b) => {
+                        const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+                        const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+                        if (orderA !== orderB) return orderA - orderB;
+                        return a.name.localeCompare(b.name);
+                    });
+                    break;
+            }
+
+            state.filteredSubjects = filtered;
+            renderSubjects();
+        }
+
+        // ------------------------------------------------------------------
+        // Load Subjects from Firestore
+        // ------------------------------------------------------------------
+        async function loadSubjects() {
+            if (state.loading) return;
+            state.loading = true;
+            state.error = null;
+            renderSkeletons(8);
+
+            try {
+                // getSubjects should return published subjects (status == "published")
+                const subjects = await getSubjects();
+                state.subjects = subjects;
+                state.filteredSubjects = subjects;
+                state.loading = false;
+                applyFilters(); // will render
+            } catch (err) {
+                console.error('Error loading subjects:', err);
+                state.error = 'Unable to load subjects. Please try again.';
+                state.loading = false;
+                renderSubjects();
+                showToast('Failed to load subjects.', 'error');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Search input handling
+        // ------------------------------------------------------------------
+        function handleSearchInput() {
+            const val = searchInput.value;
+            state.searchQuery = val;
+            if (val.trim() === '') {
+                clearBtn.classList.remove('visible');
+            } else {
+                clearBtn.classList.add('visible');
+            }
+            applyFilters();
+        }
+
+        searchInput.addEventListener('input', handleSearchInput);
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.classList.remove('visible');
+            state.searchQuery = '';
+            applyFilters();
+            searchInput.focus();
+        });
+
+        sortSelect.addEventListener('change', () => {
+            state.sortBy = sortSelect.value;
+            applyFilters();
+        });
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        observeAuthState((user) => {
+            renderAuthUI(user);
+        });
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Init: Load subjects
+        // ------------------------------------------------------------------
+        loadSubjects();
+
+        // Also listen for URL query param "q" to pre-populate search
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryParam = urlParams.get('q');
+        if (queryParam) {
+            searchInput.value = queryParam;
+            state.searchQuery = queryParam;
+            clearBtn.classList.add('visible');
+            // Load subjects then apply filter
+            // But loadSubjects is async, we can wait for it to finish and then apply filters
+            // However, loadSubjects calls applyFilters eventually.
+            // We'll set a flag or re-apply after load.
+            // Simpler: after load, we can re-apply, but loadSubjects already does applyFilters.
+            // We'll set the state before loading? But subjects are not loaded yet.
+            // We'll handle by waiting for load to complete and then checking query.
+            // We can set a timeout or use a promise.
+            // Better: override applyFilters to check query after load.
+            // We'll just set searchInput and rely on loadSubjects to call applyFilters after loading.
+            // But loadSubjects calls applyFilters after setting state.subjects, so it will use current searchQuery.
+            // So we set searchQuery before load? But loadSubjects clears state.subjects.
+            // We'll set the search value before load.
+            // However, loadSubjects is async; if we set searchQuery before, it will be used.
+            // But we need to ensure it's set before applyFilters is called.
+            // We can set the state and then call loadSubjects.
+            // Let's do:
+            // state.searchQuery = queryParam;
+            // searchInput.value = queryParam;
+            // clearBtn.classList.add('visible');
+            // Then loadSubjects() will use it.
+            // We'll call loadSubjects after setting.
+        }
+
+        // In case query param, we already set searchInput, but loadSubjects is already called above.
+        // We'll check if queryParam and re-run search after load.
+        // We'll use a mutation observer or simply re-apply after load.
+        // Simpler: after loadSubjects completes, we can check if queryParam exists and set it.
+        // But loadSubjects is async and we already called it. We can set a flag and re-apply after.
+        // We'll just set the search value and then call applyFilters after load.
+        // But loadSubjects calls applyFilters at the end. So we can override by setting a timeout.
+        // Better: we'll wrap loadSubjects in a function that handles query param.
+        // Let's restructure: define a function init() that sets up and loads.
+        // We'll re-do: at the bottom, we set up and call loadSubjects, then if queryParam, we set search and re-apply.
+        // But applyFilters will be called after load, and it will use the current searchQuery.
+        // So we can set searchQuery before load.
+        // However, loadSubjects is already called at the end. We'll do:
+        // if (queryParam) { searchInput.value = queryParam; state.searchQuery = queryParam; clearBtn.classList.add('visible'); }
+        // Then loadSubjects(); will use it.
+        // But loadSubjects is async and we need to ensure it uses the updated state.
+        // Since loadSubjects doesn't depend on searchQuery until it calls applyFilters, it's fine.
+        // So we'll set searchQuery before calling loadSubjects.
+        // But we already called loadSubjects above. We'll move loadSubjects call after this check.
+        // Let's refactor: we'll keep the loadSubjects call at the end, but first check query param.
+
+        // Remove the earlier loadSubjects call and place it here.
+        // But we already have it at the end. We'll just move the query param handling before loadSubjects.
+        // We'll wrap in a DOMContentLoaded or just execute in order.
+        // Since this is a module, it runs after DOM ready.
+        // We'll do:
+        // if (queryParam) { ... }
+        // loadSubjects();
+        // But we already have loadSubjects() at the bottom. We'll remove that and put it here.
+        // We'll just restructure the bottom part.
+
+        // We'll remove the earlier loadSubjects() call and put it after this block.
+        // For clarity, we'll comment out the old call and do it here.
+
+        // But we already have loadSubjects() at the end. We'll keep it but move the query param logic before it.
+        // Actually, we can keep it as is: the query param logic runs before loadSubjects if placed before.
+        // So we'll put the query param logic before the loadSubjects call.
+        // We'll refactor.
+
+        // At the bottom, we'll have:
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const queryParam = urlParams.get('q');
+        // if (queryParam) { ... }
+        // loadSubjects();
+
+        // So let's adjust.
+
+        // ===== Page initialization =====
+        // We'll move the loadSubjects call to after the query param handling.
+        // But we already have it at the bottom. We'll keep it, but we need to ensure the query param is set before loading.
+        // Since the script is executed top-down, we can set the query param before the loadSubjects call.
+        // We'll place the query param logic right before the loadSubjects call.
+
+        // I'll restructure the bottom of the script.
+
+        // Remove the previous loadSubjects() call at the very bottom and place it after the query param block.
+
+        // However, the script already has loadSubjects() at the bottom. Let's override by moving.
+
+        // I'll just wrap everything in a function and call it.
+
+        // Actually, for simplicity, I'll just place the query param handling above the loadSubjects call.
+        // Since the script is not wrapped, it executes sequentially. So we'll put:
+
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const queryParam = urlParams.get('q');
+        // if (queryParam) { ... }
+
+        // loadSubjects();
+
+        // But loadSubjects is defined above. We'll just keep that.
+
+        // I'll now remove the old loadSubjects() call at the very bottom and place it after the query param handling.
+
+        // Let's do that.
+
+        // ===== FINAL INITIALIZATION =====
+        // Handle query param
+        const urlParams2 = new URLSearchParams(window.location.search);
+        const queryParam2 = urlParams2.get('q');
+        if (queryParam2) {
+            searchInput.value = queryParam2;
+            state.searchQuery = queryParam2;
+            clearBtn.classList.add('visible');
+        }
+
+        // Load subjects (this will call applyFilters which uses the current searchQuery)
+        loadSubjects();
+
+        // Also, if queryParam is present, we want to ensure the search is applied after load.
+        // But loadSubjects calls applyFilters at the end, which uses the current state.searchQuery.
+        // So it's fine.
+
+        // Additional: if user changes search, it re-applies.
+
+        console.log('✅ Subjects page loaded.');
+    </script>
+</body>
+</html>

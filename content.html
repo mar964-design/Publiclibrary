@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content | Academic Knowledge Library</title>
+    <meta name="description" content="Explore academic resources: formulas, laws, definitions, concepts, and more." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/content.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Content | Academic Knowledge Library" />
+    <meta property="og:description" content="Explore academic resources: formulas, laws, definitions, concepts, and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/content.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Content | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Explore academic resources: formulas, laws, definitions, concepts, and more." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== CONTENT LAYOUT ===== */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 40px;
+            margin-top: 24px;
+        }
+        .content-main {
+            min-width: 0;
+        }
+        .content-sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + 24px);
+            align-self: start;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ===== CONTENT HERO ===== */
+        .content-hero {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .content-hero .type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 16px;
+            border-radius: 20px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+        .content-hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        .content-hero .short-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+        .content-hero .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .content-hero .meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .content-hero .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .content-hero .actions .btn {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .content-hero .actions .btn:hover {
+            background: var(--primary-bg);
+            border-color: var(--primary);
+        }
+        .content-hero .actions .btn-primary-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        .content-hero .actions .btn-primary-action:hover {
+            background: var(--primary-dark);
+        }
+        .content-hero .actions .btn.bookmarked {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border-color: var(--primary);
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+        .content-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .content-section h2 i {
+            color: var(--primary);
+        }
+        .content-section .section-body {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .content-section .section-body p {
+            margin-bottom: 12px;
+        }
+        .content-section .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== FORMULA DISPLAY ===== */
+        .formula-display {
+            padding: 16px 20px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+            overflow-x: auto;
+            font-size: 1.2rem;
+            margin: 8px 0;
+        }
+        .formula-display .katex-display {
+            margin: 0;
+        }
+
+        /* ===== VARIABLES TABLE ===== */
+        .variables-table-wrap {
+            overflow-x: auto;
+        }
+        .variables-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .variables-table th {
+            background: var(--bg);
+            text-align: left;
+            padding: 10px 14px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+        .variables-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .variables-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ===== EXAMPLES ===== */
+        .example-item {
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border-left: 3px solid var(--secondary);
+        }
+        .example-item:last-child {
+            margin-bottom: 0;
+        }
+        .example-item .example-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .example-item .example-question {
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        .example-item .example-solution,
+        .example-item .example-answer {
+            margin-top: 6px;
+        }
+
+        /* ===== IMPORTANT POINTS ===== */
+        .important-points-list {
+            list-style: decimal;
+            padding-left: 24px;
+        }
+        .important-points-list li {
+            margin-bottom: 8px;
+        }
+
+        /* ===== ASSET ===== */
+        .asset-container {
+            margin: 8px 0;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg);
+            text-align: center;
+        }
+        .asset-container img {
+            max-height: 400px;
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .asset-container .asset-actions {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            justify-content: center;
+            border-top: 1px solid var(--border);
+            background: var(--white);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .sidebar-card h4 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-card h4 i {
+            color: var(--primary);
+        }
+        .sidebar-card .toc-list {
+            list-style: none;
+        }
+        .sidebar-card .toc-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-card .toc-list li:last-child {
+            border-bottom: none;
+        }
+        .sidebar-card .toc-list a {
+            color: var(--text-light);
+            transition: color var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sidebar-card .toc-list a:hover {
+            color: var(--primary);
+        }
+        .sidebar-card .topic-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+        .sidebar-card .topic-info-item:last-child {
+            border-bottom: none;
+        }
+        .sidebar-card .topic-info-item .label {
+            color: var(--text-light);
+        }
+        .sidebar-card .topic-info-item .value {
+            font-weight: 500;
+            text-align: right;
+        }
+        .sidebar-card .topic-info-item .value a {
+            color: var(--primary);
+        }
+        .sidebar-card .topic-info-item .value a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RELATED / PREV-NEXT ===== */
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .related-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 16px 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .related-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .related-card .badge-sm {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .related-card h4 {
+            font-size: 1rem;
+        }
+        .related-card h4 a {
+            color: var(--text);
+        }
+        .related-card h4 a:hover {
+            color: var(--primary);
+        }
+        .related-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 4px 0 8px;
+        }
+        .related-card .related-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .prev-next-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        .prev-next-nav .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+            font-weight: 500;
+            flex: 1;
+            max-width: 300px;
+            justify-content: center;
+        }
+        .prev-next-nav .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+        .prev-next-nav .nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-hero .skeleton-line {
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-hero .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-hero .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-hero .skeleton-line.long {
+            width: 80%;
+        }
+        .skeleton-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            min-height: 120px;
+        }
+        .skeleton-section .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-section .skeleton-line.short {
+            width: 40%;
+        }
+        .skeleton-section .skeleton-line.medium {
+            width: 70%;
+        }
+        .skeleton-section .skeleton-line.long {
+            width: 100%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== EMPTY / ERROR / NOT FOUND ===== */
+        .empty-state,
+        .error-state,
+        .not-found-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 300px;
+        }
+        .empty-state i,
+        .error-state i,
+        .not-found-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .not-found-state i {
+            color: var(--border);
+        }
+        .empty-state .btn,
+        .error-state .btn,
+        .not-found-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+            .content-sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .content-hero h1 {
+                font-size: 1.8rem;
+            }
+            .content-hero {
+                padding: 24px 20px;
+            }
+            .content-section {
+                padding: 20px 16px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .content-layout {
+                gap: 24px;
+            }
+            .content-sidebar {
+                grid-template-columns: 1fr;
+            }
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+            .prev-next-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .prev-next-nav .nav-btn {
+                max-width: 100%;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .variables-table-wrap {
+                font-size: 0.85rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .content-hero .actions .btn {
+                flex: 1;
+                justify-content: center;
+            }
+            .content-hero .meta {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <a href="subjects.html">Subjects</a>
+            <span>›</span>
+            <a href="#" id="breadcrumbSubject">Loading...</a>
+            <span>›</span>
+            <a href="#" id="breadcrumbChapter">Loading...</a>
+            <span>›</span>
+            <a href="#" id="breadcrumbTopic">Loading...</a>
+            <span>›</span>
+            <span class="current" id="breadcrumbContent">Loading...</span>
+        </nav>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <div class="container">
+            <!-- Loading / Error / Not Found states will be rendered here -->
+            <div id="contentContainer">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Import shared Firebase services and data-layer functions
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth } from "../js/firebase-config.js";
+        import {
+            getContentById,
+            getContentBySlug,
+            getSubjectBySlug,
+            getChapterBySlug,
+            getTopicBySlug,
+            getRelatedContent,
+            getContentsByTopic,
+            getSubjectById,
+            getChapterById,
+            getTopicById
+        } from "../js/firestore.js";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        import { addBookmark, removeBookmark, isBookmarked } from "../js/bookmarks.js";
+        import { recordView } from "../js/analytics.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const contentContainer = document.getElementById('contentContainer');
+        const breadcrumbSubject = document.getElementById('breadcrumbSubject');
+        const breadcrumbChapter = document.getElementById('breadcrumbChapter');
+        const breadcrumbTopic = document.getElementById('breadcrumbTopic');
+        const breadcrumbContent = document.getElementById('breadcrumbContent');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            content: null,
+            subject: null,
+            chapter: null,
+            topic: null,
+            relatedContent: [],
+            prevContent: null,
+            nextContent: null,
+            isBookmarked: false,
+            loading: true,
+            error: null,
+            notFound: false
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Sanitize HTML (basic)
+        // ------------------------------------------------------------------
+        function sanitizeHTML(html) {
+            if (!html) return '';
+            // Remove script tags and event handlers
+            const temp = document.createElement('div');
+            temp.textContent = html;
+            return temp.innerHTML; // This escapes HTML, but we want to allow some tags. 
+            // For simplicity, we'll use a more permissive approach: we'll allow basic formatting.
+            // We'll use a simple sanitizer that removes script and on* attributes.
+            const sanitized = html
+                .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                .replace(/on\w+="[^"]*"/g, '')
+                .replace(/on\w+='[^']*'/g, '')
+                .replace(/javascript:/gi, '');
+            return sanitized;
+        }
+
+        // ------------------------------------------------------------------
+        // Parse route parameters
+        // ------------------------------------------------------------------
+        function parseContentRoute() {
+            const params = new URLSearchParams(window.location.search);
+            const contentId = params.get('contentId');
+            const subjectSlug = params.get('subject');
+            const chapterSlug = params.get('chapter');
+            const topicSlug = params.get('topic');
+            const slug = params.get('slug');
+            return { contentId, subjectSlug, chapterSlug, topicSlug, slug };
+        }
+
+        // ------------------------------------------------------------------
+        // Render loading state
+        // ------------------------------------------------------------------
+        function renderLoading() {
+            contentContainer.innerHTML = `
+                <div class="skeleton-hero" style="background:var(--white);border-radius:var(--radius);padding:32px 36px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:32px;">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-line short" style="width:50%;"></div>
+                </div>
+                <div class="skeleton-section">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                </div>
+                <div class="skeleton-section">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                </div>
+                <div class="skeleton-section">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                </div>
+            `;
+            breadcrumbSubject.textContent = 'Loading...';
+            breadcrumbChapter.textContent = 'Loading...';
+            breadcrumbTopic.textContent = 'Loading...';
+            breadcrumbContent.textContent = 'Loading...';
+        }
+
+        // ------------------------------------------------------------------
+        // Render not found
+        // ------------------------------------------------------------------
+        function renderNotFound() {
+            contentContainer.innerHTML = `
+                <div class="not-found-state">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Content Not Found</h2>
+                    <p>The resource you're looking for may have been removed, unpublished, or the URL may be incorrect.</p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <a href="javascript:history.back()" class="btn btn-outline">Go Back</a>
+                        <a href="subjects.html" class="btn btn-primary">Browse All Subjects</a>
+                    </div>
+                </div>
+            `;
+            breadcrumbSubject.textContent = 'Not Found';
+            breadcrumbChapter.textContent = '';
+            breadcrumbTopic.textContent = '';
+            breadcrumbContent.textContent = '';
+            document.title = 'Content Not Found | Academic Knowledge Library';
+        }
+
+        // ------------------------------------------------------------------
+        // Render error
+        // ------------------------------------------------------------------
+        function renderError(message = 'Unable to load this resource. Please check your connection and try again.') {
+            contentContainer.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                </div>
+            `;
+            document.getElementById('retryBtn')?.addEventListener('click', loadContentPage);
+            breadcrumbSubject.textContent = 'Error';
+            breadcrumbChapter.textContent = '';
+            breadcrumbTopic.textContent = '';
+            breadcrumbContent.textContent = '';
+        }
+
+        // ------------------------------------------------------------------
+        // Render content page
+        // ------------------------------------------------------------------
+        function renderContentPage() {
+            const content = state.content;
+            const subject = state.subject;
+            const chapter = state.chapter;
+            const topic = state.topic;
+
+            if (!content) {
+                renderNotFound();
+                return;
+            }
+
+            // Type badge
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const typeLabel = typeLabels[content.type] || content.type || 'Content';
+            const typeIcon = {
+                formula: 'fa-calculator',
+                law: 'fa-gavel',
+                definition: 'fa-book',
+                concept: 'fa-lightbulb',
+                theorem: 'fa-flask',
+                rule: 'fa-ruler',
+                identity: 'fa-equals',
+                constant: 'fa-infinity',
+                graph: 'fa-chart-line',
+                example: 'fa-list'
+            } [content.type] || 'fa-file';
+
+            // Build sections
+            let sectionsHtml = '';
+
+            // Definition
+            if (content.definition) {
+                sectionsHtml += `
+                    <section class="content-section" id="definition">
+                        <h2><i class="fas fa-book"></i> Definition</h2>
+                        <div class="section-body">${sanitizeHTML(content.definition)}</div>
+                    </section>
+                `;
+            }
+
+            // Statement
+            if (content.statement) {
+                sectionsHtml += `
+                    <section class="content-section" id="statement">
+                        <h2><i class="fas fa-quote-right"></i> Statement</h2>
+                        <div class="section-body">${sanitizeHTML(content.statement)}</div>
+                    </section>
+                `;
+            }
+
+            // Formula
+            if (content.formula) {
+                sectionsHtml += `
+                    <section class="content-section" id="formula">
+                        <h2><i class="fas fa-calculator"></i> Formula</h2>
+                        <div class="section-body">
+                            <div class="formula-display" data-formula="${sanitizeHTML(content.formula)}">
+                                ${sanitizeHTML(content.formula)}
+                            </div>
+                            <button class="btn btn-sm btn-outline" id="copyFormulaBtn" style="margin-top:8px;">
+                                <i class="fas fa-copy"></i> Copy Formula
+                            </button>
+                        </div>
+                    </section>
+                `;
+            }
+
+            // Variables
+            if (content.variables && content.variables.length > 0) {
+                let tableHtml = `
+                    <table class="variables-table">
+                        <thead><tr>
+                            <th>Symbol</th>
+                            <th>Meaning</th>
+                            <th>Unit</th>
+                        </tr></thead>
+                        <tbody>
+                `;
+                for (const v of content.variables) {
+                    tableHtml += `
+                        <tr>
+                            <td>${v.symbol || ''}</td>
+                            <td>${v.name || v.meaning || ''}</td>
+                            <td>${v.unit || ''}</td>
+                        </tr>
+                    `;
+                }
+                tableHtml += `</tbody></table>`;
+                sectionsHtml += `
+                    <section class="content-section" id="variables">
+                        <h2><i class="fas fa-table"></i> Variables</h2>
+                        <div class="section-body">
+                            <div class="variables-table-wrap">${tableHtml}</div>
+                        </div>
+                    </section>
+                `;
+            }
+
+            // Explanation
+            if (content.explanation) {
+                sectionsHtml += `
+                    <section class="content-section" id="explanation">
+                        <h2><i class="fas fa-comment-dots"></i> Explanation</h2>
+                        <div class="section-body">${sanitizeHTML(content.explanation)}</div>
+                    </section>
+                `;
+            }
+
+            // Examples
+            if (content.examples && content.examples.length > 0) {
+                let examplesHtml = '';
+                for (let i = 0; i < content.examples.length; i++) {
+                    const ex = content.examples[i];
+                    examplesHtml += `
+                        <div class="example-item">
+                            ${ex.title ? `<div class="example-title">Example ${i+1}: ${ex.title}</div>` : `<div class="example-title">Example ${i+1}</div>`}
+                            ${ex.question ? `<div class="example-question">${ex.question}</div>` : ''}
+                            ${ex.solution ? `<div class="example-solution"><strong>Solution:</strong> ${ex.solution}</div>` : ''}
+                            ${ex.answer ? `<div class="example-answer"><strong>Answer:</strong> ${ex.answer}</div>` : ''}
+                        </div>
+                    `;
+                }
+                sectionsHtml += `
+                    <section class="content-section" id="examples">
+                        <h2><i class="fas fa-list"></i> Examples</h2>
+                        <div class="section-body">${examplesHtml}</div>
+                    </section>
+                `;
+            }
+
+            // Important Points
+            if (content.importantPoints && content.importantPoints.length > 0) {
+                let pointsHtml = '<ul class="important-points-list">';
+                for (const pt of content.importantPoints) {
+                    pointsHtml += `<li>${pt}</li>`;
+                }
+                pointsHtml += '</ul>';
+                sectionsHtml += `
+                    <section class="content-section" id="important-points">
+                        <h2><i class="fas fa-star"></i> Important Points</h2>
+                        <div class="section-body">${pointsHtml}</div>
+                    </section>
+                `;
+            }
+
+            // Asset (image/graph)
+            if (content.imageUrl || content.assetUrl) {
+                const assetUrl = content.imageUrl || content.assetUrl;
+                sectionsHtml += `
+                    <section class="content-section" id="asset">
+                        <h2><i class="fas fa-image"></i> ${content.type === 'graph' ? 'Graph' : 'Asset'}</h2>
+                        <div class="section-body">
+                            <div class="asset-container">
+                                <img src="${assetUrl}" alt="${content.title}" loading="lazy" onerror="this.parentElement.innerHTML='<p style=\'padding:20px;color:var(--text-light);\'>Asset could not be loaded.</p>'" />
+                                <div class="asset-actions">
+                                    <a href="${assetUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Open</a>
+                                    <a href="${assetUrl}" download class="btn btn-sm btn-outline"><i class="fas fa-download"></i> Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+
+            // TOC (sidebar) - collect section IDs
+            const tocItems = [];
+            if (content.definition) tocItems.push({ id: 'definition', label: 'Definition' });
+            if (content.statement) tocItems.push({ id: 'statement', label: 'Statement' });
+            if (content.formula) tocItems.push({ id: 'formula', label: 'Formula' });
+            if (content.variables && content.variables.length > 0) tocItems.push({ id: 'variables', label: 'Variables' });
+            if (content.explanation) tocItems.push({ id: 'explanation', label: 'Explanation' });
+            if (content.examples && content.examples.length > 0) tocItems.push({ id: 'examples', label: 'Examples' });
+            if (content.importantPoints && content.importantPoints.length > 0) tocItems.push({ id: 'important-points',
+                label: 'Important Points' });
+            if (content.imageUrl || content.assetUrl) tocItems.push({ id: 'asset', label: content.type === 'graph' ?
+                    'Graph' : 'Asset' });
+
+            let tocHtml = '';
+            if (tocItems.length > 0) {
+                tocHtml = `
+                    <div class="sidebar-card">
+                        <h4><i class="fas fa-list"></i> Table of Contents</h4>
+                        <ul class="toc-list">
+                            ${tocItems.map(item => `<li><a href="#${item.id}"><i class="fas fa-chevron-right" style="font-size:0.6rem;"></i> ${item.label}</a></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Topic info sidebar
+            const topicInfoHtml = `
+                <div class="sidebar-card">
+                    <h4><i class="fas fa-info-circle"></i> Topic Information</h4>
+                    <div class="topic-info-item">
+                        <span class="label">Subject</span>
+                        <span class="value">${subject ? `<a href="subject.html?slug=${subject.slug}">${subject.name}</a>` : 'N/A'}</span>
+                    </div>
+                    <div class="topic-info-item">
+                        <span class="label">Chapter</span>
+                        <span class="value">${chapter ? `<a href="chapter.html?subject=${subject?.slug}&slug=${chapter.slug}">${chapter.name}</a>` : 'N/A'}</span>
+                    </div>
+                    <div class="topic-info-item">
+                        <span class="label">Topic</span>
+                        <span class="value">${topic ? `<a href="topic.html?subject=${subject?.slug}&chapter=${chapter?.slug}&slug=${topic.slug}">${topic.name}</a>` : 'N/A'}</span>
+                    </div>
+                    <div class="topic-info-item">
+                        <span class="label">Type</span>
+                        <span class="value">${typeLabel}</span>
+                    </div>
+                    ${content.views !== undefined ? `<div class="topic-info-item"><span class="label">Views</span><span class="value">${content.views}</span></div>` : ''}
+                </div>
+            `;
+
+            // Related resources
+            let relatedHtml = '';
+            if (state.relatedContent && state.relatedContent.length > 0) {
+                const cards = state.relatedContent.map(rc => `
+                    <div class="related-card">
+                        <span class="badge-sm">${typeLabels[rc.type] || rc.type || 'Content'}</span>
+                        <h4><a href="content.html?contentId=${rc.id}">${rc.title}</a></h4>
+                        <p>${rc.shortDescription || ''}</p>
+                        <div class="related-meta">
+                            <span><i class="fas fa-eye"></i> ${rc.views || 0}</span>
+                            <span><i class="fas fa-bookmark"></i> ${rc.bookmarks || 0}</span>
+                        </div>
+                    </div>
+                `).join('');
+                relatedHtml = `
+                    <section style="margin-top:40px;">
+                        <h2 class="section-title"><i class="fas fa-link"></i> Related Resources</h2>
+                        <div class="related-grid">${cards}</div>
+                    </section>
+                `;
+            }
+
+            // Previous/Next
+            let prevNextHtml = '';
+            const prev = state.prevContent;
+            const next = state.nextContent;
+            if (prev || next) {
+                prevNextHtml = `
+                    <div class="prev-next-nav">
+                        ${prev ? `<a href="content.html?contentId=${prev.id}" class="nav-btn"><i class="fas fa-arrow-left"></i> ${prev.title}</a>` : '<span></span>'}
+                        ${next ? `<a href="content.html?contentId=${next.id}" class="nav-btn">${next.title} <i class="fas fa-arrow-right"></i></a>` : '<span></span>'}
+                    </div>
+                `;
+            }
+
+            // Hero actions
+            const bookmarkIcon = state.isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+            const bookmarkLabel = state.isBookmarked ? 'Bookmarked' : 'Bookmark';
+            const bookmarkClass = state.isBookmarked ? 'bookmarked' : '';
+
+            // Full page render
+            const fullHtml = `
+                <div class="content-hero">
+                    <div class="type-badge"><i class="fas ${typeIcon}"></i> ${typeLabel}</div>
+                    <h1>${content.title}</h1>
+                    ${content.shortDescription ? `<p class="short-desc">${content.shortDescription}</p>` : ''}
+                    <div class="meta">
+                        ${subject ? `<span><i class="fas fa-book"></i> ${subject.name}</span>` : ''}
+                        ${chapter ? `<span><i class="fas fa-book-open"></i> ${chapter.name}</span>` : ''}
+                        ${topic ? `<span><i class="fas fa-tag"></i> ${topic.name}</span>` : ''}
+                        ${content.updatedAt ? `<span><i class="fas fa-clock"></i> Updated ${new Date(content.updatedAt.toMillis?.() || Date.now()).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>` : ''}
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary-action ${bookmarkClass}" id="bookmarkBtn"><i class="${bookmarkIcon}"></i> ${bookmarkLabel}</button>
+                        <button class="btn" id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
+                        ${content.formula ? `<button class="btn" id="copyFormulaBtnHero"><i class="fas fa-copy"></i> Copy Formula</button>` : ''}
+                    </div>
+                </div>
+
+                <div class="content-layout">
+                    <div class="content-main">
+                        ${sectionsHtml}
+                        ${relatedHtml}
+                        ${prevNextHtml}
+                    </div>
+                    <div class="content-sidebar">
+                        ${tocHtml}
+                        ${topicInfoHtml}
+                    </div>
+                </div>
+            `;
+
+            contentContainer.innerHTML = fullHtml;
+
+            // Attach event listeners
+            // Bookmark
+            document.getElementById('bookmarkBtn')?.addEventListener('click', toggleBookmark);
+
+            // Share
+            document.getElementById('shareBtn')?.addEventListener('click', shareContent);
+
+            // Copy formula (hero and section)
+            document.getElementById('copyFormulaBtn')?.addEventListener('click', () => copyFormula(content.formula));
+            document.getElementById('copyFormulaBtnHero')?.addEventListener('click', () => copyFormula(content.formula));
+
+            // Update breadcrumb
+            if (subject) {
+                breadcrumbSubject.textContent = subject.name;
+                breadcrumbSubject.href = `subject.html?slug=${subject.slug}`;
+            } else {
+                breadcrumbSubject.textContent = 'Unknown';
+                breadcrumbSubject.removeAttribute('href');
+            }
+            if (chapter) {
+                breadcrumbChapter.textContent = chapter.name;
+                breadcrumbChapter.href =
+                `chapter.html?subject=${subject?.slug}&slug=${chapter.slug}`;
+            } else {
+                breadcrumbChapter.textContent = 'Unknown';
+                breadcrumbChapter.removeAttribute('href');
+            }
+            if (topic) {
+                breadcrumbTopic.textContent = topic.name;
+                breadcrumbTopic.href =
+                `topic.html?subject=${subject?.slug}&chapter=${chapter?.slug}&slug=${topic.slug}`;
+            } else {
+                breadcrumbTopic.textContent = 'Unknown';
+                breadcrumbTopic.removeAttribute('href');
+            }
+            breadcrumbContent.textContent = content.title;
+
+            // Update SEO
+            updateSEO(content, subject, chapter, topic);
+
+            // Render KaTeX
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(document.body, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+
+            // After render, record view (via backend function)
+            if (content.id) {
+                recordView(content.id).catch(e => console.warn('View recording failed:', e));
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Bookmark toggle
+        // ------------------------------------------------------------------
+        async function toggleBookmark() {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Please log in to bookmark this content.', 'warning');
+                return;
+            }
+            const contentId = state.content.id;
+            const btn = document.getElementById('bookmarkBtn');
+            try {
+                if (state.isBookmarked) {
+                    await removeBookmark(user.uid, contentId);
+                    state.isBookmarked = false;
+                    btn.innerHTML = '<i class="far fa-bookmark"></i> Bookmark';
+                    btn.classList.remove('bookmarked');
+                    showToast('Bookmark removed.', 'success');
+                } else {
+                    await addBookmark(user.uid, contentId);
+                    state.isBookmarked = true;
+                    btn.innerHTML = '<i class="fas fa-bookmark"></i> Bookmarked';
+                    btn.classList.add('bookmarked');
+                    showToast('Bookmark added!', 'success');
+                }
+            } catch (err) {
+                showToast('Failed to update bookmark.', 'error');
+                console.error(err);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Share content
+        // ------------------------------------------------------------------
+        async function shareContent() {
+            const url = window.location.href;
+            const title = state.content.title;
+            const text = state.content.shortDescription || `Check out "${title}" on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        async function copyLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard.', 'success');
+            } catch {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Copy formula
+        // ------------------------------------------------------------------
+        async function copyFormula(formula) {
+            if (!formula) return;
+            try {
+                await navigator.clipboard.writeText(formula);
+                showToast('Formula copied to clipboard.', 'success');
+            } catch {
+                const input = document.createElement('input');
+                input.value = formula;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Formula copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update SEO
+        // ------------------------------------------------------------------
+        function updateSEO(content, subject, chapter, topic) {
+            if (!content) return;
+            const title = `${content.title} | ${topic ? topic.name : ''} | ${subject ? subject.name : ''} | Academic Knowledge Library`;
+            const description = content.shortDescription || content.definition || `Explore ${content.title} on Academic Knowledge Library.`;
+            const url = window.location.href;
+            const image = content.imageUrl || content.assetUrl || 'https://eco-lab-e2f48.web

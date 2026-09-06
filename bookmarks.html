@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Bookmarks | Academic Knowledge Library</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/auth/bookmarks.html" />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- KaTeX (optional) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HEADER (reused) ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== BOOKMARKS PAGE ===== */
+        .bookmarks-page {
+            flex: 1;
+            padding: 32px 0 60px;
+        }
+
+        /* ===== FILTERS BAR ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .filters-bar .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+            margin-bottom: 12px;
+        }
+        .filters-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .filters-bar .search-wrapper input {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .filters-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .filters-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .filters-bar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: flex-end;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex: 1 0 auto;
+        }
+        .filters-bar .filter-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .filters-bar .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filters-bar .sort-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .sort-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filters-bar .filter-chips .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+        .filters-bar .filter-chips .chip .remove-chip {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .chip .remove-chip:hover {
+            color: var(--primary);
+        }
+        .filters-bar .filter-chips .clear-all {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .clear-all:hover {
+            color: var(--primary);
+        }
+
+        /* ===== BOOKMARK GRID ===== */
+        .bookmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== BOOKMARK CARD ===== */
+        .bookmark-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .bookmark-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .bookmark-card .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 12px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            margin-bottom: 8px;
+        }
+        .bookmark-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .bookmark-card h3 a {
+            color: var(--text);
+        }
+        .bookmark-card h3 a:hover {
+            color: var(--primary);
+        }
+        .bookmark-card .formula-preview {
+            margin: 8px 0 12px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+        .bookmark-card .formula-preview .katex-display {
+            margin: 0;
+        }
+        .bookmark-card .short-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            flex: 1;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .bookmark-card .hierarchy {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .bookmark-card .hierarchy span {
+            display: inline-block;
+        }
+        .bookmark-card .hierarchy .sep {
+            margin: 0 4px;
+            color: var(--border);
+        }
+        .bookmark-card .bookmark-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .bookmark-card .bookmark-meta i {
+            margin-right: 4px;
+        }
+        .bookmark-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        .bookmark-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .bookmark-card .card-actions .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        .bookmark-card .card-actions .btn-outline-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .bookmark-card .card-actions .remove-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #dc3545;
+            transition: color var(--transition);
+            padding: 4px 8px;
+            margin-left: auto;
+        }
+        .bookmark-card .card-actions .remove-btn:hover {
+            color: #a71d2a;
+        }
+        .bookmark-card .card-actions .remove-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .bookmark-card .card-actions .remove-btn .spinner-sm {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: #dc3545;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.excerpt {
+            height: 60px;
+            width: 90%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== UNDO TOAST ===== */
+        .undo-toast {
+            background: var(--white);
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-hover);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .undo-toast .undo-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .undo-toast .undo-btn:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            .bookmark-grid {
+                grid-template-columns: 1fr;
+            }
+            .skeleton-grid {
+                grid-template-columns: 1fr;
+            }
+            .filters-bar .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filters-bar .filter-group {
+                min-width: 100%;
+            }
+            .filters-bar .sort-group {
+                justify-content: space-between;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-bar {
+                padding: 12px 16px;
+            }
+            .bookmark-card .card-actions {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="../pages/subjects.html">Subjects</a>
+                <a href="../pages/formulas.html">Formulas</a>
+                <a href="../pages/laws.html">Laws</a>
+                <a href="../pages/search.html">Search</a>
+                <a href="../pages/authors.html">Authors</a>
+                <a href="../pages/about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <span class="current">My Bookmarks</span>
+        </nav>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="bookmarks-page">
+        <div class="container">
+            <h1 style="font-size:1.8rem;margin-bottom:0.25rem;">My Bookmarks</h1>
+            <p style="color:var(--text-light);margin-bottom:24px;">Your saved academic resources</p>
+
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search bookmarks..." aria-label="Search bookmarks" />
+                    <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="typeFilter">Type</label>
+                        <select id="typeFilter">
+                            <option value="all">All Types</option>
+                            <option value="formula">Formula</option>
+                            <option value="law">Law</option>
+                            <option value="definition">Definition</option>
+                            <option value="concept">Concept</option>
+                            <option value="theorem">Theorem</option>
+                            <option value="rule">Rule</option>
+                            <option value="identity">Identity</option>
+                            <option value="constant">Constant</option>
+                            <option value="graph">Graph</option>
+                            <option value="example">Example</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="subjectFilter">Subject</label>
+                        <select id="subjectFilter">
+                            <option value="all">All Subjects</option>
+                        </select>
+                    </div>
+                    <div class="sort-group">
+                        <label for="sortSelect">Sort</label>
+                        <select id="sortSelect">
+                            <option value="recent">Recently Bookmarked</option>
+                            <option value="oldest">Oldest Bookmarked</option>
+                            <option value="title">Title A–Z</option>
+                            <option value="title_desc">Title Z–A</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-chips" id="filterChips"></div>
+            </div>
+
+            <!-- Result count -->
+            <div id="resultCount" style="margin-bottom:1rem;color:var(--text-light);">Loading bookmarks...</div>
+
+            <!-- Bookmarks grid -->
+            <div class="bookmark-grid" id="bookmarkGrid">
+                <!-- Skeleton cards -->
+            </div>
+
+            <!-- Load More (if needed) -->
+            <div class="load-more-container" id="loadMoreContainer" style="display:none;text-align:center;margin-top:32px;">
+                <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="../pages/subjects.html">Subjects</a>
+                <a href="../pages/formulas.html">Formulas</a>
+                <a href="../pages/laws.html">Laws</a>
+                <a href="../pages/search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+                <a href="profile.html">Profile</a>
+                <a href="bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="../pages/about.html">About</a>
+                <a href="../pages/contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== BOOKMARKS.JS (created inline for simplicity but can be extracted) ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports from shared modules
+        // ------------------------------------------------------------------
+        import { auth, db } from '../js/firebase-config.js';
+        import {
+            onAuthStateChanged,
+            signOut
+        } from 'firebase/auth';
+        import {
+            collection,
+            doc,
+            getDocs,
+            getDoc,
+            deleteDoc,
+            query,
+            orderBy,
+            limit,
+            startAfter,
+            where,
+            writeBatch
+        } from 'firebase/firestore';
+        import { getSubjects, getChapters, getTopics } from '../js/firestore.js';
+        import { logoutUser, getCurrentUser } from '../js/auth.js';
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const bookmarkGrid = document.getElementById('bookmarkGrid');
+        const resultCount = document.getElementById('resultCount');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const typeFilter = document.getElementById('typeFilter');
+        const subjectFilter = document.getElementById('subjectFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const filterChips = document.getElementById('filterChips');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const toastContainer = document.getElementById('toastContainer');
+        const navAuth = document.getElementById('navAuth');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            user: null,
+            bookmarks: [], // array of { bookmarkId, contentId, createdAt, contentData? }
+            allBookmarks: [], // with resolved content
+            filteredBookmarks: [],
+            displayedBookmarks: [],
+            searchQuery: '',
+            typeFilter: 'all',
+            subjectFilter: 'all',
+            sortBy: 'recent',
+            lastVisible: null,
+            hasMore: true,
+            loading: false,
+            loaded: false,
+            // metadata
+            subjectMap: {},
+            chapterMap: {},
+            topicMap: {},
+            subjects: [],
+            // removal undo
+            removalQueue: []
+        };
+
+        const PAGE_SIZE = 20;
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Redirect helper
+        // ------------------------------------------------------------------
+        function redirectToLogin() {
+            const redirect = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `login.html?redirect=${redirect}`;
+        }
+
+        // ------------------------------------------------------------------
+        // Format date
+        // ------------------------------------------------------------------
+        function formatDate(timestamp) {
+            if (!timestamp) return 'N/A';
+            if (timestamp.toDate) {
+                return timestamp.toDate().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+            return 'N/A';
+        }
+
+        // ------------------------------------------------------------------
+        // Load metadata (subjects, chapters, topics)
+        // ------------------------------------------------------------------
+        async function loadMetadata() {
+            try {
+                const subjects = await getSubjects();
+                state.subjects = subjects;
+                subjects.forEach(s => state.subjectMap[s.id] = s);
+                const chapters = await getChapters(null, 'published');
+                chapters.forEach(c => state.chapterMap[c.id] = c);
+                const topics = await getTopics(null, null, 'published');
+                topics.forEach(t => state.topicMap[t.id] = t);
+
+                // Populate subject filter
+                const subjectOpts = '<option value="all">All Subjects</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                subjectFilter.innerHTML = subjectOpts;
+            } catch (e) {
+                console.warn('Could not load metadata:', e);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load bookmarks from Firestore
+        // ------------------------------------------------------------------
+        async function loadBookmarks() {
+            if (state.loading) return;
+            state.loading = true;
+
+            // Show skeletons
+            bookmarkGrid.innerHTML = renderSkeletons();
+
+            try {
+                const user = getCurrentUser();
+                if (!user) {
+                    redirectToLogin();
+                    return;
+                }
+
+                // Build query for bookmarks subcollection
+                const bookmarksRef = collection(db, 'users', user.uid, 'bookmarks');
+                let q = query(bookmarksRef, orderBy('createdAt', 'desc'), limit(PAGE_SIZE));
+                if (state.lastVisible) {
+                    q = query(q, startAfter(state.lastVisible));
+                }
+
+                const snapshot = await getDocs(q);
+                const docs = snapshot.docs;
+                state.lastVisible = docs[docs.length - 1] || null;
+                state.hasMore = docs.length === PAGE_SIZE;
+
+                // Resolve content for each bookmark
+                const bookmarkItems = [];
+                for (const docSnap of docs) {
+                    const data = docSnap.data();
+                    const contentId = data.contentId || docSnap.id;
+                    // Fetch content document
+                    const contentRef = doc(db, 'contents', contentId);
+                    const contentSnap = await getDoc(contentRef);
+                    if (contentSnap.exists()) {
+                        const contentData = contentSnap.data();
+                        // Only show published content
+                        if (contentData.status === 'published') {
+                            bookmarkItems.push({
+                                bookmarkId: docSnap.id,
+                                contentId: contentId,
+                                createdAt: data.createdAt,
+                                contentData: contentData
+                            });
+                        } else {
+                            // Stale bookmark - content not published
+                            // We'll still show it as unavailable? Better to allow removal.
+                            // For now, we'll skip, but we could show a placeholder.
+                            // We'll add a stale marker option later.
+                        }
+                    } else {
+                        // Content doesn't exist - stale
+                        // We'll still show a placeholder to allow removal.
+                        bookmarkItems.push({
+                            bookmarkId: docSnap.id,
+                            contentId: contentId,
+                            createdAt: data.createdAt,
+                            contentData: null,
+                            stale: true
+                        });
+                    }
+                }
+
+                // Append to existing bookmarks
+                if (state.bookmarks.length === 0) {
+                    state.bookmarks = bookmarkItems;
+                } else {
+                    state.bookmarks = [...state.bookmarks, ...bookmarkItems];
+                }
+
+                state.loaded = true;
+                state.loading = false;
+                applyFiltersAndSort();
+
+            } catch (error) {
+                console.error('Error loading bookmarks:', error);
+                state.loading = false;
+                showToast('We couldn\'t load your bookmarks. Please try again.', 'error');
+                bookmarkGrid.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>We couldn't load your bookmarks. Please try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', () => {
+                    state.bookmarks = [];
+                    state.lastVisible = null;
+                    state.hasMore = true;
+                    loadBookmarks();
+                });
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Apply filters and sorting
+        // ------------------------------------------------------------------
+        function applyFiltersAndSort() {
+            const search = state.searchQuery.trim().toLowerCase();
+            const type = state.typeFilter;
+            const subject = state.subjectFilter;
+
+            let filtered = state.bookmarks.filter(item => {
+                // Skip if no content data and not stale
+                if (!item.contentData && !item.stale) return false;
+                // Search
+                if (search) {
+                    const content = item.contentData;
+                    if (!content) return false;
+                    const title = (content.title || '').toLowerCase();
+                    const keywords = (content.keywords || []).join(' ').toLowerCase();
+                    const desc = (content.shortDescription || content.definition || '').toLowerCase();
+                    const subjectName = state.subjectMap[content.subjectId]?.name?.toLowerCase() || '';
+                    const chapterName = state.chapterMap[content.chapterId]?.name?.toLowerCase() || '';
+                    const topicName = state.topicMap[content.topicId]?.name?.toLowerCase() || '';
+                    if (!title.includes(search) && !keywords.includes(search) && !desc.includes(search) &&
+                        !subjectName.includes(search) && !chapterName.includes(search) && !topicName.includes(search)) {
+                        return false;
+                    }
+                }
+                // Type filter
+                if (type !== 'all' && item.contentData) {
+                    if (item.contentData.type !== type) return false;
+                }
+                // Subject filter
+                if (subject !== 'all' && item.contentData) {
+                    if (item.contentData.subjectId !== subject) return false;
+                }
+                return true;
+            });
+
+            // Sort
+            const sort = state.sortBy;
+            if (sort === 'title') {
+                filtered.sort((a, b) => (a.contentData?.title || '').localeCompare(b.contentData?.title || ''));
+            } else if (sort === 'title_desc') {
+                filtered.sort((a, b) => (b.contentData?.title || '').localeCompare(a.contentData?.title || ''));
+            } else if (sort === 'oldest') {
+                filtered.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            } else {
+                // recent (default)
+                filtered.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+            }
+
+            state.filteredBookmarks = filtered;
+            renderBookmarks(filtered);
+            updateResultCount(filtered.length);
+        }
+
+        // ------------------------------------------------------------------
+        // Render bookmarks
+        // ------------------------------------------------------------------
+        function renderBookmarks(items) {
+            if (items.length === 0) {
+                if (state.bookmarks.length === 0) {
+                    bookmarkGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-bookmark"></i>
+                            <p>No bookmarks yet.</p>
+                            <p style="font-size:0.9rem;">Save important formulas, laws, definitions, and other resources so you can quickly find them later.</p>
+                            <a href="../pages/subjects.html" class="btn btn-primary">Explore Resources</a>
+                        </div>
+                    `;
+                } else {
+                    bookmarkGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>No matching bookmarks.</p>
+                            <button class="btn btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                        </div>
+                    `;
+                    document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                        clearAllFilters();
+                    });
+                }
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            // Render cards
+            bookmarkGrid.innerHTML = items.map(item => renderBookmarkCard(item)).join('');
+
+            // Update load more
+            if (state.hasMore && items.length < state.bookmarks.length) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+            // Re-render KaTeX if needed
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(bookmarkGrid, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+
+            // Attach event listeners for remove buttons
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const bookmarkId = btn.dataset.bookmarkId;
+                    const contentId = btn.dataset.contentId;
+                    if (bookmarkId && contentId) {
+                        handleRemoveBookmark(bookmarkId, contentId, btn);
+                    }
+                });
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Render a single bookmark card
+        // ------------------------------------------------------------------
+        function renderBookmarkCard(item) {
+            const content = item.contentData;
+            if (!content) {
+                // Stale bookmark
+                return `
+                    <div class="bookmark-card" style="opacity:0.7;">
+                        <span class="badge">Unavailable</span>
+                        <p style="color:var(--text-light);">This saved resource is no longer available.</p>
+                        <div class="card-actions">
+                            <button class="remove-btn" data-bookmark-id="${item.bookmarkId}" data-content-id="${item.contentId}" aria-label="Remove bookmark">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const typeLabel = typeLabels[content.type] || content.type || 'Content';
+
+            const subject = state.subjectMap[content.subjectId];
+            const chapter = state.chapterMap[content.chapterId];
+            const topic = state.topicMap[content.topicId];
+
+            const subjectName = subject ? subject.name : 'Unknown Subject';
+            const chapterName = chapter ? chapter.name : 'Unknown Chapter';
+            const topicName = topic ? topic.name : 'Unknown Topic';
+
+            // Formula preview
+            let formulaHtml = '';
+            if (content.type === 'formula' && content.formula) {
+                formulaHtml = `<div class="formula-preview" data-formula="${sanitizeHTML(content.formula)}">${sanitizeHTML(content.formula)}</div>`;
+            }
+
+            const desc = content.shortDescription || content.definition || '';
+
+            return `
+                <div class="bookmark-card" data-bookmark-id="${item.bookmarkId}">
+                    <span class="badge">${typeLabel}</span>
+                    <h3><a href="content.html?contentId=${content.id}">${sanitizeHTML(content.title)}</a></h3>
+                    ${formulaHtml}
+                    ${desc ? `<div class="short-desc">${sanitizeHTML(desc)}</div>` : ''}
+                    <div class="hierarchy">
+                        <span>${sanitizeHTML(subjectName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(chapterName)}</span>
+                        <span class="sep">›</span>
+                        <span>${sanitizeHTML(topicName)}</span>
+                    </div>
+                    <div class="bookmark-meta">
+                        <i class="fas fa-clock"></i> Saved ${formatDate(item.createdAt)}
+                    </div>
+                    <div class="card-actions">
+                        <a href="content.html?contentId=${content.id}" class="btn btn-sm btn-secondary">Open Resource</a>
+                        <button class="remove-btn" data-bookmark-id="${item.bookmarkId}" data-content-id="${content.id}" aria-label="Remove ${sanitizeHTML(content.title)} from bookmarks">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Sanitize HTML
+        // ------------------------------------------------------------------
+        function sanitizeHTML(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ------------------------------------------------------------------
+        // Render skeletons
+        // ------------------------------------------------------------------
+        function renderSkeletons() {
+            let html = '';
+            for (let i = 0; i < Math.min(PAGE_SIZE, 6); i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line excerpt"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // ------------------------------------------------------------------
+        // Update result count
+        // ------------------------------------------------------------------
+        function updateResultCount(count) {
+            const total = state.bookmarks.length;
+            if (total === 0) {
+                resultCount.textContent = 'No bookmarks';
+            } else if (state.searchQuery || state.typeFilter !== 'all' || state.subjectFilter !== 'all') {
+                resultCount.textContent = `Showing ${count} of ${total} saved resources`;
+            } else {
+                resultCount.textContent = `${total} saved resources`;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Handle remove bookmark
+        // ------------------------------------------------------------------
+        async function handleRemoveBookmark(bookmarkId, contentId, btnElement) {
+            // Disable button and show spinner
+            btnElement.disabled = true;
+            const originalHtml = btnElement.innerHTML;
+            btnElement.innerHTML = '<span class="spinner-sm"></span>';
+
+            try {
+                const user = getCurrentUser();
+                if (!user) {
+                    redirectToLogin();
+                    return;
+                }
+                // Delete bookmark document
+                const bookmarkRef = doc(db, 'users', user.uid, 'bookmarks', bookmarkId);
+                await deleteDoc(bookmarkRef);
+
+                // Remove from state
+                state.bookmarks = state.bookmarks.filter(item => item.bookmarkId !== bookmarkId);
+                // Re-apply filters and render
+                applyFiltersAndSort();
+
+                // Show toast with undo option
+                showUndoToast(bookmarkId, contentId);
+                showToast('Bookmark removed.', 'success');
+            } catch (error) {
+                console.error('Error removing bookmark:', error);
+                showToast('Failed to remove bookmark. Please try again.', 'error');
+                btnElement.disabled = false;
+                btnElement.innerHTML = originalHtml;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Undo toast
+        // ------------------------------------------------------------------
+        function showUndoToast(bookmarkId, contentId) {
+            // We'll use a custom undo toast
+            const container = toastContainer;
+            const undoToast = document.createElement('div');
+            undoToast.className = 'undo-toast';
+            undoToast.innerHTML = `
+                <span>Bookmark removed.</span>
+                <button class="undo-btn" id="undoBtn">Undo</button>
+                <button class="toast-close" style="background:none;border:none;font-size:1.2rem;color:var(--text-light);padding:0 4px;">&times;</button>
+            `;
+            container.appendChild(undoToast);
+
+            // Close button
+            undoToast.querySelector('.toast-close').addEventListener('click', () => {
+                undoToast.remove();
+            });
+
+            // Undo button
+            undoToast.querySelector('#undoBtn').addEventListener('click', async () => {
+                undoToast.remove();
+                // Restore bookmark
+                try {
+                    const user = getCurrentUser();
+                    if (!user) {
+                        redirectToLogin();
+                        return;
+                    }
+                    // We need the contentId to re-add
+                    // Since we don't have the original bookmark doc, we'll create a new one with same contentId
+                    const bookmarksRef = collection(db, 'users', user.uid, 'bookmarks');
+                    const newRef = doc(bookmarksRef, contentId); // Use contentId as doc ID
+                    await setDoc(newRef, { contentId, createdAt: serverTimestamp() });
+                    // Refresh bookmarks
+                    state.bookmarks = [];
+                    state.lastVisible = null;
+                    state.hasMore = true;
+                    await loadBookmarks();
+                    showToast('Bookmark restored.', 'success');
+                } catch (error) {
+                    console.error('Undo failed:', error);
+                    showToast('Could not restore bookmark. Please try again.', 'error');
+                }
+            });
+
+            // Auto-remove after 5 seconds if not undone
+            setTimeout(() => {
+                if (undoToast.parentNode) {
+                    undoToast.remove();
+                }
+            }, 5000);
+        }
+
+        // We need serverTimestamp import
+        import { serverTimestamp } from 'firebase/firestore';
+
+        // ------------------------------------------------------------------
+        // Clear all filters
+        // ------------------------------------------------------------------
+        function clearAllFilters() {
+            state.searchQuery = '';
+            state.typeFilter = 'all';
+            state.subjectFilter = 'all';
+            searchInput.value = '';
+            typeFilter.value = 'all';
+            subjectFilter.value = 'all';
+            clearSearch.classList.remove('visible');
+            updateFilterChips();
+            applyFiltersAndSort();
+        }
+
+        // ------------------------------------------------------------------
+        // Update filter chips
+        // ------------------------------------------------------------------
+        function updateFilterChips() {
+            const chips = [];
+            if (state.searchQuery) {
+                chips.push({ type: 'search', label: `"${state.searchQuery}"` });
+            }
+            if (state.typeFilter !== 'all') {
+                const label = state.typeFilter.charAt(0).toUpperCase() + state.typeFilter.slice(1);
+                chips.push({ type: 'type', value: state.typeFilter, label });
+            }
+            if (state.subjectFilter !== 'all') {
+                const subject = state.subjects.find(s => s.id === state.subjectFilter);
+                if (subject) {
+                    chips.push({ type: 'subject', value: state.subjectFilter, label: subject.name });
+                }
+            }
+
+            if (chips.length === 0) {
+                filterChips.innerHTML = '';
+                return;
+            }
+
+            filterChips.innerHTML = chips.map(chip => {
+                let removeAttr = '';
+                if (chip.type !== 'search') {
+                    removeAttr = `data-type="${chip.type}" data-value="${chip.value}"`;
+                }
+                return `
+                    <span class="chip">
+                        ${chip.label}
+                        <button class="remove-chip" ${removeAttr} aria-label="Remove filter">&times;</button>
+                    </span>
+                `;
+            }).join('') + `<button class="clear-all" id="clearAllFilters">Clear All</button>`;
+
+            filterChips.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.dataset.type;
+                    const value = btn.dataset.value;
+                    if (type === 'type') {
+                        state.typeFilter = 'all';
+                        typeFilter.value = 'all';
+                        updateFilterChips();
+                        applyFiltersAndSort();
+                    } else if (type === 'subject') {
+                        state.subjectFilter = 'all';
+                        subjectFilter.value = 'all';
+                        updateFilterChips();
+                        applyFiltersAndSort();
+                    } else if (type === 'search') {
+                        state.searchQuery = '';
+                        searchInput.value = '';
+                        clearSearch.classList.remove('visible');
+                        updateFilterChips();
+                        applyFiltersAndSort();
+                    }
+                });
+            });
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', () => {
+                clearAllFilters();
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Load more
+        // ------------------------------------------------------------------
+        async function loadMore() {
+            if (state.loading || !state.hasMore) return;
+            await loadBookmarks();
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                        redirectToLogin();
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="login.html" class="btn-outline">Login</a>
+                    <a href="register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Event listeners for filters
+        // ------------------------------------------------------------------
+        searchInput.addEventListener('input', () => {
+            state.searchQuery = searchInput.value;
+            if (state.searchQuery.trim() === '') {
+                clearSearch.classList.remove('visible');
+            } else {
+                clearSearch.classList.add('visible');
+            }
+            updateFilterChips();
+            applyFiltersAndSort();
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            state.searchQuery = '';
+            clearSearch.classList.remove('visible');
+            updateFilterChips();
+            applyFiltersAndSort();
+            searchInput.focus();
+        });
+
+        typeFilter.addEventListener('change', () => {
+            state.typeFilter = typeFilter.value;
+            updateFilterChips();
+            applyFiltersAndSort();
+        });
+
+        subjectFilter.addEventListener('change', () => {
+            state.subjectFilter = subjectFilter.value;
+            updateFilterChips();
+            applyFiltersAndSort();
+        });
+
+        sortSelect.addEventListener('change', () => {
+            state.sortBy = sortSelect.value;
+            applyFiltersAndSort();
+        });
+
+        loadMoreBtn.addEventListener('click', loadMore);
+
+        // ------------------------------------------------------------------
+        // Auth state listener
+        // ------------------------------------------------------------------
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                renderAuthUI(user);
+                // Load metadata and bookmarks
+                await loadMetadata();
+                await loadBookmarks();
+            } else {
+                renderAuthUI(null);
+                redirectToLogin();
+            }
+        });
+
+        console.log('✅ Bookmarks page loaded.');
+    </script>
+</body>
+</html>

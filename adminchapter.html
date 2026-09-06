@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — Chapters | Academic Knowledge Library</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/admin/chapters.html" />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & VARIABLES (matching admin/index.html) ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+            --sidebar-width: 240px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HEADER (global, reused) ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== ADMIN LAYOUT ===== */
+        .admin-layout {
+            display: flex;
+            min-height: calc(100vh - var(--header-height));
+            padding-top: var(--header-height);
+        }
+        .admin-sidebar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 900;
+            transition: transform var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-sidebar .sidebar-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-sidebar .sidebar-brand i {
+            color: var(--primary);
+        }
+        .admin-sidebar .sidebar-nav {
+            flex: 1;
+        }
+        .admin-sidebar .sidebar-nav h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-light);
+            margin: 16px 0 8px 12px;
+        }
+        .admin-sidebar .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all var(--transition);
+            margin-bottom: 2px;
+        }
+        .admin-sidebar .sidebar-nav a:hover {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .admin-sidebar .sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .admin-sidebar .sidebar-nav a i {
+            width: 20px;
+            text-align: center;
+        }
+        .admin-sidebar .sidebar-footer {
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        .admin-sidebar .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all var(--transition);
+        }
+        .admin-sidebar .sidebar-footer a:hover {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .admin-sidebar .sidebar-footer a.logout {
+            color: #dc3545;
+        }
+        .admin-sidebar .sidebar-footer a.logout:hover {
+            background: #f8d7da;
+        }
+
+        /* Sidebar toggle (mobile) */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: calc(var(--header-height) + 12px);
+            left: 12px;
+            z-index: 901;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            font-size: 1.2rem;
+            color: var(--text);
+            box-shadow: var(--shadow);
+        }
+        .sidebar-toggle:hover {
+            background: var(--bg);
+        }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 899;
+        }
+        .sidebar-overlay.open {
+            display: block;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .admin-main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 32px 32px 60px;
+            min-width: 0;
+        }
+        .admin-main .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .admin-main .page-header h1 {
+            font-size: 1.8rem;
+        }
+        .admin-main .page-header .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .admin-main .page-header .admin-user .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            overflow: hidden;
+        }
+        .admin-main .page-header .admin-user .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .admin-main .page-description {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        /* ===== FILTERS BAR ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: center;
+        }
+        .filters-bar .search-wrapper {
+            flex: 1;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+        .filters-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 8px;
+        }
+        .filters-bar .search-wrapper input {
+            flex: 1;
+            padding: 8px 4px;
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .filters-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .filters-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filters-bar .filter-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .filter-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            min-width: 130px;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .add-btn {
+            margin-left: auto;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            transition: background var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .filters-bar .add-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== TABLE / CARD ===== */
+        .table-wrap {
+            overflow-x: auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        table th {
+            background: var(--bg);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
+        }
+        table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        table .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+        table .badge.published {
+            background: #d4edda;
+            color: #155724;
+        }
+        table .badge.draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+        table .badge.archived {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        table .subject-badge {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        table .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        table .actions .btn-sm {
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text-light);
+            transition: all var(--transition);
+        }
+        table .actions .btn-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        table .actions .btn-sm.danger {
+            color: #dc3545;
+        }
+        table .actions .btn-sm.danger:hover {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        table .hierarchy-badge {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 4px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.open {
+            display: flex;
+        }
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+        .modal h2 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .modal .modal-sub {
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        .modal .form-group {
+            margin-bottom: 16px;
+        }
+        .modal .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+        .modal .form-group input,
+        .modal .form-group select,
+        .modal .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            transition: border-color var(--transition);
+            background: var(--white);
+        }
+        .modal .form-group input:focus,
+        .modal .form-group select:focus,
+        .modal .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .modal .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+        .modal .form-group .error-text {
+            color: #dc3545;
+            font-size: 0.82rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .modal .form-group.invalid input,
+        .modal .form-group.invalid select,
+        .modal .form-group.invalid textarea {
+            border-color: #dc3545;
+        }
+        .modal .form-group.invalid .error-text {
+            display: block;
+        }
+        .modal .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal .modal-actions .btn {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            border: none;
+            transition: all var(--transition);
+        }
+        .modal .modal-actions .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .modal .modal-actions .btn-secondary:hover {
+            background: var(--border);
+        }
+        .modal .modal-actions .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .modal .modal-actions .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .modal .modal-actions .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .modal .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .modal .modal-close:hover {
+            color: var(--text);
+        }
+
+        /* ===== CONFIRM DIALOG ===== */
+        .confirm-dialog .modal-actions .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .confirm-dialog .modal-actions .btn-danger:hover {
+            background: #b02a37;
+        }
+        .confirm-dialog .dependencies-warning {
+            color: #dc3545;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            background: #f8d7da;
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+        .confirm-dialog .dependencies-warning.visible {
+            display: block;
+        }
+
+        /* ===== SPINNER ===== */
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== ACCESS DENIED ===== */
+        .access-denied {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        .access-denied i {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 16px;
+        }
+        .access-denied h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .access-denied p {
+            max-width: 400px;
+        }
+        .access-denied .btn {
+            margin-top: 16px;
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            transition: background var(--transition);
+        }
+        .access-denied .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .admin-main {
+                padding: 24px 20px 40px;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+                --sidebar-width: 260px;
+            }
+            .admin-sidebar {
+                transform: translateX(-100%);
+                top: var(--header-height);
+                width: var(--sidebar-width);
+            }
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+            .sidebar-toggle {
+                display: block;
+            }
+            .sidebar-overlay.open {
+                display: block;
+            }
+            .admin-main {
+                margin-left: 0;
+                padding: 16px 16px 40px;
+            }
+            .admin-main .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filters-bar .search-wrapper {
+                width: 100%;
+            }
+            .filters-bar .filter-group {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .filters-bar .filter-group select {
+                flex: 1;
+                min-width: 100px;
+            }
+            .filters-bar .add-btn {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+            .table-wrap {
+                overflow-x: auto;
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            table th,
+            table td {
+                padding: 8px 10px;
+            }
+            .modal {
+                padding: 24px 16px;
+                margin: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .admin-main .page-header h1 {
+                font-size: 1.4rem;
+            }
+            .filters-bar {
+                padding: 12px 16px;
+            }
+            .filters-bar .filter-group select {
+                min-width: 80px;
+                font-size: 0.8rem;
+            }
+            table .actions .btn-sm {
+                font-size: 0.65rem;
+                padding: 2px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="../pages/subjects.html">Subjects</a>
+                <a href="../pages/formulas.html">Formulas</a>
+                <a href="../pages/laws.html">Laws</a>
+                <a href="../pages/search.html">Search</a>
+                <a href="../pages/authors.html">Authors</a>
+                <a href="../pages/about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ADMIN LAYOUT ===== -->
+    <div class="admin-layout">
+
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar Toggle (mobile) -->
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
+            <div class="sidebar-brand">
+                <i class="fas fa-graduation-cap"></i> Admin
+            </div>
+            <nav class="sidebar-nav">
+                <h4>Management</h4>
+                <a href="index.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="subjects.html"><i class="fas fa-book-open"></i> Subjects</a>
+                <a href="chapters.html" class="active" aria-current="page"><i class="fas fa-book"></i> Chapters</a>
+                <a href="topics.html"><i class="fas fa-tags"></i> Topics</a>
+                <a href="content.html"><i class="fas fa-file-alt"></i> Content</a>
+                <h4>System</h4>
+                <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+                <a href="storage.html"><i class="fas fa-database"></i> Storage</a>
+                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutSidebar" class="logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="admin-main" id="adminMain">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>Chapter Management</h1>
+                    <div class="page-description">Manage chapters under your subjects.</div>
+                </div>
+                <div class="admin-user" id="adminUser">
+                    <span id="adminName">Loading...</span>
+                    <span class="avatar" id="adminAvatar">A</span>
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search chapters..." aria-label="Search chapters" />
+                    <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="filter-group">
+                    <label for="subjectFilter">Subject</label>
+                    <select id="subjectFilter">
+                        <option value="all">All Subjects</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Status</label>
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="order">Display Order</option>
+                        <option value="name_asc">Name A–Z</option>
+                        <option value="name_desc">Name Z–A</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="updated">Recently Updated</option>
+                    </select>
+                </div>
+                <button class="add-btn" id="addChapterBtn">
+                    <i class="fas fa-plus"></i> Add Chapter
+                </button>
+            </div>
+
+            <!-- Chapter List -->
+            <div id="chapterListContainer">
+                <!-- Table or cards rendered by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== ADD/EDIT MODAL ===== -->
+    <div class="modal-overlay" id="chapterModal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+            <h2 id="modalTitle">Add Chapter</h2>
+            <p class="modal-sub" id="modalSub">Fill in the details to create a new chapter under a subject.</p>
+            <form id="chapterForm" novalidate>
+                <input type="hidden" id="editId" value="" />
+
+                <div class="form-group" id="subjectGroup">
+                    <label for="chapterSubject">Subject *</label>
+                    <select id="chapterSubject" required>
+                        <option value="">— Select Subject —</option>
+                    </select>
+                    <div class="error-text" id="subjectError">Please select a valid subject.</div>
+                </div>
+
+                <div class="form-group" id="nameGroup">
+                    <label for="chapterName">Chapter Name *</label>
+                    <input type="text" id="chapterName" placeholder="e.g., Microeconomics" required />
+                    <div class="error-text" id="nameError">Please enter a chapter name (2–150 characters).</div>
+                </div>
+
+                <div class="form-group" id="slugGroup">
+                    <label for="chapterSlug">Slug *</label>
+                    <input type="text" id="chapterSlug" placeholder="e.g., microeconomics" required />
+                    <div class="error-text" id="slugError">Slug must be URL-safe, lowercase, hyphen-separated, and unique within this subject.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="chapterDescription">Description</label>
+                    <textarea id="chapterDescription" placeholder="Brief description of the chapter..." rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="chapterStatus">Status</label>
+                    <select id="chapterStatus">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="chapterOrder">Display Order</label>
+                    <input type="number" id="chapterOrder" placeholder="1" min="0" step="1" />
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="modalCancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modalSave">
+                        <span id="saveBtnText">Save Chapter</span>
+                        <span id="saveSpinner" class="spinner" style="display:none;"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== DELETE CONFIRM MODAL ===== -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+            <button class="modal-close" id="deleteClose" aria-label="Close">&times;</button>
+            <h2 id="deleteTitle">Delete Chapter</h2>
+            <p id="deleteMessage">Are you sure you want to delete this chapter? This action cannot be undone.</p>
+            <div class="dependencies-warning" id="deleteDependencies"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="deleteCancel">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirm">
+                    <span id="deleteBtnText">Delete</span>
+                    <span id="deleteSpinner" class="spinner" style="display:none;"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER (global) ===== -->
+    <footer class="footer" style="background:var(--text);color:rgba(255,255,255,0.7);padding:40px 0 24px;margin-top:auto;">
+        <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html" style="display:block;padding:4px 0;transition:color var(--transition);">Home</a>
+                <a href="../pages/subjects.html" style="display:block;padding:4px 0;transition:color var(--transition);">Subjects</a>
+                <a href="../pages/formulas.html" style="display:block;padding:4px 0;transition:color var(--transition);">Formulas</a>
+                <a href="../pages/laws.html" style="display:block;padding:4px 0;transition:color var(--transition);">Laws</a>
+                <a href="../pages/search.html" style="display:block;padding:4px 0;transition:color var(--transition);">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html" style="display:block;padding:4px 0;transition:color var(--transition);">Login</a>
+                <a href="../auth/register.html" style="display:block;padding:4px 0;transition:color var(--transition);">Register</a>
+                <a href="../auth/profile.html" style="display:block;padding:4px 0;transition:color var(--transition);">Profile</a>
+                <a href="../auth/bookmarks.html" style="display:block;padding:4px 0;transition:color var(--transition);">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="../pages/about.html" style="display:block;padding:4px 0;transition:color var(--transition);">About</a>
+                <a href="../pages/contact.html" style="display:block;padding:4px 0;transition:color var(--transition);">Contact</a>
+                <a href="../privacy.html" style="display:block;padding:4px 0;transition:color var(--transition);">Privacy Policy</a>
+                <a href="../terms.html" style="display:block;padding:4px 0;transition:color var(--transition);">Terms</a>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;margin-top:30px;text-align:center;font-size:0.85rem;grid-column:1/-1;">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== APPLICATION SCRIPT ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports
+        // ------------------------------------------------------------------
+        import { initializeApp } from "firebase/app";
+        import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+        import {
+            getFirestore,
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            getDocs,
+            getCountFromServer,
+            doc,
+            getDoc,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            serverTimestamp,
+            writeBatch,
+            runTransaction
+        } from "firebase/firestore";
+
+        // Firebase config (in production, import from shared module)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGMAmDqAC2uQfHJ3Ms-5-amyOajqzQgUZg",
+            authDomain: "eco-lab-e2f48.firebaseapp.com",
+            projectId: "eco-lab-e2f48",
+            storageBucket: "eco-lab-e2f48.firebasestorage.app",
+            messagingSenderId: "836995560981",
+            appId: "1:836995560981:web:fc790ecae541525db0401c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const chapterListContainer = document.getElementById('chapterListContainer');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const subjectFilter = document.getElementById('subjectFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const addChapterBtn = document.getElementById('addChapterBtn');
+        const modal = document.getElementById('chapterModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalCancel = document.getElementById('modalCancel');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSub = document.getElementById('modalSub');
+        const chapterForm = document.getElementById('chapterForm');
+        const editId = document.getElementById('editId');
+        const chapterSubject = document.getElementById('chapterSubject');
+        const chapterName = document.getElementById('chapterName');
+        const chapterSlug = document.getElementById('chapterSlug');
+        const chapterDescription = document.getElementById('chapterDescription');
+        const chapterStatus = document.getElementById('chapterStatus');
+        const chapterOrder = document.getElementById('chapterOrder');
+        const saveBtn = document.getElementById('modalSave');
+        const saveBtnText = document.getElementById('saveBtnText');
+        const saveSpinner = document.getElementById('saveSpinner');
+        const deleteModal = document.getElementById('deleteModal');
+        const deleteClose = document.getElementById('deleteClose');
+        const deleteCancel = document.getElementById('deleteCancel');
+        const deleteConfirm = document.getElementById('deleteConfirm');
+        const deleteBtnText = document.getElementById('deleteBtnText');
+        const deleteSpinner = document.getElementById('deleteSpinner');
+        const deleteMessage = document.getElementById('deleteMessage');
+        const deleteDependencies = document.getElementById('deleteDependencies');
+        const toastContainer = document.getElementById('toastContainer');
+        const adminName = document.getElementById('adminName');
+        const adminAvatar = document.getElementById('adminAvatar');
+        const logoutSidebar = document.getElementById('logoutSidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const adminSidebar = document.getElementById('adminSidebar');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        let currentUser = null;
+        let isAdmin = false;
+        let subjects = [];
+        let subjectMap = {};
+        let chapters = [];
+        let topicCounts = {}; // chapterId -> topic count
+        let contentCounts = {}; // chapterId -> content count
+        let editingId = null;
+        let deletingId = null;
+        let allChapters = [];
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Redirect helper
+        // ------------------------------------------------------------------
+        function redirectToLogin() {
+            const redirect = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `../auth/login.html?redirect=${redirect}`;
+        }
+
+        // ------------------------------------------------------------------
+        // Admin check
+        // ------------------------------------------------------------------
+        async function checkAdminAccess(user) {
+            if (!user) {
+                showAccessDenied('Please log in to access the admin area.');
+                return false;
+            }
+            try {
+                const tokenResult = await user.getIdTokenResult(true);
+                if (tokenResult.claims.admin === true) {
+                    return true;
+                } else {
+                    showAccessDenied('You do not have permission to access the admin dashboard.');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Admin check error:', error);
+                showAccessDenied('Unable to verify admin permissions. Please try again.');
+                return false;
+            }
+        }
+
+        function showAccessDenied(message) {
+            const main = document.getElementById('adminMain');
+            main.innerHTML = `
+                <div class="access-denied">
+                    <i class="fas fa-lock"></i>
+                    <h1>Access Denied</h1>
+                    <p>${message}</p>
+                    <a href="../index.html" class="btn">Return to Home</a>
+                </div>
+            `;
+            // Hide filters and other sections
+            document.querySelector('.filters-bar')?.remove();
+            document.querySelector('.page-header')?.remove();
+        }
+
+        // ------------------------------------------------------------------
+        // Load subjects for filter and form
+        // ------------------------------------------------------------------
+        async function loadSubjects() {
+            try {
+                const snap = await getDocs(collection(db, 'subjects'));
+                subjects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                subjectMap = {};
+                subjects.forEach(s => subjectMap[s.id] = s);
+
+                // Populate subject filter
+                const filterOpts = '<option value="all">All Subjects</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                subjectFilter.innerHTML = filterOpts;
+
+                // Populate form dropdown
+                const formOpts = '<option value="">— Select Subject —</option>' +
+                    subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+                chapterSubject.innerHTML = formOpts;
+
+                return subjects;
+            } catch (error) {
+                console.error('Error loading subjects:', error);
+                showToast('Failed to load subjects.', 'error');
+                return [];
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load chapters with counts
+        // ------------------------------------------------------------------
+        async function loadChapters() {
+            try {
+                let constraints = [];
+                const subjectVal = subjectFilter.value;
+                if (subjectVal !== 'all') {
+                    constraints.push(where('subjectId', '==', subjectVal));
+                }
+                const statusVal = statusFilter.value;
+                if (statusVal !== 'all') {
+                    constraints.push(where('status', '==', statusVal));
+                }
+
+                let sortField = 'order';
+                let sortDir = 'asc';
+                const sortVal = sortSelect.value;
+                if (sortVal === 'name_asc') { sortField = 'name';
+                    sortDir = 'asc'; } else if (sortVal === 'name_desc') { sortField = 'name';
+                    sortDir = 'desc'; } else if (sortVal === 'newest') { sortField = 'createdAt';
+                    sortDir = 'desc'; } else if (sortVal === 'oldest') { sortField = 'createdAt';
+                    sortDir = 'asc'; } else if (sortVal === 'updated') { sortField = 'updatedAt';
+                    sortDir = 'desc'; } else { sortField = 'order';
+                    sortDir = 'asc'; }
+
+                const chaptersRef = collection(db, 'chapters');
+                let q = query(chaptersRef, ...constraints, orderBy(sortField, sortDir));
+                q = query(q, limit(200)); // Limit for performance, can implement pagination later
+
+                const snap = await getDocs(q);
+                const chapterDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                // Get topic counts per chapter
+                const topicsRef = collection(db, 'topics');
+                const topicSnap = await getDocs(topicsRef);
+                const topicCountsMap = {};
+                for (const doc of topicSnap.docs) {
+                    const data = doc.data();
+                    const chapterId = data.chapterId;
+                    if (chapterId) {
+                        topicCountsMap[chapterId] = (topicCountsMap[chapterId] || 0) + 1;
+                    }
+                }
+                topicCounts = topicCountsMap;
+
+                // Get content counts per chapter (optional, for display)
+                const contentsRef = collection(db, 'contents');
+                const contentSnap = await getDocs(contentsRef);
+                const contentCountsMap = {};
+                for (const doc of contentSnap.docs) {
+                    const data = doc.data();
+                    const chapterId = data.chapterId;
+                    if (chapterId) {
+                        contentCountsMap[chapterId] = (contentCountsMap[chapterId] || 0) + 1;
+                    }
+                }
+                contentCounts = contentCountsMap;
+
+                allChapters = chapterDocs;
+                chapters = chapterDocs;
+                renderChapters(chapters);
+            } catch (error) {
+                console.error('Error loading chapters:', error);
+                showToast('Failed to load chapters.', 'error');
+                chapterListContainer.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Unable to load chapters. Please try again.</p>
+                        <button class="btn btn-primary" id="retryLoad">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryLoad')?.addEventListener('click', () => {
+                    loadSubjects().then(() => loadChapters());
+                });
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Render chapters (table or cards)
+        // ------------------------------------------------------------------
+        function renderChapters(chaptersArray) {
+            if (chaptersArray.length === 0) {
+                chapterListContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-book"></i>
+                        <p>No chapters found.</p>
+                        <p style="font-size:0.9rem;">Create your first chapter to organize your subjects.</p>
+                        <button class="btn btn-primary" id="emptyAddBtn"><i class="fas fa-plus"></i> Add Chapter</button>
+                    </div>
+                `;
+                document.getElementById('emptyAddBtn')?.addEventListener('click', openAddModal);
+                return;
+            }
+
+            let html = `
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Chapter</th>
+                                <th>Subject</th>
+                                <th>Slug</th>
+                                <th>Status</th>
+                                <th>Topics</th>
+                                <th>Order</th>
+                                <th style="width:140px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            for (const chapter of chaptersArray) {
+                const subject = subjectMap[chapter.subjectId];
+                const subjectName = subject ? subject.name : 'Unknown';
+                const statusClass = chapter.status || 'draft';
+                const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+                const topicCount = topicCounts[chapter.id] || 0;
+                const order = chapter.order ?? '-';
+
+                html += `
+                    <tr>
+                        <td><strong>${chapter.name}</strong></td>
+                        <td><span class="subject-badge">${subjectName}</span></td>
+                        <td><code>${chapter.slug || ''}</code></td>
+                        <td><span class="badge ${statusClass}">${statusLabel}</span></td>
+                        <td>${topicCount}</td>
+                        <td>${order}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-sm edit-btn" data-id="${chapter.id}">Edit</button>
+                                <button class="btn-sm view-btn" data-id="${chapter.id}">View</button>
+                                <button class="btn-sm danger delete-btn" data-id="${chapter.id}">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+            html += `</tbody></table></div>`;
+            chapterListContainer.innerHTML = html;
+
+            // Attach event listeners
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const chapter = chapters.find(c => c.id === id);
+                    if (chapter) openEditModal(chapter);
+                });
+            });
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const chapter = chapters.find(c => c.id === id);
+                    if (chapter && chapter.status === 'published') {
+                        const subject = subjectMap[chapter.subjectId];
+                        if (subject) {
+                            window.open(`../pages/chapter.html?subject=${subject.slug}&slug=${chapter.slug}`, '_blank');
+                        } else {
+                            showToast('Subject not found for this chapter.', 'warning');
+                        }
+                    } else {
+                        showToast('This chapter is not published.', 'warning');
+                    }
+                });
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const chapter = chapters.find(c => c.id === id);
+                    if (chapter) openDeleteModal(chapter);
+                });
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Slug generation
+        // ------------------------------------------------------------------
+        function generateSlug(name) {
+            return name
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        }
+
+        // ------------------------------------------------------------------
+        // Check slug uniqueness within a subject
+        // ------------------------------------------------------------------
+        async function isSlugUniqueWithinSubject(subjectId, slug, excludeId = null) {
+            const q = query(
+                collection(db, 'chapters'),
+                where('subjectId', '==', subjectId),
+                where('slug', '==', slug)
+            );
+            const snap = await getDocs(q);
+            if (snap.empty) return true;
+            if (excludeId && snap.docs.length === 1 && snap.docs[0].id === excludeId) return true;
+            return false;
+        }
+
+        // ------------------------------------------------------------------
+        // Open Add/Edit Modal
+        // ------------------------------------------------------------------
+        function openAddModal() {
+            editingId = null;
+            modalTitle.textContent = 'Add Chapter';
+            modalSub.textContent = 'Fill in the details to create a new chapter under a subject.';
+            chapterForm.reset();
+            editId.value = '';
+            chapterSubject.value = '';
+            chapterName.value = '';
+            chapterSlug.value = '';
+            chapterDescription.value = '';
+            chapterStatus.value = 'draft';
+            chapterOrder.value = '';
+            document.querySelectorAll('.form-group').forEach(g => g.classList.remove('invalid'));
+            modal.classList.add('open');
+            chapterName.focus();
+        }
+
+        function openEditModal(chapter) {
+            editingId = chapter.id;
+            modalTitle.textContent = 'Edit Chapter';
+            modalSub.textContent = 'Update the chapter details.';
+            editId.value = chapter.id;
+            chapterSubject.value = chapter.subjectId || '';
+            chapterName.value = chapter.name || '';
+            chapterSlug.value = chapter.slug || '';
+            chapterDescription.value = chapter.description || '';
+            chapterStatus.value = chapter.status || 'draft';
+            chapterOrder.value = chapter.order ?? '';
+            document.querySelectorAll('.form-group').forEach(g => g.classList.remove('invalid'));
+            modal.classList.add('open');
+            chapterName.focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+        }
+
+        // ------------------------------------------------------------------
+        // Save chapter
+        // ------------------------------------------------------------------
+        async function saveChapter(e) {
+            e.preventDefault();
+            let valid = true;
+
+            const subjectId = chapterSubject.value;
+            const name = chapterName.value.trim();
+            const slug = chapterSlug.value.trim();
+            const description = chapterDescription.value.trim();
+            const status = chapterStatus.value;
+            const order = parseInt(chapterOrder.value) || 0;
+
+            // Subject validation
+            if (!subjectId || !subjectMap[subjectId]) {
+                document.getElementById('subjectGroup').classList.add('invalid');
+                valid = false;
+            } else {
+                document.getElementById('subjectGroup').classList.remove('invalid');
+            }
+
+            // Name validation
+            if (name.length < 2 || name.length > 150) {
+                document.getElementById('nameGroup').classList.add('invalid');
+                valid = false;
+            } else {
+                document.getElementById('nameGroup').classList.remove('invalid');
+            }
+
+            // Slug validation
+            const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+            if (!slug || !slugRegex.test(slug)) {
+                document.getElementById('slugGroup').classList.add('invalid');
+                valid = false;
+            } else if (subjectId) {
+                const unique = await isSlugUniqueWithinSubject(subjectId, slug, editingId);
+                if (!unique) {
+                    document.getElementById('slugGroup').classList.add('invalid');
+                    document.getElementById('slugError').textContent = 'Slug must be unique within this subject.';
+                    valid = false;
+                } else {
+                    document.getElementById('slugGroup').classList.remove('invalid');
+                }
+            }
+
+            if (!valid) {
+                showToast('Please fix the errors and try again.', 'error');
+                return;
+            }
+
+            const data = {
+                subjectId,
+                name,
+                slug,
+                description,
+                status,
+                order,
+                updatedAt: serverTimestamp()
+            };
+
+            saveBtn.disabled = true;
+            saveBtnText.textContent = 'Saving...';
+            saveSpinner.style.display = 'inline-block';
+
+            try {
+                if (editingId) {
+                    await updateDoc(doc(db, 'chapters', editingId), data);
+                    showToast('Chapter updated successfully.', 'success');
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, 'chapters'), data);
+                    showToast('Chapter created successfully.', 'success');
+                }
+                closeModal();
+                await loadChapters();
+            } catch (error) {
+                console.error('Save error:', error);
+                let msg = 'Failed to save chapter.';
+                if (error.code === 'permission-denied') {
+                    msg = 'You do not have permission to perform this action.';
+                }
+                showToast(msg, 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtnText.textContent = editingId ? 'Update Chapter' : 'Save Chapter';
+                saveSpinner.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Delete chapter with dependency check
+        // ------------------------------------------------------------------
+        function openDeleteModal(chapter) {
+            deletingId = chapter.id;
+            deleteMessage.textContent = `Are you sure you want to delete "${chapter.name}"? This action cannot be undone.`;
+            const topicCount = topicCounts[chapter.id] || 0;
+            const contentCount = contentCounts[chapter.id] || 0;
+            const warning = deleteDependencies;
+
+            if (topicCount > 0 || contentCount > 0) {
+                let msg = 'Cannot delete this chapter because it has related resources.';
+                if (topicCount > 0) msg += ` ${topicCount} topic(s)`;
+                if (contentCount > 0) msg += `${topicCount > 0 ? ' and' : ''} ${contentCount} content item(s)`;
+                msg += '. Please remove or reassign them first.';
+                warning.textContent = msg;
+                warning.classList.add('visible');
+                deleteConfirm.disabled = true;
+            } else {
+                warning.classList.remove('visible');
+                deleteConfirm.disabled = false;
+            }
+            deleteModal.classList.add('open');
+        }
+
+        function closeDeleteModal() {
+            deleteModal.classList.remove('open');
+            deletingId = null;
+        }
+
+        async function confirmDelete() {
+            if (!deletingId) return;
+            deleteConfirm.disabled = true;
+            deleteBtnText.textContent = 'Deleting...';
+            deleteSpinner.style.display = 'inline-block';
+
+            try {
+                // Final dependency check
+                const topicCount = topicCounts[deletingId] || 0;
+                const contentCount = contentCounts[deletingId] || 0;
+                if (topicCount > 0 || contentCount > 0) {
+                    showToast('Cannot delete: chapter has related topics or content.', 'error');
+                    closeDeleteModal();
+                    return;
+                }
+                await deleteDoc(doc(db, 'chapters', deletingId));
+                showToast('Chapter deleted successfully.', 'success');
+                closeDeleteModal();
+                await loadChapters();
+            } catch (error) {
+                console.error('Delete error:', error);
+                showToast('Failed to delete chapter.', 'error');
+            } finally {
+                deleteConfirm.disabled = false;
+                deleteBtnText.textContent = 'Delete';
+                deleteSpinner.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Search / Filter (client-side)
+        // ------------------------------------------------------------------
+        function applySearchFilter() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) {
+                renderChapters(allChapters);
+                return;
+            }
+            const filtered = allChapters.filter(c =>
+                c.name.toLowerCase().includes(query) ||
+                (c.slug && c.slug.toLowerCase().includes(query)) ||
+                (c.description && c.description.toLowerCase().includes(query))
+            );
+            renderChapters(filtered);
+        }
+
+        // ------------------------------------------------------------------
+        // Auth state
+        // ------------------------------------------------------------------
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+            if (user) {
+                const authorized = await checkAdminAccess(user);
+                if (authorized) {
+                    isAdmin = true;
+                    adminName.textContent = user.displayName || user.email || 'Admin';
+                    const initial = (user.displayName || user.email || 'A')[0].toUpperCase();
+                    adminAvatar.textContent = initial;
+                    if (user.photoURL) {
+                        adminAvatar.innerHTML = `<img src="${user.photoURL}" alt="${user.displayName || 'Admin'}" />`;
+                    }
+                    await loadSubjects();
+                    await loadChapters();
+                    document.getElementById('adminMain').style.display = 'block';
+                } else {
+                    document.getElementById('adminMain').style.display = 'block';
+                }
+            } else {
+                showAccessDenied('Please log in to access the admin area.');
+                setTimeout(() => redirectToLogin(), 2000);
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // Header auth UI update
+        // ------------------------------------------------------------------
+        function updateHeaderAuth(user) {
+            const navAuth = document.getElementById('navAuth');
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="headerLogoutBtn">Logout</button>
+                `;
+                document.getElementById('headerLogoutBtn')?.addEventListener('click', handleLogout);
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        onAuthStateChanged(auth, updateHeaderAuth);
+
+        // ------------------------------------------------------------------
+        // Logout
+        // ------------------------------------------------------------------
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                showToast('Logged out successfully.', 'success');
+                redirectToLogin();
+            } catch (error) {
+                console.error('Logout error:', error);
+                showToast('Failed to log out.', 'error');
+            }
+        }
+
+        logoutSidebar.addEventListener('click', handleLogout);
+
+        // ------------------------------------------------------------------
+        // Sidebar toggle (mobile)
+        // ------------------------------------------------------------------
+        function toggleSidebar(open) {
+            if (open === undefined) {
+                adminSidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('open');
+            } else if (open) {
+                adminSidebar.classList.add('open');
+                sidebarOverlay.classList.add('open');
+            } else {
+                adminSidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+            }
+        }
+
+        sidebarToggle.addEventListener('click', () => toggleSidebar());
+        sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) toggleSidebar(false);
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle (header)
+        // ------------------------------------------------------------------
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle?.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+        navLinks?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Header scroll shadow
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Event Listeners
+        // ------------------------------------------------------------------
+        addChapterBtn.addEventListener('click', openAddModal);
+
+        modalClose.addEventListener('click', closeModal);
+        modalCancel.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
+
+        chapterForm.addEventListener('submit', saveChapter);
+
+        // Auto-generate slug from name
+        chapterName.addEventListener('input', () => {
+            const name = chapterName.value.trim();
+            if (!chapterSlug.value || chapterSlug.value === generateSlug(chapterName.dataset.oldName || '')) {
+                chapterSlug.value = generateSlug(name);
+            }
+            chapterName.dataset.oldName = name;
+        });
+
+        // Subject filter change
+        subjectFilter.addEventListener('change', loadChapters);
+        statusFilter.addEventListener('change', loadChapters);
+        sortSelect.addEventListener('change', loadChapters);
+
+        // Search
+        searchInput.addEventListener('input', () => {
+            const val = searchInput.value;
+            if (val.trim() === '') {
+                clearSearch.classList.remove('visible');
+            } else {
+                clearSearch.classList.add('visible');
+            }
+            applySearchFilter();
+        });
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.remove('visible');
+            applySearchFilter();
+            searchInput.focus();
+        });
+
+        // Delete modal
+        deleteClose.addEventListener('click', closeDeleteModal);
+        deleteCancel.addEventListener('click', closeDeleteModal);
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) closeDeleteModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && deleteModal.classList.contains('open')) closeDeleteModal();
+        });
+        deleteConfirm.addEventListener('click', confirmDelete);
+
+        console.log('✅ Admin Chapters page loaded.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1683 @@
+<!-- admin/storage.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage Management — Eco Lab Admin</title>
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../css/admin.css" />
+
+    <style>
+        /* Storage specific styles */
+        .storage-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .storage-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .storage-header .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .storage-header .breadcrumb span {
+            color: var(--text-primary, #111827);
+        }
+        .storage-header .subtitle {
+            margin: 0.25rem 0 0;
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .stat-card .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted, #6b7280);
+            font-weight: 600;
+        }
+        .stat-card .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+            color: var(--text-primary, #111827);
+        }
+        .stat-card .stat-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary, #374151);
+            margin-top: 0.15rem;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+        }
+        .filter-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .filter-bar label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary, #374151);
+            white-space: nowrap;
+        }
+        .filter-bar select,
+        .filter-bar input[type="text"] {
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            font-size: 0.8rem;
+            background: #fff;
+            min-width: 120px;
+        }
+        .filter-bar select:focus,
+        .filter-bar input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .filter-bar .search-wrapper {
+            position: relative;
+            flex: 1 1 180px;
+        }
+        .filter-bar .search-wrapper i {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+        .filter-bar .search-wrapper input {
+            padding-left: 28px;
+            width: 100%;
+        }
+        .filter-bar .btn-clear {
+            background: transparent;
+            border: 1px solid var(--border-light, #d1d5db);
+            padding: 0.35rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-secondary, #374151);
+            transition: 0.2s;
+        }
+        .filter-bar .btn-clear:hover {
+            background: #f3f4f6;
+        }
+
+        /* Storage Cards */
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+        .storage-card {
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            padding: 1.25rem;
+            transition: box-shadow 0.2s;
+            position: relative;
+        }
+        .storage-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .storage-card .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .storage-card .card-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary, #111827);
+        }
+        .storage-card .card-provider {
+            font-size: 0.8rem;
+            color: var(--text-muted, #6b7280);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .storage-card .card-provider i {
+            font-size: 0.9rem;
+        }
+        .storage-card .card-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+        }
+        .storage-card .card-status.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .storage-card .card-status.active::before {
+            content: '●';
+            color: #22c55e;
+        }
+        .storage-card .card-status.disabled {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        .storage-card .card-status.disabled::before {
+            content: '●';
+            color: #9ca3af;
+        }
+        .storage-card .card-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .storage-card .card-status.error::before {
+            content: '●';
+            color: #dc2626;
+        }
+
+        .storage-card .card-purpose {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin: 0.5rem 0;
+        }
+        .storage-card .purpose-badge {
+            font-size: 0.65rem;
+            font-weight: 500;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            background: #e5e7eb;
+            color: #374151;
+        }
+        .storage-card .purpose-badge.default {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .storage-card .purpose-badge.default::after {
+            content: ' ★';
+        }
+
+        .storage-card .card-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted, #6b7280);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .storage-card .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .storage-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.75rem;
+        }
+        .storage-card .card-actions .btn {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+        }
+        .storage-card .card-actions .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-light, #d1d5db);
+        }
+        .storage-card .card-actions .btn-outline:hover {
+            background: #f3f4f6;
+        }
+
+        /* Dropdown actions */
+        .actions-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .actions-dropdown .dropdown-toggle {
+            background: transparent;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary, #374151);
+        }
+        .actions-dropdown .dropdown-toggle:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light, #e5e7eb);
+            min-width: 160px;
+            z-index: 50;
+            padding: 0.25rem 0;
+        }
+        .actions-dropdown .dropdown-menu.open {
+            display: block;
+        }
+        .actions-dropdown .dropdown-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.4rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 0.8rem;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-primary, #111827);
+            transition: 0.15s;
+        }
+        .actions-dropdown .dropdown-menu button:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu button.danger {
+            color: #dc2626;
+        }
+        .actions-dropdown .dropdown-menu button.danger:hover {
+            background: #fee2e2;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #fff;
+            border-radius: 1rem;
+            max-width: 640px;
+            width: 100%;
+            max-height: 94vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+        .modal-box h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .modal-box .form-group {
+            margin-bottom: 1rem;
+        }
+        .modal-box label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .modal-box label .required {
+            color: #dc2626;
+        }
+        .modal-box input,
+        .modal-box select,
+        .modal-box textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .modal-box input:focus,
+        .modal-box select:focus,
+        .modal-box textarea:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .modal-box .form-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-row .form-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .modal-box .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-error {
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        /* Provider selector grid */
+        .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        .provider-card {
+            padding: 1rem;
+            border: 2px solid var(--border-light, #e5e7eb);
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #fafafa;
+        }
+        .provider-card:hover {
+            border-color: var(--primary, #2563eb);
+            background: #eff6ff;
+        }
+        .provider-card.selected {
+            border-color: var(--primary, #2563eb);
+            background: #dbeafe;
+        }
+        .provider-card i {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .provider-card .provider-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Purpose checkboxes */
+        .purpose-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .purpose-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 400;
+            font-size: 0.85rem;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            border-radius: 0.4rem;
+            cursor: pointer;
+            background: #fafafa;
+        }
+        .purpose-group label:hover {
+            background: #f3f4f6;
+        }
+        .purpose-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        /* Secret field with mask */
+        .secret-field {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .secret-field input {
+            flex: 1;
+        }
+        .secret-field .btn {
+            flex: 0;
+        }
+
+        /* State placeholder */
+        .state-placeholder {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .state-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+            color: #d1d5db;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 0.7rem 1rem;
+            border-radius: 0.5rem;
+            background: #1f2937;
+            color: #fff;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: #065f46; }
+        .toast.error { background: #991b1b; }
+        .toast.warning { background: #78350f; }
+        .toast i { font-size: 1rem; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+            .storage-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-bar .filter-group {
+                flex-wrap: wrap;
+            }
+            .filter-bar select,
+            .filter-bar input {
+                min-width: 100%;
+            }
+            .storage-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .provider-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin Navigation">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-text">Eco Lab</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="chapters.html"><i class="fas fa-layer-group"></i> Chapters</a>
+            <a href="topics.html"><i class="fas fa-tag"></i> Topics</a>
+            <a href="content.html"><i class="fas fa-file-alt"></i> Content</a>
+            <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="storage.html" class="active"><i class="fas fa-database"></i> Storage</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main" id="adminMain">
+        <header class="admin-topbar">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="topbar-right">
+                <span class="admin-user" id="adminUserEmail">admin@example.com</span>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Header -->
+            <div class="storage-header">
+                <div>
+                    <h1><i class="fas fa-database" style="color:var(--primary);"></i> Storage Management</h1>
+                    <div class="breadcrumb">Admin <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i> <span>Storage</span></div>
+                    <div class="subtitle">Manage your academic asset storage providers.</div>
+                </div>
+                <button class="btn btn-primary" id="addStorageBtn"><i class="fas fa-plus"></i> Add Storage</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-label">Configured Storages</div>
+                    <div class="stat-number" id="statTotal">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Providers</div>
+                    <div class="stat-number" id="statActive">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Default Image Storage</div>
+                    <div class="stat-number" id="statDefaultImage" style="font-size:1rem;">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Default Document Storage</div>
+                    <div class="stat-number" id="statDefaultDoc" style="font-size:1rem;">—</div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filterBar">
+                <div class="filter-group search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="filterSearch" placeholder="Search storage..." />
+                </div>
+                <div class="filter-group">
+                    <label for="filterProvider">Provider</label>
+                    <select id="filterProvider">
+                        <option value="">All Providers</option>
+                        <option value="github">GitHub</option>
+                        <option value="firebase">Firebase Storage</option>
+                        <option value="cloudinary">Cloudinary</option>
+                        <option value="s3">Amazon S3</option>
+                        <option value="supabase">Supabase</option>
+                        <option value="backblaze">Backblaze B2</option>
+                        <option value="imagekit">ImageKit</option>
+                        <option value="custom-s3">Custom S3</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterStatus">Status</label>
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="disabled">Disabled</option>
+                        <option value="error">Connection Error</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterPurpose">Purpose</label>
+                    <select id="filterPurpose">
+                        <option value="">All Purposes</option>
+                        <option value="images">Images</option>
+                        <option value="graphs">Graphs</option>
+                        <option value="pdfs">PDFs</option>
+                        <option value="documents">Documents</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button class="btn-clear" id="clearFiltersBtn"><i class="fas fa-times"></i> Clear</button>
+            </div>
+
+            <!-- Storage Grid -->
+            <div id="storageContainer">
+                <div class="storage-grid" id="storageGrid"></div>
+                <div id="storageState" class="state-placeholder" style="display:none;"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="storageModal" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <h2 id="modalTitle">Add Storage Provider</h2>
+            <form id="storageForm" novalidate>
+                <input type="hidden" id="storageId" />
+
+                <!-- Provider Selection (only for add) -->
+                <div id="providerSelection">
+                    <label>Choose Provider</label>
+                    <div class="provider-grid" id="providerGrid">
+                        <div class="provider-card" data-provider="github">
+                            <i class="fab fa-github"></i>
+                            <div class="provider-name">GitHub</div>
+                        </div>
+                        <div class="provider-card" data-provider="firebase">
+                            <i class="fas fa-fire"></i>
+                            <div class="provider-name">Firebase Storage</div>
+                        </div>
+                        <div class="provider-card" data-provider="cloudinary">
+                            <i class="fas fa-cloud"></i>
+                            <div class="provider-name">Cloudinary</div>
+                        </div>
+                        <div class="provider-card" data-provider="s3">
+                            <i class="fab fa-aws"></i>
+                            <div class="provider-name">Amazon S3</div>
+                        </div>
+                        <div class="provider-card" data-provider="supabase">
+                            <i class="fas fa-database"></i>
+                            <div class="provider-name">Supabase</div>
+                        </div>
+                        <div class="provider-card" data-provider="backblaze">
+                            <i class="fas fa-hdd"></i>
+                            <div class="provider-name">Backblaze B2</div>
+                        </div>
+                        <div class="provider-card" data-provider="imagekit">
+                            <i class="fas fa-image"></i>
+                            <div class="provider-name">ImageKit</div>
+                        </div>
+                        <div class="provider-card" data-provider="custom-s3">
+                            <i class="fas fa-server"></i>
+                            <div class="provider-name">Custom S3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic fields container -->
+                <div id="providerFields">
+                    <div class="form-group">
+                        <label for="formName">Storage Name <span class="required">*</span></label>
+                        <input type="text" id="formName" placeholder="e.g. Academic Images" required />
+                    </div>
+
+                    <div id="dynamicFields">
+                        <!-- Provider-specific fields injected here -->
+                    </div>
+
+                    <div class="form-group">
+                        <label>Purpose</label>
+                        <div class="purpose-group" id="purposeGroup">
+                            <label><input type="checkbox" value="images" /> Images</label>
+                            <label><input type="checkbox" value="graphs" /> Graphs</label>
+                            <label><input type="checkbox" value="pdfs" /> PDFs</label>
+                            <label><input type="checkbox" value="documents" /> Documents</label>
+                            <label><input type="checkbox" value="other" /> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formBasePath">Base Folder</label>
+                        <input type="text" id="formBasePath" placeholder="e.g. assets/images/" />
+                    </div>
+                </div>
+
+                <div id="formError" class="form-error"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="modalCancelBtn">Cancel</button>
+                    <button type="button" class="btn btn-outline" id="testConnectionBtn"><i class="fas fa-plug"></i> Test Connection</button>
+                    <button type="submit" class="btn btn-primary" id="modalSubmitBtn">Save Storage</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer" role="alert" aria-live="polite"></div>
+
+    <!-- Firebase & Admin JS -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-functions-compat.js"></script>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script type="module">
+        // Firebase setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGMAmDqACu2QfHJ3Ms5-amyOajqzQgUZg",
+            authDomain: "eco-lab-e2f48.firebaseapp.com",
+            projectId: "eco-lab-e2f48",
+            storageBucket: "eco-lab-e2f48.firebasestorage.app",
+            messagingSenderId: "836995560981",
+            appId: "1:836995560981:web:fc790ecae541525db0401c"
+        };
+
+        let app;
+        try { app = firebase.app(); } catch (_) { app = firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const functions = firebase.functions();
+
+        // DOM refs
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const storageGrid = $('#storageGrid');
+        const stateEl = $('#storageState');
+        const filterSearch = $('#filterSearch');
+        const filterProvider = $('#filterProvider');
+        const filterStatus = $('#filterStatus');
+        const filterPurpose = $('#filterPurpose');
+        const clearFiltersBtn = $('#clearFiltersBtn');
+        const addStorageBtn = $('#addStorageBtn');
+        const modal = $('#storageModal');
+        const modalTitle = $('#modalTitle');
+        const storageForm = $('#storageForm');
+        const storageIdInput = $('#storageId');
+        const formName = $('#formName');
+        const formBasePath = $('#formBasePath');
+        const dynamicFields = $('#dynamicFields');
+        const providerGrid = $('#providerGrid');
+        const providerSelection = $('#providerSelection');
+        const formError = $('#formError');
+        const modalSubmitBtn = $('#modalSubmitBtn');
+        const modalCancelBtn = $('#modalCancelBtn');
+        const testConnectionBtn = $('#testConnectionBtn');
+        const toastContainer = $('#toastContainer');
+
+        const statTotal = $('#statTotal');
+        const statActive = $('#statActive');
+        const statDefaultImage = $('#statDefaultImage');
+        const statDefaultDoc = $('#statDefaultDoc');
+
+        // State
+        let allStorages = [];
+        let filteredStorages = [];
+        let selectedProvider = '';
+        let editingId = null;
+        let isEditMode = false;
+
+        // Provider field definitions
+        const providerFields = {
+            github: `
+                <div class="form-group">
+                    <label for="formOwner">Owner / Username <span class="required">*</span></label>
+                    <input type="text" id="formOwner" placeholder="e.g. myusername" required />
+                </div>
+                <div class="form-group">
+                    <label for="formRepo">Repository Name <span class="required">*</span></label>
+                    <input type="text" id="formRepo" placeholder="e.g. academic-assets" required />
+                </div>
+                <div class="form-group">
+                    <label for="formBranch">Branch</label>
+                    <input type="text" id="formBranch" placeholder="e.g. main" value="main" />
+                </div>
+                <div class="form-group">
+                    <label for="formToken">Personal Access Token <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formToken" placeholder="ghp_xxxxxxxxxxxx" required />
+                        <button type="button" class="btn btn-outline" id="toggleTokenBtn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.15rem;">Token requires repo access. Never shared publicly.</div>
+                </div>
+            `,
+            firebase: `
+                <div class="form-group">
+                    <label>Firebase Storage</label>
+                    <p style="font-size:0.8rem;color:var(--text-muted);">Using existing Firebase Storage bucket. No additional credentials needed.</p>
+                    <input type="hidden" id="formFirebase" value="configured" />
+                </div>
+            `,
+            cloudinary: `
+                <div class="form-group">
+                    <label for="formCloudName">Cloud Name <span class="required">*</span></label>
+                    <input type="text" id="formCloudName" placeholder="e.g. mycloud" required />
+                </div>
+                <div class="form-group">
+                    <label for="formApiKey">API Key <span class="required">*</span></label>
+                    <input type="text" id="formApiKey" placeholder="Your API Key" required />
+                </div>
+                <div class="form-group">
+                    <label for="formApiSecret">API Secret <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formApiSecret" placeholder="API Secret" required />
+                        <button type="button" class="btn btn-outline" id="toggleCloudinarySecret"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="formCloudFolder">Folder</label>
+                    <input type="text" id="formCloudFolder" placeholder="e.g. academic/" />
+                </div>
+            `,
+            s3: `
+                <div class="form-group">
+                    <label for="formBucket">Bucket Name <span class="required">*</span></label>
+                    <input type="text" id="formBucket" placeholder="e.g. my-bucket" required />
+                </div>
+                <div class="form-group">
+                    <label for="formRegion">Region <span class="required">*</span></label>
+                    <input type="text" id="formRegion" placeholder="e.g. us-east-1" required />
+                </div>
+                <div class="form-group">
+                    <label for="formAccessKey">Access Key ID <span class="required">*</span></label>
+                    <input type="text" id="formAccessKey" placeholder="AKIA..." required />
+                </div>
+                <div class="form-group">
+                    <label for="formSecretKey">Secret Access Key <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formSecretKey" placeholder="Secret Key" required />
+                        <button type="button" class="btn btn-outline" id="toggleS3Secret"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            `,
+            supabase: `
+                <div class="form-group">
+                    <label for="formSupabaseUrl">Project URL <span class="required">*</span></label>
+                    <input type="url" id="formSupabaseUrl" placeholder="https://project.supabase.co" required />
+                </div>
+                <div class="form-group">
+                    <label for="formSupabaseBucket">Bucket Name <span class="required">*</span></label>
+                    <input type="text" id="formSupabaseBucket" placeholder="e.g. assets" required />
+                </div>
+                <div class="form-group">
+                    <label for="formSupabaseKey">Service Role Key <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formSupabaseKey" placeholder="eyJ..." required />
+                        <button type="button" class="btn btn-outline" id="toggleSupabaseKey"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            `,
+            backblaze: `
+                <div class="form-group">
+                    <label for="formBackblazeBucket">Bucket Name <span class="required">*</span></label>
+                    <input type="text" id="formBackblazeBucket" placeholder="e.g. my-bucket" required />
+                </div>
+                <div class="form-group">
+                    <label for="formBackblazeEndpoint">Endpoint <span class="required">*</span></label>
+                    <input type="url" id="formBackblazeEndpoint" placeholder="https://s3.us-west-002.backblazeb2.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="formBackblazeKeyId">Key ID <span class="required">*</span></label>
+                    <input type="text" id="formBackblazeKeyId" placeholder="Key ID" required />
+                </div>
+                <div class="form-group">
+                    <label for="formBackblazeAppKey">Application Key <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formBackblazeAppKey" placeholder="Application Key" required />
+                        <button type="button" class="btn btn-outline" id="toggleBackblazeKey"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            `,
+            imagekit: `
+                <div class="form-group">
+                    <label for="formImagekitPublic">Public Key <span class="required">*</span></label>
+                    <input type="text" id="formImagekitPublic" placeholder="Public Key" required />
+                </div>
+                <div class="form-group">
+                    <label for="formImagekitPrivate">Private Key <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formImagekitPrivate" placeholder="Private Key" required />
+                        <button type="button" class="btn btn-outline" id="toggleImagekitKey"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="formImagekitUrl">URL Endpoint</label>
+                    <input type="url" id="formImagekitUrl" placeholder="https://ik.imagekit.io/your-id" />
+                </div>
+            `,
+            'custom-s3': `
+                <div class="form-group">
+                    <label for="formCustomEndpoint">Endpoint <span class="required">*</span></label>
+                    <input type="url" id="formCustomEndpoint" placeholder="https://s3.custom.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="formCustomRegion">Region</label>
+                    <input type="text" id="formCustomRegion" placeholder="e.g. us-east-1" />
+                </div>
+                <div class="form-group">
+                    <label for="formCustomBucket">Bucket Name <span class="required">*</span></label>
+                    <input type="text" id="formCustomBucket" placeholder="e.g. my-bucket" required />
+                </div>
+                <div class="form-group">
+                    <label for="formCustomAccessKey">Access Key <span class="required">*</span></label>
+                    <input type="text" id="formCustomAccessKey" placeholder="Access Key" required />
+                </div>
+                <div class="form-group">
+                    <label for="formCustomSecretKey">Secret Key <span class="required">*</span></label>
+                    <div class="secret-field">
+                        <input type="password" id="formCustomSecretKey" placeholder="Secret Key" required />
+                        <button type="button" class="btn btn-outline" id="toggleCustomSecret"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            `
+        };
+
+        // --- Helper functions ---
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'success') {
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-triangle-exclamation' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${escapeHtml(message)}`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 4000);
+            }, 4000);
+        }
+
+        function getProviderIcon(provider) {
+            const icons = {
+                github: 'fab fa-github',
+                firebase: 'fas fa-fire',
+                cloudinary: 'fas fa-cloud',
+                s3: 'fab fa-aws',
+                supabase: 'fas fa-database',
+                backblaze: 'fas fa-hdd',
+                imagekit: 'fas fa-image',
+                'custom-s3': 'fas fa-server'
+            };
+            return icons[provider] || 'fas fa-database';
+        }
+
+        function getStatusClass(status) {
+            return status === 'active' ? 'active' : status === 'error' ? 'error' : 'disabled';
+        }
+
+        // --- Auth Guard ---
+        async function requireAdmin() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (!user) { window.location.href = '../login.html'; reject(); return; }
+                    try {
+                        const token = await user.getIdTokenResult();
+                        if (token.claims.admin !== true) { window.location.href = '../access-denied.html'; reject(); return; }
+                        resolve(user);
+                    } catch (e) { window.location.href = '../login.html'; reject(e); }
+                });
+            });
+        }
+
+        // --- Data Loaders ---
+        async function loadStorages() {
+            const snap = await db.collection('storage').orderBy('name').get();
+            allStorages = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allStorages;
+        }
+
+        // --- Render ---
+        function renderStorages(storages) {
+            if (!storages || storages.length === 0) {
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = `
+                    <i class="fas fa-database"></i>
+                    <p>No storage providers configured. Add a storage provider to start uploading academic assets.</p>
+                    <button class="btn btn-primary" id="emptyAddBtn"><i class="fas fa-plus"></i> Add Storage</button>
+                `;
+                storageGrid.innerHTML = '';
+                return;
+            }
+            stateEl.style.display = 'none';
+
+            const html = storages.map(s => {
+                const purposes = s.purposes || [];
+                const isDefaultImage = s.isDefault?.includes('images');
+                const isDefaultDoc = s.isDefault?.includes('documents');
+                const statusClass = getStatusClass(s.status || 'disabled');
+                const providerIcon = getProviderIcon(s.provider);
+
+                return `
+                    <div class="storage-card" data-id="${s.id}">
+                        <div class="card-top">
+                            <div>
+                                <div class="card-name">${escapeHtml(s.name)}</div>
+                                <div class="card-provider">
+                                    <i class="${providerIcon}"></i>
+                                    ${escapeHtml(s.provider || 'Unknown')}
+                                </div>
+                            </div>
+                            <span class="card-status ${statusClass}">${escapeHtml(s.status || 'Disabled')}</span>
+                        </div>
+                        <div class="card-purpose">
+                            ${purposes.map(p => `
+                                <span class="purpose-badge ${(p === 'images' && isDefaultImage) || (p === 'documents' && isDefaultDoc) ? 'default' : ''}">
+                                    ${escapeHtml(p)}
+                                </span>
+                            `).join('')}
+                        </div>
+                        <div class="card-meta">
+                            <span><i class="fas fa-folder"></i> ${escapeHtml(s.basePath || '/')}</span>
+                            ${s.lastTestedAt ? `<span><i class="fas fa-clock"></i> ${new Date(s.lastTestedAt.toMillis?.() || s.lastTestedAt).toLocaleDateString()}</span>` : ''}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-outline test-connection" data-id="${s.id}"><i class="fas fa-plug"></i> Test</button>
+                            <button class="btn btn-outline edit-storage" data-id="${s.id}"><i class="fas fa-pen"></i> Edit</button>
+                            <div class="actions-dropdown">
+                                <button class="dropdown-toggle" data-id="${s.id}" aria-label="More actions"><i class="fas fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu" data-id="${s.id}">
+                                    ${s.status === 'disabled' ? `<button data-action="enable" data-id="${s.id}"><i class="fas fa-check-circle"></i> Enable</button>` : ''}
+                                    ${s.status === 'active' ? `<button data-action="disable" data-id="${s.id}"><i class="fas fa-pause-circle"></i> Disable</button>` : ''}
+                                    <button data-action="set-default" data-id="${s.id}"><i class="fas fa-star"></i> Set as Default</button>
+                                    <button data-action="delete" data-id="${s.id}" class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            storageGrid.innerHTML = html;
+
+            // Attach events
+            storageGrid.querySelectorAll('.test-connection').forEach(btn => {
+                btn.addEventListener('click', () => testConnection(btn.dataset.id));
+            });
+            storageGrid.querySelectorAll('.edit-storage').forEach(btn => {
+                btn.addEventListener('click', () => openEditModal(btn.dataset.id));
+            });
+
+            storageGrid.querySelectorAll('.dropdown-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const menu = btn.parentElement.querySelector('.dropdown-menu');
+                    $$('.dropdown-menu.open').forEach(m => m !== menu && m.classList.remove('open'));
+                    menu.classList.toggle('open');
+                });
+            });
+
+            storageGrid.querySelectorAll('.dropdown-menu button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.dataset.action;
+                    const id = btn.dataset.id;
+                    const menu = btn.closest('.dropdown-menu');
+                    menu.classList.remove('open');
+                    handleAction(action, id);
+                });
+            });
+
+            document.addEventListener('click', () => {
+                $$('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+            });
+
+            // Empty state add button
+            const emptyAdd = document.getElementById('emptyAddBtn');
+            if (emptyAdd) emptyAdd.addEventListener('click', openAddModal);
+
+            updateStats(storages);
+        }
+
+        function updateStats(storages) {
+            const total = storages.length;
+            const active = storages.filter(s => s.status === 'active').length;
+            const defaultImage = storages.find(s => s.isDefault?.includes('images'));
+            const defaultDoc = storages.find(s => s.isDefault?.includes('documents'));
+
+            statTotal.textContent = total;
+            statActive.textContent = active;
+            statDefaultImage.textContent = defaultImage ? defaultImage.name : '—';
+            statDefaultDoc.textContent = defaultDoc ? defaultDoc.name : '—';
+        }
+
+        // --- Filter ---
+        function filterStorages() {
+            const search = filterSearch.value.toLowerCase().trim();
+            const provider = filterProvider.value;
+            const status = filterStatus.value;
+            const purpose = filterPurpose.value;
+
+            filteredStorages = allStorages.filter(s => {
+                let match = true;
+                if (search) {
+                    const inName = (s.name || '').toLowerCase().includes(search);
+                    const inProvider = (s.provider || '').toLowerCase().includes(search);
+                    const inOwner = (s.owner || '').toLowerCase().includes(search);
+                    const inRepo = (s.repository || '').toLowerCase().includes(search);
+                    match = inName || inProvider || inOwner || inRepo;
+                }
+                if (match && provider && s.provider !== provider) match = false;
+                if (match && status && s.status !== status) match = false;
+                if (match && purpose && !(s.purposes || []).includes(purpose)) match = false;
+                return match;
+            });
+
+            renderStorages(filteredStorages);
+        }
+
+        // --- Action Handlers ---
+        function handleAction(action, id) {
+            const storage = allStorages.find(s => s.id === id);
+            if (!storage) return;
+
+            switch (action) {
+                case 'enable': enableStorage(storage); break;
+                case 'disable': disableStorage(storage); break;
+                case 'set-default': setDefaultStorage(storage); break;
+                case 'delete': deleteStorage(storage); break;
+            }
+        }
+
+        // --- Modal ---
+        function openAddModal() {
+            editingId = null;
+            isEditMode = false;
+            modalTitle.textContent = 'Add Storage Provider';
+            modalSubmitBtn.textContent = 'Save Storage';
+            storageForm.reset();
+            storageIdInput.value = '';
+            formError.style.display = 'none';
+            formError.textContent = '';
+            providerSelection.style.display = 'block';
+            document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
+            selectedProvider = '';
+            dynamicFields.innerHTML = '';
+            modal.classList.add('active');
+            updatePurposeCheckboxes([]);
+        }
+
+        function openEditModal(id) {
+            const storage = allStorages.find(s => s.id === id);
+            if (!storage) return;
+
+            editingId = id;
+            isEditMode = true;
+            modalTitle.textContent = 'Edit Storage Provider';
+            modalSubmitBtn.textContent = 'Update Storage';
+            formError.style.display = 'none';
+            formError.textContent = '';
+            providerSelection.style.display = 'none';
+
+            selectedProvider = storage.provider || '';
+            formName.value = storage.name || '';
+            formBasePath.value = storage.basePath || '';
+            storageIdInput.value = id;
+
+            // Show provider fields
+            showProviderFields(selectedProvider, storage);
+            updatePurposeCheckboxes(storage.purposes || []);
+
+            modal.classList.add('active');
+        }
+
+        function showProviderFields(provider, data = null) {
+            const fieldsHtml = providerFields[provider] || '';
+            dynamicFields.innerHTML = fieldsHtml;
+
+            if (data) {
+                // Populate fields with existing data
+                const fieldMap = {
+                    formOwner: data.owner,
+                    formRepo: data.repository,
+                    formBranch: data.branch,
+                    formToken: '••••••••••••••••',
+                    formCloudName: data.cloudName,
+                    formApiKey: data.apiKey || '••••••••',
+                    formApiSecret: '••••••••••••',
+                    formCloudFolder: data.folder,
+                    formBucket: data.bucket,
+                    formRegion: data.region,
+                    formAccessKey: data.accessKey || '••••••••',
+                    formSecretKey: '••••••••••••',
+                    formSupabaseUrl: data.projectUrl,
+                    formSupabaseBucket: data.bucket,
+                    formSupabaseKey: '••••••••••••',
+                    formBackblazeBucket: data.bucket,
+                    formBackblazeEndpoint: data.endpoint,
+                    formBackblazeKeyId: data.keyId || '••••••••',
+                    formBackblazeAppKey: '••••••••••••',
+                    formImagekitPublic: data.publicKey || '••••••••',
+                    formImagekitPrivate: '••••••••••••',
+                    formImagekitUrl: data.urlEndpoint,
+                    formCustomEndpoint: data.endpoint,
+                    formCustomRegion: data.region,
+                    formCustomBucket: data.bucket,
+                    formCustomAccessKey: data.accessKey || '••••••••',
+                    formCustomSecretKey: '••••••••••••'
+                };
+
+                Object.entries(fieldMap).forEach(([id, val]) => {
+                    const el = document.getElementById(id);
+                    if (el && val) el.value = val;
+                });
+            }
+
+            // Attach toggle buttons
+            document.querySelectorAll('.secret-field .btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.parentElement.querySelector('input');
+                    if (input) {
+                        input.type = input.type === 'password' ? 'text' : 'password';
+                        btn.innerHTML = input.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                    }
+                });
+            });
+
+            // For Firebase, add a hidden field
+            if (provider === 'firebase') {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.id = 'formFirebaseConfigured';
+                input.value = 'true';
+                dynamicFields.appendChild(input);
+            }
+        }
+
+        function updatePurposeCheckboxes(selected) {
+            document.querySelectorAll('#purposeGroup input[type="checkbox"]').forEach(cb => {
+                cb.checked = selected.includes(cb.value);
+            });
+        }
+
+        function getSelectedPurposes() {
+            const cbs = document.querySelectorAll('#purposeGroup input[type="checkbox"]:checked');
+            return Array.from(cbs).map(cb => cb.value);
+        }
+
+        // --- Provider selection ---
+        document.querySelectorAll('.provider-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedProvider = card.dataset.provider;
+                showProviderFields(selectedProvider);
+            });
+        });
+
+        // --- Test Connection ---
+        async function testConnection(id) {
+            const storage = allStorages.find(s => s.id === id);
+            if (!storage) return;
+
+            try {
+                showToast('Testing connection...', 'warning');
+                const result = await functions.httpsCallable('testStorageConnection')({ storageId: id });
+                if (result.data.success) {
+                    showToast('✓ Connection successful', 'success');
+                    await refreshStorages();
+                } else {
+                    showToast('✕ Connection failed: ' + (result.data.message || 'Unknown error'), 'error');
+                }
+            } catch (e) {
+                showToast('Test failed: ' + e.message, 'error');
+            }
+        }
+
+        // --- Storage Operations ---
+        async function saveStorage(e) {
+            e.preventDefault();
+
+            const name = formName.value.trim();
+            const basePath = formBasePath.value.trim();
+            const purposes = getSelectedPurposes();
+
+            if (!name) {
+                formError.textContent = 'Storage Name is required.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            if (!isEditMode && !selectedProvider) {
+                formError.textContent = 'Please select a provider.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            const provider = isEditMode ? selectedProvider : selectedProvider;
+
+            // Collect provider-specific fields
+            const providerData = collectProviderData(provider);
+            if (!providerData) {
+                formError.textContent = 'Please fill in all required provider fields.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            formError.style.display = 'none';
+
+            const data = {
+                name,
+                provider,
+                purposes,
+                basePath: basePath || '/',
+                status: 'active',
+                ...providerData,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            if (!isEditMode) {
+                data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                data.createdBy = auth.currentUser?.uid || 'unknown';
+            }
+
+            try {
+                if (isEditMode) {
+                    // Check if any secret fields are being updated
+                    const hasSecretUpdate = checkSecretUpdate(provider);
+                    if (hasSecretUpdate) {
+                        await functions.httpsCallable('updateStorage')({
+                            storageId: editingId,
+                            data,
+                            updateSecrets: true
+                        });
+                    } else {
+                        await db.collection('storage').doc(editingId).update(data);
+                    }
+                    showToast('Storage updated successfully', 'success');
+                } else {
+                    await functions.httpsCallable('createStorage')(data);
+                    showToast('Storage added successfully', 'success');
+                }
+                modal.classList.remove('active');
+                await refreshStorages();
+            } catch (e) {
+                console.error('Save error:', e);
+                formError.textContent = 'Error: ' + (e.message || 'Unknown error');
+                formError.style.display = 'block';
+                showToast('Failed to save storage', 'error');
+            }
+        }
+
+        function collectProviderData(provider) {
+            const data = {};
+            const required = [];
+
+            switch (provider) {
+                case 'github':
+                    const owner = document.getElementById('formOwner')?.value.trim();
+                    const repo = document.getElementById('formRepo')?.value.trim();
+                    const branch = document.getElementById('formBranch')?.value.trim() || 'main';
+                    const token = document.getElementById('formToken')?.value.trim();
+                    if (!owner || !repo) return null;
+                    data.owner = owner;
+                    data.repository = repo;
+                    data.branch = branch;
+                    if (token && token !== '••••••••••••••••') data.token = token;
+                    break;
+                case 'firebase':
+                    data.configured = true;
+                    break;
+                case 'cloudinary':
+                    const cloudName = document.getElementById('formCloudName')?.value.trim();
+                    const apiKey = document.getElementById('formApiKey')?.value.trim();
+                    const apiSecret = document.getElementById('formApiSecret')?.value.trim();
+                    const folder = document.getElementById('formCloudFolder')?.value.trim();
+                    if (!cloudName || !apiKey) return null;
+                    data.cloudName = cloudName;
+                    data.apiKey = apiKey;
+                    if (apiSecret && apiSecret !== '••••••••••••') data.apiSecret = apiSecret;
+                    if (folder) data.folder = folder;
+                    break;
+                case 's3':
+                    const bucket = document.getElementById('formBucket')?.value.trim();
+                    const region = document.getElementById('formRegion')?.value.trim();
+                    const accessKey = document.getElementById('formAccessKey')?.value.trim();
+                    const secretKey = document.getElementById('formSecretKey')?.value.trim();
+                    if (!bucket || !region || !accessKey) return null;
+                    data.bucket = bucket;
+                    data.region = region;
+                    data.accessKey = accessKey;
+                    if (secretKey && secretKey !== '••••••••••••') data.secretKey = secretKey;
+                    break;
+                case 'supabase':
+                    const supabaseUrl = document.getElementById('formSupabaseUrl')?.value.trim();
+                    const supabaseBucket = document.getElementById('formSupabaseBucket')?.value.trim();
+                    const supabaseKey = document.getElementById('formSupabaseKey')?.value.trim();
+                    if (!supabaseUrl || !supabaseBucket) return null;
+                    data.projectUrl = supabaseUrl;
+                    data.bucket = supabaseBucket;
+                    if (supabaseKey && supabaseKey !== '••••••••••••') data.serviceRoleKey = supabaseKey;
+                    break;
+                case 'backblaze':
+                    const b2Bucket = document.getElementById('formBackblazeBucket')?.value.trim();
+                    const b2Endpoint = document.getElementById('formBackblazeEndpoint')?.value.trim();
+                    const b2KeyId = document.getElementById('formBackblazeKeyId')?.value.trim();
+                    const b2AppKey = document.getElementById('formBackblazeAppKey')?.value.trim();
+                    if (!b2Bucket || !b2Endpoint || !b2KeyId) return null;
+                    data.bucket = b2Bucket;
+                    data.endpoint = b2Endpoint;
+                    data.keyId = b2KeyId;
+                    if (b2AppKey && b2AppKey !== '••••••••••••') data.applicationKey = b2AppKey;
+                    break;
+                case 'imagekit':
+                    const ikPublic = document.getElementById('formImagekitPublic')?.value.trim();
+                    const ikPrivate = document.getElementById('formImagekitPrivate')?.value.trim();
+                    const ikUrl = document.getElementById('formImagekitUrl')?.value.trim();
+                    if (!ikPublic) return null;
+                    data.publicKey = ikPublic;
+                    if (ikPrivate && ikPrivate !== '••••••••••••') data.privateKey = ikPrivate;
+                    if (ikUrl) data.urlEndpoint = ikUrl;
+                    break;
+                case 'custom-s3':
+                    const customEndpoint = document.getElementById('formCustomEndpoint')?.value.trim();
+                    const customRegion = document.getElementById('formCustomRegion')?.value.trim();
+                    const customBucket = document.getElementById('formCustomBucket')?.value.trim();
+                    const customAccessKey = document.getElementById('formCustomAccessKey')?.value.trim();
+                    const customSecretKey = document.getElementById('formCustomSecretKey')?.value.trim();
+                    if (!customEndpoint || !customBucket || !customAccessKey) return null;
+                    data.endpoint = customEndpoint;
+                    data.region = customRegion || 'us-east-1';
+                    data.bucket = customBucket;
+                    data.accessKey = customAccessKey;
+                    if (customSecretKey && customSecretKey !== '••••••••••••') data.secretKey = customSecretKey;
+                    break;
+                default:
+                    return null;
+            }
+            return data;
+        }
+
+        function checkSecretUpdate(provider) {
+            const secretFields = {
+                github: 'formToken',
+                cloudinary: 'formApiSecret',
+                s3: 'formSecretKey',
+                supabase: 'formSupabaseKey',
+                backblaze: 'formBackblazeAppKey',
+                imagekit: 'formImagekitPrivate',
+                'custom-s3': 'formCustomSecretKey'
+            };
+            const fieldId = secretFields[provider];
+            if (!fieldId) return false;
+            const el = document.getElementById(fieldId);
+            return el && el.value && el.value !== '••••••••••••••••' && el.value !== '••••••••••••' && el.value !== '••••••••';
+        }
+
+        async function enableStorage(storage) {
+            if (!confirm(`Enable "${storage.name}"? This will allow new uploads to use this storage.`)) return;
+            try {
+                await db.collection('storage').doc(storage.id).update({
+                    status: 'active',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('Storage enabled', 'success');
+                await refreshStorages();
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        async function disableStorage(storage) {
+            if (!confirm(`Disable "${storage.name}"? New uploads will no longer use this storage. Existing assets remain available.`)) return;
+            try {
+                await db.collection('storage').doc(storage.id).update({
+                    status: 'disabled',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('Storage disabled', 'success');
+                await refreshStorages();
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        async function setDefaultStorage(storage) {
+            if (!confirm(`Set "${storage.name}" as default storage?`)) return;
+            try {
+                await functions.httpsCallable('setDefaultStorage')({
+                    storageId: storage.id,
+                    purposes: storage.purposes || ['images']
+                });
+                showToast('Default storage updated', 'success');
+                await refreshStorages();
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        async function deleteStorage(storage) {
+            if (!confirm(`Delete "${storage.name}" permanently? This will remove the storage configuration.`)) return;
+
+            // Check if any assets reference this storage
+            try {
+                const assetsSnap = await db.collection('assets')
+                    .where('storageId', '==', storage.id)
+                    .limit(1)
+                    .get();
+
+                if (!assetsSnap.empty) {
+                    showToast(`Cannot delete: ${assetsSnap.size} assets are associated with this provider.`, 'warning');
+                    return;
+                }
+            } catch (e) {
+                // Continue if assets collection doesn't exist yet
+            }
+
+            try {
+                await functions.httpsCallable('deleteStorage')({ storageId: storage.id });
+                showToast('Storage deleted', 'success');
+                await refreshStorages();
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        // --- Refresh ---
+        async function refreshStorages() {
+            await loadStorages();
+            filterStorages();
+        }
+
+        // --- Init ---
+        async function init() {
+            try {
+                await requireAdmin();
+
+                await refreshStorages();
+
+                // Filter events
+                [filterSearch, filterProvider, filterStatus, filterPurpose].forEach(el => {
+                    el.addEventListener('change', filterStorages);
+                });
+                filterSearch.addEventListener('input', debounce(filterStorages, 300));
+
+                clearFiltersBtn.addEventListener('click', () => {
+                    filterSearch.value = '';
+                    filterProvider.value = '';
+                    filterStatus.value = '';
+                    filterPurpose.value = '';
+                    filterStorages();
+                });
+
+                // Add storage
+                addStorageBtn.addEventListener('click', openAddModal);
+
+                // Modal events
+                modalCancelBtn.addEventListener('click', () => modal.classList.remove('active'));
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('active');
+                });
+
+                storageForm.addEventListener('submit', saveStorage);
+
+                testConnectionBtn.addEventListener('click', async () => {
+                    const id = storageIdInput.value;
+                    if (id) {
+                        await testConnection(id);
+                    } else {
+                        showToast('Save the storage first, then test connection.', 'warning');
+                    }
+                });
+
+                // Sidebar toggle
+                $('#sidebarToggle').addEventListener('click', () => {
+                    document.getElementById('adminSidebar').classList.toggle('open');
+                });
+
+                // Logout
+                $('#sidebarLogout').addEventListener('click', () => {
+                    auth.signOut().then(() => window.location.href = '../login.html');
+                });
+
+                // Admin user email
+                auth.onAuthStateChanged(user => {
+                    if (user) document.getElementById('adminUserEmail').textContent = user.email || 'admin';
+                });
+
+                // Keyboard shortcut
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                    }
+                });
+
+            } catch (e) {
+                console.error('Init error:', e);
+                showToast('Failed to initialize: ' + e.message, 'error');
+            }
+        }
+
+        // Debounce helper
+        function debounce(fn, ms) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn(...args), ms);
+            };
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

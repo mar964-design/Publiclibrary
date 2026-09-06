@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topic | Academic Knowledge Library</title>
+    <meta name="description" content="Explore formulas, laws, definitions, concepts, and examples for this topic." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/topic.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Topic | Academic Knowledge Library" />
+    <meta property="og:description" content="Explore formulas, laws, definitions, concepts, and examples for this topic." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/topic.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Topic | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Explore formulas, laws, definitions, concepts, and examples for this topic." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== TOPIC HERO ===== */
+        .topic-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .topic-hero .hero-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .topic-hero .breadcrumb-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .topic-hero .breadcrumb-links a {
+            color: white;
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+        .topic-hero .breadcrumb-links a:hover {
+            opacity: 1;
+        }
+        .topic-hero h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .topic-hero .topic-meta {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+        .topic-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+        .topic-hero .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .topic-hero .hero-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .topic-hero .hero-stats .stat-item i {
+            font-size: 1.1rem;
+        }
+        .topic-hero .hero-stats .stat-item .num {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .topic-hero .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .topic-hero .hero-actions .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .topic-hero .hero-actions .btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .topic-hero .hero-actions .btn-primary-action {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+        .topic-hero .hero-actions .btn-primary-action:hover {
+            background: var(--primary-bg);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SEARCH & FILTER ===== */
+        .topic-search-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        .topic-search-section .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+        .topic-search-section .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .topic-search-section .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .topic-search-section .search-wrapper input {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .topic-search-section .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .topic-search-section .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .topic-search-section .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .topic-search-section .filter-chips .chip {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .topic-search-section .filter-chips .chip:hover {
+            background: var(--primary-bg);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+        .topic-search-section .filter-chips .chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        .topic-search-section .result-count {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .topic-search-section .search-results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topic-search-section .sort-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .topic-search-section .sort-wrapper label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .topic-search-section .sort-wrapper select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .content-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .content-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .content-card .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+        .content-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .content-card h3 a {
+            color: var(--text);
+        }
+        .content-card h3 a:hover {
+            color: var(--primary);
+        }
+        .content-card .formula-preview {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+            overflow-x: auto;
+        }
+        .content-card .formula-preview .katex-display {
+            margin: 0;
+        }
+        .content-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+        .content-card .content-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .content-card .content-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .content-card .content-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            align-items: center;
+        }
+        .content-card .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: color var(--transition);
+            padding: 4px 8px;
+        }
+        .content-card .bookmark-btn.bookmarked {
+            color: var(--primary);
+        }
+        .content-card .bookmark-btn:hover {
+            color: var(--primary);
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+        .load-more-container .btn {
+            min-width: 160px;
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-hero .skeleton-line {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            animation: pulse-light 1.5s ease-in-out infinite;
+        }
+        .skeleton-hero .skeleton-line.short {
+            width: 40%;
+        }
+        .skeleton-hero .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-hero .skeleton-line.long {
+            width: 80%;
+        }
+        .skeleton-hero .skeleton-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+        }
+        .skeleton-hero .skeleton-stats .skeleton-line {
+            width: 80px;
+            height: 16px;
+        }
+        @keyframes pulse-light {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .skeleton-content {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-content .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-content .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-content .skeleton-line.medium {
+            width: 70%;
+        }
+        .skeleton-content .skeleton-line.long {
+            width: 100%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== EMPTY / ERROR / NOT FOUND ===== */
+        .empty-state,
+        .error-state,
+        .not-found-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 200px;
+        }
+        .empty-state i,
+        .error-state i,
+        .not-found-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .not-found-state i {
+            color: var(--border);
+        }
+        .empty-state .btn,
+        .error-state .btn,
+        .not-found-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== RELATED TOPICS ===== */
+        .related-topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .related-topic-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 16px 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            text-align: center;
+        }
+        .related-topic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .related-topic-card h4 {
+            font-size: 1rem;
+        }
+        .related-topic-card h4 a {
+            color: var(--text);
+        }
+        .related-topic-card h4 a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== PREV/NEXT NAV ===== */
+        .topic-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .topic-navigation .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+            font-weight: 500;
+            flex: 1;
+            max-width: 300px;
+            justify-content: center;
+        }
+        .topic-navigation .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+        .topic-navigation .nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .topic-hero .hero-grid {
+                text-align: center;
+            }
+            .topic-hero p {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .topic-hero .hero-stats {
+                justify-content: center;
+            }
+            .topic-hero .hero-actions {
+                justify-content: center;
+            }
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .topic-hero h1 {
+                font-size: 1.8rem;
+            }
+            .topic-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .topic-hero .hero-stats {
+                gap: 16px;
+                font-size: 0.85rem;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .topic-search-section .filter-chips {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .topic-search-section .search-results-info {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .topic-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .topic-navigation .nav-btn {
+                max-width: 100%;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .related-topics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .topic-hero .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .related-topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <a href="subjects.html">Subjects</a>
+            <span>›</span>
+            <a href="#" id="breadcrumbSubject">Loading...</a>
+            <span>›</span>
+            <a href="#" id="breadcrumbChapter">Loading...</a>
+            <span>›</span>
+            <span class="current" id="breadcrumbTopic">Loading...</span>
+        </nav>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- ===== TOPIC HERO ===== -->
+        <section class="topic-hero" id="topicHero">
+            <div class="container">
+                <div id="heroContent">
+                    <!-- Dynamically rendered -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SEARCH & FILTER ===== -->
+        <section class="container" id="topicSearchSection">
+            <div class="topic-search-section">
+                <h3 style="margin-bottom:12px;font-size:1.2rem;">
+                    <i class="fas fa-search" style="color:var(--primary);"></i>
+                    Search resources in <span id="searchTopicName">this topic</span>
+                </h3>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="topicSearchInput" placeholder="Search resources..." aria-label="Search resources in this topic" />
+                    <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="filter-chips" id="filterChips">
+                    <button class="chip active" data-filter="all">All</button>
+                    <button class="chip" data-filter="formula">Formulas</button>
+                    <button class="chip" data-filter="law">Laws</button>
+                    <button class="chip" data-filter="definition">Definitions</button>
+                    <button class="chip" data-filter="concept">Concepts</button>
+                    <button class="chip" data-filter="theorem">Theorems</button>
+                    <button class="chip" data-filter="rule">Rules</button>
+                    <button class="chip" data-filter="identity">Identities</button>
+                    <button class="chip" data-filter="constant">Constants</button>
+                    <button class="chip" data-filter="graph">Graphs</button>
+                    <button class="chip" data-filter="example">Examples</button>
+                </div>
+                <div class="search-results-info">
+                    <div class="result-count" id="resultCount">Loading resources...</div>
+                    <div class="sort-wrapper">
+                        <label for="sortSelect">Sort</label>
+                        <select id="sortSelect">
+                            <option value="recommended">Recommended</option>
+                            <option value="az">A–Z</option>
+                            <option value="za">Z–A</option>
+                            <option value="recent">Recently Added</option>
+                            <option value="views">Most Viewed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults" style="display:none;">
+                    <!-- Dynamic search results (if needed) -->
+                </div>
+                <div id="contentGridContainer">
+                    <div class="content-grid" id="contentGrid">
+                        <!-- Dynamic content -->
+                    </div>
+                    <div class="load-more-container" id="loadMoreContainer">
+                        <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RELATED TOPICS ===== -->
+        <section class="container" id="relatedTopicsSection" style="margin-top:40px;">
+            <h2 class="section-title"><i class="fas fa-link"></i> Related Topics</h2>
+            <div class="related-topics-grid" id="relatedTopicsGrid">
+                <!-- Dynamic -->
+            </div>
+        </section>
+
+        <!-- ===== PREV/NEXT NAVIGATION ===== -->
+        <section class="container" id="topicNavigation">
+            <div class="topic-navigation">
+                <a href="#" class="nav-btn" id="prevTopicBtn"><i class="fas fa-arrow-left"></i> Previous Topic</a>
+                <a href="#" class="nav-btn" id="nextTopicBtn">Next Topic <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Import shared Firebase services and data-layer functions
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth } from "../js/firebase-config.js";
+        import {
+            getSubjectBySlug,
+            getChapterBySlug,
+            getTopicBySlug,
+            getTopicById,
+            getContentsByTopic,
+            getTopicsByChapter,
+            getTopicStats,
+            getRelatedTopics
+        } from "../js/firestore.js";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        import { addBookmark, removeBookmark, isBookmarked } from "../js/bookmarks.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const heroContent = document.getElementById('heroContent');
+        const contentGrid = document.getElementById('contentGrid');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const resultCount = document.getElementById('resultCount');
+        const relatedTopicsGrid = document.getElementById('relatedTopicsGrid');
+        const prevTopicBtn = document.getElementById('prevTopicBtn');
+        const nextTopicBtn = document.getElementById('nextTopicBtn');
+        const breadcrumbSubject = document.getElementById('breadcrumbSubject');
+        const breadcrumbChapter = document.getElementById('breadcrumbChapter');
+        const breadcrumbTopic = document.getElementById('breadcrumbTopic');
+        const searchTopicName = document.getElementById('searchTopicName');
+        const searchInput = document.getElementById('topicSearchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const filterChips = document.getElementById('filterChips');
+        const sortSelect = document.getElementById('sortSelect');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            subject: null,
+            chapter: null,
+            topic: null,
+            allContents: [],
+            filteredContents: [],
+            displayedContents: [],
+            pageSize: 12,
+            currentPage: 1,
+            searchQuery: '',
+            contentType: 'all',
+            sortBy: 'recommended',
+            loading: true,
+            error: null,
+            notFound: false,
+            stats: null,
+            relatedTopics: [],
+            prevTopic: null,
+            nextTopic: null,
+            bookmarks: new Map() // contentId -> boolean
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Get page parameters
+        // ------------------------------------------------------------------
+        function getPageParameters() {
+            const params = new URLSearchParams(window.location.search);
+            const subjectSlug = params.get('subject');
+            const chapterSlug = params.get('chapter');
+            const topicSlug = params.get('slug');
+            const topicId = params.get('topicId');
+            const subjectId = params.get('subjectId');
+            const chapterId = params.get('chapterId');
+            return { subjectSlug, chapterSlug, topicSlug, topicId, subjectId, chapterId };
+        }
+
+        // ------------------------------------------------------------------
+        // Render loading state
+        // ------------------------------------------------------------------
+        function renderLoadingState() {
+            heroContent.innerHTML = `
+                <div class="skeleton-hero">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-stats">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                    </div>
+                </div>
+            `;
+
+            let contentSkeletons = '';
+            for (let i = 0; i < 6; i++) {
+                contentSkeletons += `
+                    <div class="skeleton-content">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line long"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            contentGrid.innerHTML = contentSkeletons;
+            resultCount.textContent = 'Loading resources...';
+            loadMoreContainer.style.display = 'none';
+            relatedTopicsGrid.innerHTML = '';
+            prevTopicBtn.style.display = 'none';
+            nextTopicBtn.style.display = 'none';
+
+            breadcrumbSubject.textContent = 'Loading...';
+            breadcrumbChapter.textContent = 'Loading...';
+            breadcrumbTopic.textContent = 'Loading...';
+            searchTopicName.textContent = 'this topic';
+        }
+
+        // ------------------------------------------------------------------
+        // Render not found state
+        // ------------------------------------------------------------------
+        function renderNotFoundState(message = 'Topic not found') {
+            heroContent.innerHTML = `
+                <div class="not-found-state" style="color:white;padding:20px;">
+                    <i class="fas fa-book" style="color:rgba(255,255,255,0.4);"></i>
+                    <h2 style="color:white;font-size:1.8rem;">${message}</h2>
+                    <p style="opacity:0.8;max-width:500px;margin:0 auto;">
+                        The topic you're looking for may have been removed, unpublished, or doesn't exist.
+                    </p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
+                        <a href="chapter.html?subject=${state.subject?.slug || ''}&chapter=${state.chapter?.slug || ''}" class="btn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Back to Chapter</a>
+                        <a href="subjects.html" class="btn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Browse Subjects</a>
+                        <a href="../index.html" class="btn" style="background:white;color:var(--primary-dark);">Go Home</a>
+                    </div>
+                </div>
+            `;
+            contentGrid.innerHTML = '';
+            resultCount.textContent = '';
+            loadMoreContainer.style.display = 'none';
+            relatedTopicsGrid.innerHTML = '';
+            prevTopicBtn.style.display = 'none';
+            nextTopicBtn.style.display = 'none';
+            breadcrumbSubject.textContent = 'Not Found';
+            breadcrumbChapter.textContent = 'Not Found';
+            breadcrumbTopic.textContent = 'Not Found';
+            searchTopicName.textContent = 'this topic';
+            document.title = 'Topic Not Found | Academic Knowledge Library';
+        }
+
+        // ------------------------------------------------------------------
+        // Render error state
+        // ------------------------------------------------------------------
+        function renderErrorState(message = 'Unable to load this topic. Please try again.') {
+            heroContent.innerHTML = `
+                <div class="error-state" style="color:white;padding:20px;">
+                    <i class="fas fa-exclamation-circle" style="color:rgba(255,255,255,0.5);"></i>
+                    <p style="opacity:0.9;max-width:500px;margin:0 auto;">${message}</p>
+                    <button class="btn" id="retryBtn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Try Again</button>
+                </div>
+            `;
+            document.getElementById('retryBtn')?.addEventListener('click', loadTopicPage);
+            contentGrid.innerHTML = '';
+            resultCount.textContent = '';
+            loadMoreContainer.style.display = 'none';
+            relatedTopicsGrid.innerHTML = '';
+            prevTopicBtn.style.display = 'none';
+            nextTopicBtn.style.display = 'none';
+        }
+
+        // ------------------------------------------------------------------
+        // Render topic hero
+        // ------------------------------------------------------------------
+        function renderTopicHero(subject, chapter, topic, stats) {
+            const subjectLink = subject ? `<a href="subject.html?slug=${subject.slug}">${subject.name}</a>` : 'Unknown Subject';
+            const chapterLink = chapter ? `<a href="chapter.html?subject=${subject?.slug}&slug=${chapter.slug}">${chapter.name}</a>` :
+                'Unknown Chapter';
+
+            const statsHtml = stats ? `
+                <div class="hero-stats">
+                    ${stats.contentCount !== undefined && stats.contentCount !== null ? `<span class="stat-item"><i class="fas fa-file-alt"></i> <span class="num">${stats.contentCount}</span> Resources</span>` : ''}
+                    ${stats.formulaCount !== undefined && stats.formulaCount !== null ? `<span class="stat-item"><i class="fas fa-calculator"></i> <span class="num">${stats.formulaCount}</span> Formulas</span>` : ''}
+                    ${stats.lawCount !== undefined && stats.lawCount !== null ? `<span class="stat-item"><i class="fas fa-gavel"></i> <span class="num">${stats.lawCount}</span> Laws</span>` : ''}
+                    ${stats.definitionCount !== undefined && stats.definitionCount !== null ? `<span class="stat-item"><i class="fas fa-book"></i> <span class="num">${stats.definitionCount}</span> Definitions</span>` : ''}
+                    ${stats.conceptCount !== undefined && stats.conceptCount !== null ? `<span class="stat-item"><i class="fas fa-lightbulb"></i> <span class="num">${stats.conceptCount}</span> Concepts</span>` : ''}
+                    ${stats.exampleCount !== undefined && stats.exampleCount !== null ? `<span class="stat-item"><i class="fas fa-list"></i> <span class="num">${stats.exampleCount}</span> Examples</span>` : ''}
+                </div>
+            ` : '';
+
+            const description = topic.description || `Explore the important formulas, laws, definitions, concepts and examples related to this topic.`;
+
+            heroContent.innerHTML = `
+                <div class="hero-grid">
+                    <div class="breadcrumb-links">
+                        <span><i class="fas fa-book"></i> Subject: ${subjectLink}</span>
+                        <span><i class="fas fa-book-open"></i> Chapter: ${chapterLink}</span>
+                    </div>
+                    <h1>${topic.name}</h1>
+                    <p>${description}</p>
+                    ${statsHtml}
+                    <div class="hero-actions">
+                        <a href="#contentGridContainer" class="btn btn-primary-action"><i class="fas fa-list"></i> View Resources</a>
+                        <a href="formulas.html?subject=${subject.slug}&topic=${topic.slug}" class="btn"><i class="fas fa-calculator"></i> Formulas</a>
+                        <a href="laws.html?subject=${subject.slug}&topic=${topic.slug}" class="btn"><i class="fas fa-gavel"></i> Laws</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render content cards
+        // ------------------------------------------------------------------
+        function renderContentCard(content, isBookmarked) {
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const label = typeLabels[content.type] || content.type || 'Content';
+            const desc = content.shortDescription || content.definition || '';
+
+            // Formula preview
+            let formulaHtml = '';
+            if (content.type === 'formula' && content.formula) {
+                formulaHtml = `<div class="formula-preview" data-formula="${content.formula}">${content.formula}</div>`;
+            }
+
+            const bookmarkIcon = isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark';
+            const bookmarkClass = isBookmarked ? 'bookmarked' : '';
+
+            return `
+                <div class="content-card" data-content-id="${content.id}">
+                    <span class="badge">${label}</span>
+                    <h3><a href="content.html?slug=${content.slug}">${content.title}</a></h3>
+                    ${formulaHtml}
+                    <p>${desc}</p>
+                    <div class="content-meta">
+                        <span><i class="fas fa-eye"></i> ${content.views || 0}</span>
+                        <span><i class="fas fa-bookmark"></i> ${content.bookmarks || 0}</span>
+                        ${content.updatedAt ? `<span><i class="fas fa-clock"></i> ${new Date(content.updatedAt.toMillis?.() || Date.now()).toLocaleDateString()}</span>` : ''}
+                    </div>
+                    <div class="content-actions">
+                        <a href="content.html?slug=${content.slug}" class="btn btn-sm btn-secondary">Read More</a>
+                        <button class="bookmark-btn ${bookmarkClass}" data-content-id="${content.id}" aria-label="Bookmark">
+                            <i class="${bookmarkIcon}"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render content list with pagination
+        // ------------------------------------------------------------------
+        function renderContentList() {
+            const filtered = state.filteredContents;
+            const total = filtered.length;
+            const pageSize = state.pageSize;
+            const currentPage = state.currentPage;
+            const start = 0;
+            const end = Math.min(currentPage * pageSize, total);
+            const displayed = filtered.slice(start, end);
+
+            state.displayedContents = displayed;
+
+            if (total === 0) {
+                contentGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;min-height:auto;padding:40px 20px;">
+                        <i class="fas fa-search"></i>
+                        <p>No resources found matching your criteria.</p>
+                        <button class="btn btn-sm btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                    </div>
+                `;
+                document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                    searchInput.value = '';
+                    clearSearch.classList.remove('visible');
+                    state.searchQuery = '';
+                    filterChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    filterChips.querySelector('[data-filter="all"]').classList.add('active');
+                    state.contentType = 'all';
+                    applyFiltersAndSort();
+                });
+                resultCount.textContent = `Showing 0 resources`;
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            contentGrid.innerHTML = displayed.map(c => renderContentCard(c, state.bookmarks.get(c.id) || false)).join('');
+
+            // Update result count
+            resultCount.textContent = `Showing ${displayed.length} of ${total} resources`;
+
+            // Show/hide load more
+            if (end < total) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+            // Re-attach bookmark listeners (delegated)
+            // We'll use event delegation on contentGrid for bookmark clicks
+        }
+
+        // ------------------------------------------------------------------
+        // Apply filters and sorting
+        // ------------------------------------------------------------------
+        function applyFiltersAndSort() {
+            const query = state.searchQuery.trim().toLowerCase();
+            const type = state.contentType;
+
+            let filtered = state.allContents.filter(content => {
+                // Type filter
+                if (type !== 'all' && content.type !== type) return false;
+                // Search
+                if (query) {
+                    const title = (content.title || '').toLowerCase();
+                    const desc = (content.shortDescription || content.definition || '').toLowerCase();
+                    const keywords = (content.keywords || []).join(' ').toLowerCase();
+                    const typeLabel = (content.type || '').toLowerCase();
+                    return title.includes(query) || desc.includes(query) || keywords.includes(query) || typeLabel.includes(
+                        query);
+                }
+                return true;
+            });
+
+            // Sort
+            const sort = state.sortBy;
+            switch (sort) {
+                case 'az':
+                    filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+                    break;
+                case 'za':
+                    filtered.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
+                    break;
+                case 'recent':
+                    filtered.sort((a, b) => {
+                        const aTime = a.createdAt?.toMillis?.() || 0;
+                        const bTime = b.createdAt?.toMillis?.() || 0;
+                        return bTime - aTime;
+                    });
+                    break;
+                case 'views':
+                    filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+                    break;
+                default: // recommended
+                    // Use order if available, else by title
+                    filtered.sort((a, b) => {
+                        const orderA = a.order ?? 0;
+                        const orderB = b.order ?? 0;
+                        if (orderA !== orderB) return orderA - orderB;
+                        return (a.title || '').localeCompare(b.title || '');
+                    });
+                    break;
+            }
+
+            state.filteredContents = filtered;
+            state.currentPage = 1; // reset pagination
+            renderContentList();
+        }
+
+        // ------------------------------------------------------------------
+        // Load more
+        // ------------------------------------------------------------------
+        function loadMore() {
+            state.currentPage++;
+            renderContentList();
+        }
+
+        // ------------------------------------------------------------------
+        // Load bookmark states for content
+        // ------------------------------------------------------------------
+        async function loadBookmarks() {
+            const user = getCurrentUser();
+            if (!user) return;
+            const contentIds = state.allContents.map(c => c.id);
+            for (const id of contentIds) {
+                const isBookmarked = await isBookmarked(user.uid, id);
+                state.bookmarks.set(id, isBookmarked);
+            }
+            // Re-render to reflect bookmarks
+            renderContentList();
+        }
+
+        // ------------------------------------------------------------------
+        // Toggle bookmark
+        // ------------------------------------------------------------------
+        async function toggleBookmark(contentId, btnElement) {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Please log in to save this content.', 'warning');
+                return;
+            }
+            const icon = btnElement.querySelector('i');
+            const isBookmarkedNow = await isBookmarked(user.uid, contentId);
+            try {
+                if (isBookmarkedNow) {
+                    await removeBookmark(user.uid, contentId);
+                    icon.className = 'far fa-bookmark';
+                    state.bookmarks.set(contentId, false);
+                    showToast('Bookmark removed.', 'success');
+                } else {
+                    await addBookmark(user.uid, contentId);
+                    icon.className = 'fas fa-bookmark';
+                    state.bookmarks.set(contentId, true);
+                    showToast('Bookmark added!', 'success');
+                }
+                btnElement.classList.toggle('bookmarked', !isBookmarkedNow);
+                // Update the bookmark count on the card? Not necessary for now.
+            } catch (err) {
+                showToast('Failed to update bookmark.', 'error');
+                console.error(err);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load related topics
+        // ------------------------------------------------------------------
+        async function loadRelatedTopics(topicId, chapterId) {
+            try {
+                // Use getRelatedTopics if available, else getTopicsByChapter and filter nearby
+                const allTopics = await getTopicsByChapter(chapterId, 'published');
+                // Find current topic index
+                const idx = allTopics.findIndex(t => t.id === topicId);
+                if (idx === -1) return;
+                // Get up to 4 topics around it (2 before, 2 after, but we'll just take some)
+                const related = [];
+                const indices = [idx - 2, idx - 1, idx + 1, idx + 2];
+                for (const i of indices) {
+                    if (i >= 0 && i < allTopics.length && i !== idx) {
+                        related.push(allTopics[i]);
+                    }
+                }
+                state.relatedTopics = related.slice(0, 4);
+
+                // Render related topics
+                if (related.length > 0) {
+                    relatedTopicsGrid.innerHTML = related.map(t => `
+                        <div class="related-topic-card">
+                            <h4><a href="topic.html?subject=${state.subject?.slug}&chapter=${state.chapter?.slug}&slug=${t.slug}">${t.name}</a></h4>
+                        </div>
+                    `).join('');
+                } else {
+                    relatedTopicsGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;min-height:auto;padding:20px;"><p>No related topics.</p></div>`;
+                }
+            } catch (e) {
+                console.warn('Could not load related topics:', e);
+                relatedTopicsGrid.innerHTML = '';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Load previous/next topics
+        // ------------------------------------------------------------------
+        async function loadPrevNextTopics(topicId, chapterId) {
+            try {
+                const allTopics = await getTopicsByChapter(chapterId, 'published');
+                const idx = allTopics.findIndex(t => t.id === topicId);
+                if (idx === -1) return;
+                const prev = idx > 0 ? allTopics[idx - 1] : null;
+                const next = idx < allTopics.length - 1 ? allTopics[idx + 1] : null;
+                state.prevTopic = prev;
+                state.nextTopic = next;
+
+                // Update buttons
+                if (prev) {
+                    prevTopicBtn.href =
+                    `topic.html?subject=${state.subject?.slug}&chapter=${state.chapter?.slug}&slug=${prev.slug}`;
+                    prevTopicBtn.innerHTML = `<i class="fas fa-arrow-left"></i> ${prev.name}`;
+                    prevTopicBtn.style.display = 'flex';
+                    prevTopicBtn.classList.remove('disabled');
+                } else {
+                    prevTopicBtn.style.display = 'none';
+                }
+                if (next) {
+                    nextTopicBtn.href =
+                    `topic.html?subject=${state.subject?.slug}&chapter=${state.chapter?.slug}&slug=${next.slug}`;
+                    nextTopicBtn.innerHTML = `${next.name} <i class="fas fa-arrow-right"></i>`;
+                    nextTopicBtn.style.display = 'flex';
+                    nextTopicBtn.classList.remove('disabled');
+                } else {
+                    nextTopicBtn.style.display = 'none';
+                }
+            } catch (e) {
+                console.warn('Could not load prev/next topics:', e);
+                prevTopicBtn.style.display = 'none';
+                nextTopicBtn.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update SEO and structured data
+        // ------------------------------------------------------------------
+        function updateSEO(subject, chapter, topic) {
+            if (!subject || !chapter || !topic) return;
+            const title = `${topic.name} | ${chapter.name} | ${subject.name} | Academic Knowledge Library`;
+            const description = topic.description || `Explore formulas, laws, definitions, concepts and examples related to ${topic.name}.`;
+            const url =
+                `https://eco-lab-e2f48.web.app/pages/topic.html?subject=${subject.slug}&chapter=${chapter.slug}&slug=${topic.slug}`;
+            const image = subject.imageUrl || 'https://eco-lab-e2f48.web.app/assets/og-image.jpg';
+
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+            document.querySelector('meta[property="og:image"]')?.setAttribute('content', image);
+            document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', image);
+
+            // Update JSON-LD
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (jsonLd) {
+                try {
+                    const data = JSON.parse(jsonLd.textContent);
+                    data.name = title;
+                    data.description = description;
+                    data.url = url;
+                    data.mainEntity.itemListElement = state.filteredContents.slice(0, 10).map((c, i) => ({
+                        '@type': 'ListItem',
+                        'position': i + 1,
+                        'name': c.title,
+                        'url': `https://eco-lab-e2f48.web.app/pages/content.html?slug=${c.slug}`
+                    }));
+                    jsonLd.textContent = JSON.stringify(data);
+                } catch (e) { /* ignore */ }
+            }
+
+            // Update breadcrumb
+            breadcrumbSubject.textContent = subject.name;
+            breadcrumbSubject.href = `subject.html?slug=${subject.slug}`;
+            breadcrumbChapter.textContent = chapter.name;
+            breadcrumbChapter.href = `chapter.html?subject=${subject.slug}&slug=${chapter.slug}`;
+            breadcrumbTopic.textContent = topic.name;
+            searchTopicName.textContent = topic.name;
+        }
+
+        // ------------------------------------------------------------------
+        // Load topic page
+        // ------------------------------------------------------------------
+        async function loadTopicPage() {
+            state.loading = true;
+            state.error = null;
+            state.notFound = false;
+            renderLoadingState();
+
+            const { subjectSlug, chapterSlug, topicSlug, topicId, subjectId, chapterId } = getPageParameters();
+
+            try {
+                let subject = null;
+                let chapter = null;
+                let topic = null;
+
+                // Try to load by subject+chapter+slug first
+                if (subjectSlug && chapterSlug && topicSlug) {
+                    subject = await getSubjectBySlug(subjectSlug);
+                    if (subject && subject.status === 'published') {
+                        chapter = await getChapterBySlug(subject.id, chapterSlug);
+                        if (chapter && chapter.status === 'published' && chapter.subjectId === subject.id) {
+                            topic = await getTopicBySlug(subject.id, chapter.id, topicSlug);
+                            if (topic && topic.status === 'published' && topic.subjectId === subject.id && topic
+                                .chapterId === chapter.id) {
+                                // Valid
+                            } else {
+                                topic = null;
+                            }
+                        }
+                    }
+                } else if (topicId) {
+                    // Fallback: load by topicId
+                    topic = await getTopicById(topicId);
+                    if (topic && topic.status === 'published') {
+                        // Load subject and chapter from topic's references
+                        subject = await getSubjectBySlug(topic.subjectId); // might need by id
+                        // We need a getSubjectById function; for now, assume we can load by id if available
+                        // We'll implement a workaround: we'll fetch all subjects and filter.
+                        // Better: we'll require subjectSlug and chapterSlug as well. But for fallback we'll try.
+                        // If we have subjectId and chapterId in params, we can load those.
+                        if (subjectId && chapterId) {
+                            // We don't have getSubjectById, so we'll try to load by slug? Not ideal.
+                            // We'll skip for now and rely on the primary method.
+                        }
+                        // Since we can't reliably load by id without extra functions, we'll show not found.
+                        topic = null;
+                    }
+                }
+
+                // If we still don't have a topic, try to load via chapterId and topicId if provided
+                // But we'll skip for simplicity, we'll rely on the primary method.
+
+                if (!topic || !subject || !chapter) {
+                    state.notFound = true;
+                    renderNotFoundState('Topic not found');
+                    state.loading = false;
+                    return;
+                }
+
+                state.subject = subject;
+                state.chapter = chapter;
+                state.topic = topic;
+
+                // Load content
+                const contents = await getContentsByTopic(topic.id, 'published');
+                state.allContents = contents;
+
+                // Load stats if available
+                let stats = null;
+                try {
+                    stats = await getTopicStats(topic.id);
+                } catch (e) { /* ignore */ }
+
+                // Compute stats from content if not available
+                if (!stats) {
+                    stats = {
+                        contentCount: contents.length,
+                        formulaCount: contents.filter(c => c.type === 'formula').length,
+                        lawCount: contents.filter(c => c.type === 'law').length,
+                        definitionCount: contents.filter(c => c.type === 'definition').length,
+                        conceptCount: contents.filter(c => c.type === 'concept').length,
+                        exampleCount: contents.filter(c => c.type === 'example').length
+                    };
+                }
+                state.stats = stats;
+
+                // Initial filter/sort
+                state.filteredContents = contents;
+                state.currentPage = 1;
+                applyFiltersAndSort();
+
+                // Load bookmarks
+                await loadBookmarks();
+
+                // Load related topics
+                await loadRelatedTopics(topic.id, chapter.id);
+
+                // Load prev/next
+                await loadPrevNextTopics(topic.id, chapter.id);
+
+                // Render hero
+                renderTopicHero(subject, chapter, topic, stats);
+
+                // Update SEO
+                updateSEO(subject, chapter, topic);
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Error loading topic page:', err);
+                state.error = 'Unable to load this topic. Please try again.';
+                state.loading = false;
+                renderErrorState(state.error);
+                showToast('Failed to load topic.', 'error');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        observeAuthState((user) => {
+            renderAuthUI(user);
+            // If user changes, reload bookmarks
+            if (user && state.topic) {
+                loadBookmarks();
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Search input handling
+        // ------------------------------------------------------------------
+        searchInput.addEventListener('input', () => {
+            const val = searchInput.value;
+            state.searchQuery = val;
+            if (val.trim() === '') {
+                clearSearch.classList.remove('visible');
+            } else {
+                clearSearch.classList.add('visible');
+            }
+            applyFiltersAndSort();
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.remove('visible');
+            state.searchQuery = '';
+            applyFiltersAndSort();
+            searchInput.focus();
+        });
+
+        // Filter chips
+        filterChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            filterChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            state.contentType = chip.dataset.filter;
+            applyFiltersAndSort();
+        });
+
+        // Sort
+        sortSelect.addEventListener('change', () => {
+            state.sortBy = sortSelect.value;
+            applyFiltersAndSort();
+        });
+
+        // Load more
+        loadMoreBtn.addEventListener('click', loadMore);
+
+        // Bookmark toggle (delegated)
+        contentGrid.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.bookmark-btn');
+            if (btn) {
+                e.preventDefault();
+                const contentId = btn.dataset.contentId;
+                if (contentId) {
+                    await toggleBookmark(contentId, btn);
+                }
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // Init: Load topic page
+        // ------------------------------------------------------------------
+        loadTopicPage();
+
+        // Re-run KaTeX after content updates (use MutationObserver)
+        const observer = new MutationObserver(() => {
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(document.body, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                } catch (e) { /* ignore */ }
+            }
+        });
+        observer.observe(contentGrid, { childList: true, subtree: true });
+
+        console.log('✅ Topic page loaded.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1805 @@
+<!-- admin/content.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Management — Eco Lab Admin</title>
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../css/admin.css" />
+
+    <style>
+        /* Content management specific styles */
+        .content-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .content-header .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .content-header .breadcrumb span {
+            color: var(--text-primary, #111827);
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+        }
+        .filter-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .filter-bar label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary, #374151);
+            white-space: nowrap;
+        }
+        .filter-bar select,
+        .filter-bar input[type="text"] {
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            font-size: 0.8rem;
+            background: #fff;
+            min-width: 120px;
+        }
+        .filter-bar select:focus,
+        .filter-bar input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .filter-bar .search-wrapper {
+            position: relative;
+            flex: 1 1 180px;
+        }
+        .filter-bar .search-wrapper i {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+        .filter-bar .search-wrapper input {
+            padding-left: 28px;
+            width: 100%;
+        }
+        .filter-bar .btn-clear {
+            background: transparent;
+            border: 1px solid var(--border-light, #d1d5db);
+            padding: 0.35rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-secondary, #374151);
+            transition: 0.2s;
+        }
+        .filter-bar .btn-clear:hover {
+            background: #f3f4f6;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            background: #fff;
+        }
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .content-table th {
+            text-align: left;
+            padding: 0.7rem 1rem;
+            background: #f9fafb;
+            font-weight: 600;
+            color: var(--text-secondary, #374151);
+            border-bottom: 1px solid var(--border-light, #e5e7eb);
+            white-space: nowrap;
+        }
+        .content-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        .content-table tr:last-child td {
+            border-bottom: none;
+        }
+        .content-table .content-title {
+            font-weight: 500;
+            color: var(--text-primary, #111827);
+        }
+        .content-table .content-slug {
+            font-size: 0.7rem;
+            color: var(--text-muted, #6b7280);
+            font-family: monospace;
+        }
+        .content-table .type-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        .content-table .type-badge.formula { background: #fce7f3; color: #831843; }
+        .content-table .type-badge.law { background: #dbeafe; color: #1e40af; }
+        .content-table .type-badge.definition { background: #d1fae5; color: #065f46; }
+        .content-table .type-badge.concept { background: #fef3c7; color: #92400e; }
+        .content-table .type-badge.theorem { background: #e0e7ff; color: #3730a3; }
+        .content-table .type-badge.rule { background: #fce4ec; color: #881337; }
+        .content-table .type-badge.identity { background: #f3e8ff; color: #4c1d95; }
+        .content-table .type-badge.constant { background: #e0f2fe; color: #075985; }
+        .content-table .type-badge.graph { background: #ecfdf5; color: #065f46; }
+        .content-table .type-badge.example { background: #fef9c3; color: #713f12; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .status-badge.published { background: #dcfce7; color: #166534; }
+        .status-badge.draft { background: #fef3c7; color: #92400e; }
+        .status-badge.archived { background: #f3f4f6; color: #4b5563; }
+
+        .stat-number {
+            font-size: 0.8rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        /* Mobile card */
+        .content-card-mobile {
+            display: none;
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .content-card-mobile:last-child { border-bottom: none; }
+        .content-card-mobile .card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        .content-card-mobile .card-title {
+            font-weight: 600;
+        }
+        .content-card-mobile .card-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted, #6b7280);
+        }
+
+        @media (max-width: 768px) {
+            .content-table thead { display: none; }
+            .content-table tbody tr {
+                display: block;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .content-table tbody tr:last-child { border-bottom: none; }
+            .content-table td { display: none; }
+            .content-card-mobile { display: block; }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-bar .filter-group {
+                flex-wrap: wrap;
+            }
+            .filter-bar select,
+            .filter-bar input {
+                min-width: 100%;
+            }
+            .content-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* Modal / Editor */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #fff;
+            border-radius: 1rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 94vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+        .modal-box h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .modal-box .form-group {
+            margin-bottom: 1rem;
+        }
+        .modal-box label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .modal-box label .required {
+            color: #dc2626;
+        }
+        .modal-box input,
+        .modal-box select,
+        .modal-box textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .modal-box input:focus,
+        .modal-box select:focus,
+        .modal-box textarea:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .modal-box .form-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-row .form-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .modal-box .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+            flex-wrap: wrap;
+        }
+        .modal-box .form-error {
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .modal-box .array-field {
+            background: #f9fafb;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        .modal-box .array-item {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+        .modal-box .array-item input {
+            flex: 1;
+        }
+        .modal-box .array-item .btn-remove {
+            background: transparent;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+        }
+        .modal-box .array-item .btn-remove:hover {
+            background: #fee2e2;
+            border-radius: 0.25rem;
+        }
+        .modal-box .btn-add-array {
+            background: transparent;
+            border: 1px dashed var(--border-light, #d1d5db);
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-secondary, #374151);
+        }
+        .modal-box .btn-add-array:hover {
+            background: #f3f4f6;
+        }
+
+        .formula-preview {
+            background: #f9fafb;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            min-height: 40px;
+            border: 1px solid var(--border-light, #e5e7eb);
+            margin-top: 0.25rem;
+            font-size: 1.1rem;
+        }
+        .formula-preview .katex-error {
+            color: #dc2626;
+            font-size: 0.8rem;
+        }
+
+        .storage-upload-area {
+            border: 2px dashed var(--border-light, #d1d5db);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .storage-upload-area:hover {
+            border-color: var(--primary, #2563eb);
+            background: #f8faff;
+        }
+        .storage-upload-area.dragover {
+            border-color: var(--primary, #2563eb);
+            background: #eff6ff;
+        }
+
+        .asset-preview {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+        }
+        .asset-preview img {
+            max-height: 60px;
+            border-radius: 0.25rem;
+        }
+        .asset-preview .asset-info {
+            flex: 1;
+            font-size: 0.8rem;
+        }
+        .asset-preview .asset-actions {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        /* State placeholder */
+        .state-placeholder {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .state-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+            color: #d1d5db;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 0.7rem 1rem;
+            border-radius: 0.5rem;
+            background: #1f2937;
+            color: #fff;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: #065f46; }
+        .toast.error { background: #991b1b; }
+        .toast.warning { background: #78350f; }
+        .toast i { font-size: 1rem; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dropdown actions */
+        .actions-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .actions-dropdown .dropdown-toggle {
+            background: transparent;
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary, #374151);
+        }
+        .actions-dropdown .dropdown-toggle:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light, #e5e7eb);
+            min-width: 160px;
+            z-index: 50;
+            padding: 0.25rem 0;
+        }
+        .actions-dropdown .dropdown-menu.open {
+            display: block;
+        }
+        .actions-dropdown .dropdown-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.4rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 0.8rem;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-primary, #111827);
+            transition: 0.15s;
+        }
+        .actions-dropdown .dropdown-menu button:hover {
+            background: #f3f4f6;
+        }
+        .actions-dropdown .dropdown-menu button.danger {
+            color: #dc2626;
+        }
+        .actions-dropdown .dropdown-menu button.danger:hover {
+            background: #fee2e2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin Navigation">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-text">Eco Lab</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="chapters.html"><i class="fas fa-layer-group"></i> Chapters</a>
+            <a href="topics.html"><i class="fas fa-tag"></i> Topics</a>
+            <a href="content.html" class="active"><i class="fas fa-file-alt"></i> Content</a>
+            <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="storage.html"><i class="fas fa-database"></i> Storage</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main" id="adminMain">
+        <header class="admin-topbar">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="topbar-right">
+                <span class="admin-user" id="adminUserEmail">admin@example.com</span>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div>
+                    <h1><i class="fas fa-file-alt" style="color:var(--primary);"></i> Content Management</h1>
+                    <div class="breadcrumb">Admin <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i> <span>Content</span></div>
+                    <p style="margin:0.25rem 0 0;font-size:0.875rem;color:var(--text-muted);">Create and manage academic knowledge content.</p>
+                </div>
+                <button class="btn btn-primary" id="addContentBtn"><i class="fas fa-plus"></i> Add Content</button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filterBar">
+                <div class="filter-group">
+                    <label for="filterSubject">Subject</label>
+                    <select id="filterSubject"><option value="">All</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterChapter">Chapter</label>
+                    <select id="filterChapter"><option value="">All</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterTopic">Topic</label>
+                    <select id="filterTopic"><option value="">All</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterType">Type</label>
+                    <select id="filterType">
+                        <option value="">All</option>
+                        <option value="formula">Formula</option>
+                        <option value="law">Law</option>
+                        <option value="definition">Definition</option>
+                        <option value="concept">Concept</option>
+                        <option value="theorem">Theorem</option>
+                        <option value="rule">Rule</option>
+                        <option value="identity">Identity</option>
+                        <option value="constant">Constant</option>
+                        <option value="graph">Graph</option>
+                        <option value="example">Example</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterStatus">Status</label>
+                    <select id="filterStatus">
+                        <option value="">All</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+                <div class="filter-group search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="filterSearch" placeholder="Search content..." />
+                </div>
+                <div class="filter-group">
+                    <label for="filterSort">Sort</label>
+                    <select id="filterSort">
+                        <option value="updated">Recently Updated</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="title_asc">Title A–Z</option>
+                        <option value="title_desc">Title Z–A</option>
+                        <option value="views">Most Viewed</option>
+                    </select>
+                </div>
+                <button class="btn-clear" id="clearFiltersBtn"><i class="fas fa-times"></i> Clear</button>
+            </div>
+
+            <!-- Content List -->
+            <div class="table-wrap" id="contentContainer">
+                <table class="content-table" id="contentTable">
+                    <thead>
+                        <tr>
+                            <th>Content</th>
+                            <th>Type</th>
+                            <th>Topic</th>
+                            <th>Status</th>
+                            <th>Views</th>
+                            <th style="text-align:right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contentBody">
+                        <!-- rows -->
+                    </tbody>
+                </table>
+                <div id="mobileContentContainer"></div>
+                <div id="contentState" class="state-placeholder" style="display:none;"></div>
+            </div>
+
+            <!-- Pagination -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;font-size:0.875rem;color:var(--text-muted);">
+                <span id="paginationInfo">Showing 0 items</span>
+                <div style="display:flex;gap:0.5rem;">
+                    <button class="btn btn-outline" id="prevPageBtn" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+                    <button class="btn btn-outline" id="nextPageBtn">Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="contentModal" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <h2 id="modalTitle">Add Academic Content</h2>
+            <form id="contentForm" novalidate>
+                <input type="hidden" id="contentId" />
+
+                <!-- Basic Info -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formSubject">Subject <span class="required">*</span></label>
+                        <select id="formSubject" required><option value="">Select</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formChapter">Chapter <span class="required">*</span></label>
+                        <select id="formChapter" required><option value="">Select</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formTopic">Topic <span class="required">*</span></label>
+                        <select id="formTopic" required><option value="">Select</option></select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formType">Content Type <span class="required">*</span></label>
+                        <select id="formType" required>
+                            <option value="">Select</option>
+                            <option value="formula">Formula</option>
+                            <option value="law">Law</option>
+                            <option value="definition">Definition</option>
+                            <option value="concept">Concept</option>
+                            <option value="theorem">Theorem</option>
+                            <option value="rule">Rule</option>
+                            <option value="identity">Identity</option>
+                            <option value="constant">Constant</option>
+                            <option value="graph">Graph</option>
+                            <option value="example">Example</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formStatus">Status</label>
+                        <select id="formStatus">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formTitle">Title <span class="required">*</span></label>
+                    <input type="text" id="formTitle" placeholder="e.g. Law of Demand" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="formSlug">Slug</label>
+                    <div style="display:flex;gap:0.5rem;">
+                        <input type="text" id="formSlug" placeholder="auto-generated" style="flex:1;" />
+                        <button type="button" class="btn btn-outline" id="generateSlugBtn" style="flex:0;">Generate</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formShortDesc">Short Description</label>
+                    <input type="text" id="formShortDesc" placeholder="Brief description for cards/search" />
+                </div>
+
+                <!-- Academic Content Fields -->
+                <div id="academicFields">
+                    <div class="form-group">
+                        <label for="formDefinition">Definition / Statement</label>
+                        <textarea id="formDefinition" rows="3" placeholder="Definition or statement of this content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="formExplanation">Explanation</label>
+                        <textarea id="formExplanation" rows="4" placeholder="Detailed explanation"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="formFormula">Formula (LaTeX/KaTeX)</label>
+                        <input type="text" id="formFormula" placeholder="e.g. Q_d = a - bP" />
+                        <div class="formula-preview" id="formulaPreview">Formula preview will appear here</div>
+                    </div>
+                </div>
+
+                <!-- Variables -->
+                <div class="form-group">
+                    <label>Variables</label>
+                    <div class="array-field" id="variablesContainer">
+                        <div id="variablesList"></div>
+                        <button type="button" class="btn-add-array" id="addVariableBtn"><i class="fas fa-plus"></i> Add Variable</button>
+                    </div>
+                </div>
+
+                <!-- Examples -->
+                <div class="form-group">
+                    <label>Examples</label>
+                    <div class="array-field" id="examplesContainer">
+                        <div id="examplesList"></div>
+                        <button type="button" class="btn-add-array" id="addExampleBtn"><i class="fas fa-plus"></i> Add Example</button>
+                    </div>
+                </div>
+
+                <!-- Important Points -->
+                <div class="form-group">
+                    <label>Important Points</label>
+                    <div class="array-field" id="pointsContainer">
+                        <div id="pointsList"></div>
+                        <button type="button" class="btn-add-array" id="addPointBtn"><i class="fas fa-plus"></i> Add Point</button>
+                    </div>
+                </div>
+
+                <!-- Keywords -->
+                <div class="form-group">
+                    <label>Keywords</label>
+                    <div class="array-field" id="keywordsContainer">
+                        <div id="keywordsList"></div>
+                        <button type="button" class="btn-add-array" id="addKeywordBtn"><i class="fas fa-plus"></i> Add Keyword</button>
+                    </div>
+                </div>
+
+                <!-- Media / Assets -->
+                <div class="form-group">
+                    <label>Media / Assets</label>
+                    <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+                        <select id="formStorage" style="flex:1;">
+                            <option value="">Select Storage</option>
+                            <option value="firebase">Firebase Storage</option>
+                        </select>
+                        <input type="file" id="formAssetFile" style="display:none;" accept="image/*,.pdf,.doc,.docx" />
+                        <button type="button" class="btn btn-outline" id="uploadAssetBtn"><i class="fas fa-upload"></i> Upload</button>
+                    </div>
+                    <div class="storage-upload-area" id="dropArea">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:1.5rem;color:#9ca3af;"></i>
+                        <p style="margin:0.25rem 0;font-size:0.8rem;color:var(--text-muted);">Drag & drop or click to upload</p>
+                    </div>
+                    <div id="assetPreviewContainer"></div>
+                </div>
+
+                <!-- Related Content -->
+                <div class="form-group">
+                    <label>Related Content</label>
+                    <div style="display:flex;gap:0.5rem;">
+                        <input type="text" id="relatedSearch" placeholder="Search related content..." style="flex:1;" />
+                        <button type="button" class="btn btn-outline" id="addRelatedBtn"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                    <div id="relatedList" class="array-field" style="margin-top:0.25rem;"></div>
+                </div>
+
+                <div id="formError" class="form-error"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="modalCancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modalSubmitBtn">Save Content</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer" role="alert" aria-live="polite"></div>
+
+    <!-- Firebase & Admin JS -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script type="module">
+        // Firebase setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGMAmDqACu2QfHJ3Ms5-amyOajqzQgUZg",
+            authDomain: "eco-lab-e2f48.firebaseapp.com",
+            projectId: "eco-lab-e2f48",
+            storageBucket: "eco-lab-e2f48.firebasestorage.app",
+            messagingSenderId: "836995560981",
+            appId: "1:836995560981:web:fc790ecae541525db0401c"
+        };
+
+        let app;
+        try { app = firebase.app(); } catch (_) { app = firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // DOM refs
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const contentBody = $('#contentBody');
+        const mobileContainer = $('#mobileContentContainer');
+        const stateEl = $('#contentState');
+        const filterSubject = $('#filterSubject');
+        const filterChapter = $('#filterChapter');
+        const filterTopic = $('#filterTopic');
+        const filterType = $('#filterType');
+        const filterStatus = $('#filterStatus');
+        const filterSearch = $('#filterSearch');
+        const filterSort = $('#filterSort');
+        const clearFiltersBtn = $('#clearFiltersBtn');
+        const addContentBtn = $('#addContentBtn');
+        const modal = $('#contentModal');
+        const modalTitle = $('#modalTitle');
+        const contentForm = $('#contentForm');
+        const contentIdInput = $('#contentId');
+        const formSubject = $('#formSubject');
+        const formChapter = $('#formChapter');
+        const formTopic = $('#formTopic');
+        const formType = $('#formType');
+        const formStatus = $('#formStatus');
+        const formTitle = $('#formTitle');
+        const formSlug = $('#formSlug');
+        const formShortDesc = $('#formShortDesc');
+        const formDefinition = $('#formDefinition');
+        const formExplanation = $('#formExplanation');
+        const formFormula = $('#formFormula');
+        const formulaPreview = $('#formulaPreview');
+        const formError = $('#formError');
+        const modalSubmitBtn = $('#modalSubmitBtn');
+        const modalCancelBtn = $('#modalCancelBtn');
+        const generateSlugBtn = $('#generateSlugBtn');
+        const prevPageBtn = $('#prevPageBtn');
+        const nextPageBtn = $('#nextPageBtn');
+        const paginationInfo = $('#paginationInfo');
+        const toastContainer = $('#toastContainer');
+
+        // Array fields
+        const variablesList = $('#variablesList');
+        const examplesList = $('#examplesList');
+        const pointsList = $('#pointsList');
+        const keywordsList = $('#keywordsList');
+        const relatedList = $('#relatedList');
+
+        const addVariableBtn = $('#addVariableBtn');
+        const addExampleBtn = $('#addExampleBtn');
+        const addPointBtn = $('#addPointBtn');
+        const addKeywordBtn = $('#addKeywordBtn');
+        const addRelatedBtn = $('#addRelatedBtn');
+        const relatedSearch = $('#relatedSearch');
+
+        const uploadAssetBtn = $('#uploadAssetBtn');
+        const formAssetFile = $('#formAssetFile');
+        const dropArea = $('#dropArea');
+        const assetPreviewContainer = $('#assetPreviewContainer');
+        const formStorage = $('#formStorage');
+
+        // State
+        let allSubjects = [];
+        let allChapters = [];
+        let allTopics = [];
+        let allContents = [];
+        let filteredContents = [];
+        let currentPage = 0;
+        const PAGE_SIZE = 20;
+        let lastDoc = null;
+        let totalCount = 0;
+        let editingId = null;
+
+        // Array data
+        let variables = [];
+        let examples = [];
+        let importantPoints = [];
+        let keywords = [];
+        let relatedContentIds = [];
+        let assetUrl = '';
+        let assetStorageId = '';
+        let assetStorageProvider = '';
+
+        // --- Helper functions ---
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'success') {
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-triangle-exclamation' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${escapeHtml(message)}`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 4000);
+            }, 4000);
+        }
+
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
+        }
+
+        function renderFormula(formula) {
+            try {
+                if (!formula) { formulaPreview.innerHTML = '<span style="color:#9ca3af;">Formula preview will appear here</span>'; return; }
+                katex.render(formula, formulaPreview, { throwOnError: true, displayMode: false });
+            } catch (e) {
+                formulaPreview.innerHTML = `<span class="katex-error">⚠️ ${escapeHtml(e.message)}</span>`;
+            }
+        }
+
+        // --- Auth Guard ---
+        async function requireAdmin() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (!user) { window.location.href = '../login.html'; reject(); return; }
+                    try {
+                        const token = await user.getIdTokenResult();
+                        if (token.claims.admin !== true) { window.location.href = '../access-denied.html'; reject(); return; }
+                        resolve(user);
+                    } catch (e) { window.location.href = '../login.html'; reject(e); }
+                });
+            });
+        }
+
+        // --- Data Loaders ---
+        async function loadSubjects() {
+            const snap = await db.collection('subjects').orderBy('name').get();
+            allSubjects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allSubjects;
+        }
+
+        async function loadChapters(subjectId = null) {
+            let q = db.collection('chapters').orderBy('name');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            const snap = await q.get();
+            allChapters = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allChapters;
+        }
+
+        async function loadTopics(subjectId = null, chapterId = null) {
+            let q = db.collection('topics').orderBy('name');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            if (chapterId) q = q.where('chapterId', '==', chapterId);
+            const snap = await q.get();
+            allTopics = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allTopics;
+        }
+
+        async function loadContents(subjectId = null, chapterId = null, topicId = null, type = null, status = null, search = '', sort = 'updated') {
+            let q = db.collection('contents');
+            const constraints = [];
+            if (subjectId) constraints.push(where('subjectId', '==', subjectId));
+            if (chapterId) constraints.push(where('chapterId', '==', chapterId));
+            if (topicId) constraints.push(where('topicId', '==', topicId));
+            if (type) constraints.push(where('type', '==', type));
+            if (status) constraints.push(where('status', '==', status));
+
+            let orderField = 'updatedAt';
+            let orderDir = 'desc';
+            if (sort === 'newest') { orderField = 'createdAt'; orderDir = 'desc'; }
+            else if (sort === 'oldest') { orderField = 'createdAt'; orderDir = 'asc'; }
+            else if (sort === 'title_asc') { orderField = 'title'; orderDir = 'asc'; }
+            else if (sort === 'title_desc') { orderField = 'title'; orderDir = 'desc'; }
+            else if (sort === 'views') { orderField = 'views'; orderDir = 'desc'; }
+            else { orderField = 'updatedAt'; orderDir = 'desc'; }
+
+            constraints.push(orderBy(orderField, orderDir));
+            constraints.push(limit(PAGE_SIZE + 1));
+
+            if (lastDoc && currentPage > 0) {
+                constraints.push(startAfter(lastDoc));
+            }
+
+            let queryRef = db.collection('contents');
+            for (const c of constraints) {
+                if (c.type === 'where') queryRef = queryRef.where(c.fieldPath, c.opStr, c.value);
+                else if (c.type === 'orderBy') queryRef = queryRef.orderBy(c.fieldPath, c.directionStr);
+                else if (c.type === 'limit') queryRef = queryRef.limit(c.limit);
+                else if (c.type === 'startAfter') queryRef = queryRef.startAfter(c.docSnapshot);
+            }
+
+            const snap = await queryRef.get();
+            let contents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            const hasMore = contents.length > PAGE_SIZE;
+            if (hasMore) contents.pop();
+            lastDoc = contents.length > 0 ? snap.docs[contents.length - 1] : null;
+
+            // Client-side search
+            if (search) {
+                const s = search.toLowerCase();
+                contents = contents.filter(c =>
+                    (c.title || '').toLowerCase().includes(s) ||
+                    (c.slug || '').toLowerCase().includes(s) ||
+                    (c.shortDescription || '').toLowerCase().includes(s) ||
+                    (c.definition || '').toLowerCase().includes(s) ||
+                    (c.explanation || '').toLowerCase().includes(s) ||
+                    (c.keywords || []).some(k => k.toLowerCase().includes(s))
+                );
+            }
+
+            return { contents, hasMore };
+        }
+
+        // --- Render ---
+        function renderContents(contents) {
+            const topicMap = Object.fromEntries(allTopics.map(t => [t.id, t]));
+
+            let tableHtml = '';
+            let mobileHtml = '';
+
+            if (!contents || contents.length === 0) {
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = `
+                    <i class="fas fa-file-alt"></i>
+                    <p>No content found. Start building your academic knowledge library.</p>
+                    <button class="btn btn-primary" id="emptyAddBtn"><i class="fas fa-plus"></i> Add Content</button>
+                `;
+                contentBody.innerHTML = '';
+                mobileContainer.innerHTML = '';
+                return;
+            }
+            stateEl.style.display = 'none';
+
+            contents.forEach((c) => {
+                const topic = topicMap[c.topicId] || { name: 'Unknown' };
+                const statusClass = c.status || 'draft';
+                const views = c.views || 0;
+
+                tableHtml += `
+                    <tr>
+                        <td>
+                            <div class="content-title">${escapeHtml(c.title)}</div>
+                            <div class="content-slug">/${escapeHtml(c.slug || '')}</div>
+                        </td>
+                        <td><span class="type-badge ${c.type || ''}">${escapeHtml(c.type || '')}</span></td>
+                        <td>${escapeHtml(topic.name)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusClass}</span></td>
+                        <td><span class="stat-number">${views.toLocaleString()}</span></td>
+                        <td style="text-align:right;">
+                            <div class="actions-dropdown">
+                                <button class="dropdown-toggle" data-content-id="${c.id}" aria-label="Actions"><i class="fas fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu" data-content-id="${c.id}">
+                                    <button data-action="edit" data-id="${c.id}"><i class="fas fa-pen"></i> Edit</button>
+                                    <button data-action="preview" data-id="${c.id}"><i class="fas fa-eye"></i> Preview</button>
+                                    <button data-action="archive" data-id="${c.id}"><i class="fas fa-archive"></i> Archive</button>
+                                    <button data-action="delete" data-id="${c.id}" class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+                mobileHtml += `
+                    <div class="content-card-mobile">
+                        <div class="card-row">
+                            <span class="card-title">${escapeHtml(c.title)}</span>
+                            <span class="status-badge ${statusClass}">${statusClass}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="type-badge ${c.type || ''}">${escapeHtml(c.type || '')}</span>
+                            <span class="card-meta">${escapeHtml(topic.name)}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="card-meta"><i class="fas fa-eye"></i> ${views.toLocaleString()}</span>
+                            <span class="card-meta">${new Date(c.updatedAt?.toMillis?.() || Date.now()).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contentBody.innerHTML = tableHtml;
+            mobileContainer.innerHTML = mobileHtml;
+
+            // Attach dropdown events
+            $$('.dropdown-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const menu = btn.parentElement.querySelector('.dropdown-menu');
+                    // Close others
+                    $$('.dropdown-menu.open').forEach(m => m !== menu && m.classList.remove('open'));
+                    menu.classList.toggle('open');
+                });
+            });
+
+            $$('.dropdown-menu button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.dataset.action;
+                    const id = btn.dataset.id;
+                    const menu = btn.closest('.dropdown-menu');
+                    menu.classList.remove('open');
+                    handleAction(action, id);
+                });
+            });
+
+            // Close dropdowns on outside click
+            document.addEventListener('click', () => {
+                $$('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+            });
+        }
+
+        // --- Action Handlers ---
+        function handleAction(action, id) {
+            const content = allContents.find(c => c.id === id);
+            if (!content) return;
+
+            switch (action) {
+                case 'edit':
+                    openEditModal(content);
+                    break;
+                case 'preview':
+                    previewContent(content);
+                    break;
+                case 'archive':
+                    archiveContent(content);
+                    break;
+                case 'delete':
+                    deleteContent(content);
+                    break;
+            }
+        }
+
+        // --- Modals ---
+        function openAddModal() {
+            editingId = null;
+            modalTitle.textContent = 'Add Academic Content';
+            modalSubmitBtn.textContent = 'Save Content';
+            contentForm.reset();
+            contentIdInput.value = '';
+            clearArrayFields();
+            assetUrl = '';
+            assetStorageId = '';
+            assetStorageProvider = '';
+            assetPreviewContainer.innerHTML = '';
+            formError.style.display = 'none';
+            formError.textContent = '';
+            modal.classList.add('active');
+            populateFormSelects();
+            updateFormulaPreview();
+        }
+
+        function openEditModal(content) {
+            editingId = content.id;
+            modalTitle.textContent = 'Edit Academic Content';
+            modalSubmitBtn.textContent = 'Update Content';
+            contentIdInput.value = content.id;
+
+            // Populate basic fields
+            formSubject.value = content.subjectId || '';
+            onSubjectChange();
+            setTimeout(() => {
+                formChapter.value = content.chapterId || '';
+                onChapterChange();
+                setTimeout(() => {
+                    formTopic.value = content.topicId || '';
+                }, 100);
+            }, 100);
+            formType.value = content.type || '';
+            formStatus.value = content.status || 'draft';
+            formTitle.value = content.title || '';
+            formSlug.value = content.slug || '';
+            formShortDesc.value = content.shortDescription || '';
+            formDefinition.value = content.definition || '';
+            formExplanation.value = content.explanation || '';
+            formFormula.value = content.formula || '';
+
+            // Arrays
+            variables = content.variables || [];
+            examples = content.examples || [];
+            importantPoints = content.importantPoints || [];
+            keywords = content.keywords || [];
+            relatedContentIds = content.relatedContentIds || [];
+
+            renderVariables();
+            renderExamples();
+            renderPoints();
+            renderKeywords();
+            renderRelated();
+
+            // Asset
+            assetUrl = content.imageUrl || content.assetUrl || '';
+            assetStorageId = content.storageId || '';
+            assetStorageProvider = content.storageProvider || '';
+            renderAssetPreview();
+
+            formError.style.display = 'none';
+            formError.textContent = '';
+            modal.classList.add('active');
+            updateFormulaPreview();
+        }
+
+        function clearArrayFields() {
+            variables = [];
+            examples = [];
+            importantPoints = [];
+            keywords = [];
+            relatedContentIds = [];
+            renderVariables();
+            renderExamples();
+            renderPoints();
+            renderKeywords();
+            renderRelated();
+        }
+
+        function populateFormSelects() {
+            // Subjects
+            const subjectOptions = allSubjects.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('');
+            formSubject.innerHTML = `<option value="">Select Subject</option>${subjectOptions}`;
+            filterSubject.innerHTML = `<option value="">All Subjects</option>${subjectOptions}`;
+        }
+
+        async function onSubjectChange() {
+            const subjectId = formSubject.value;
+            const chapters = subjectId ? allChapters.filter(c => c.subjectId === subjectId) : allChapters;
+            const options = chapters.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+            formChapter.innerHTML = `<option value="">Select Chapter</option>${options}`;
+            formTopic.innerHTML = `<option value="">Select Topic</option>`;
+        }
+
+        async function onChapterChange() {
+            const chapterId = formChapter.value;
+            const topics = chapterId ? allTopics.filter(t => t.chapterId === chapterId) : allTopics;
+            const options = topics.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+            formTopic.innerHTML = `<option value="">Select Topic</option>${options}`;
+        }
+
+        // --- Array Rendering ---
+        function renderVariables() {
+            variablesList.innerHTML = variables.map((v, i) => `
+                <div class="array-item">
+                    <input type="text" placeholder="Symbol" value="${escapeHtml(v.symbol || '')}" data-var-symbol="${i}" />
+                    <input type="text" placeholder="Meaning" value="${escapeHtml(v.meaning || '')}" data-var-meaning="${i}" />
+                    <button type="button" class="btn-remove" data-var-remove="${i}"><i class="fas fa-times"></i></button>
+                </div>
+            `).join('');
+
+            // Re-bind events
+            variablesList.querySelectorAll('[data-var-symbol]').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = parseInt(el.dataset.varSymbol);
+                    if (!isNaN(idx) && variables[idx]) variables[idx].symbol = el.value;
+                });
+            });
+            variablesList.querySelectorAll('[data-var-meaning]').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = parseInt(el.dataset.varMeaning);
+                    if (!isNaN(idx) && variables[idx]) variables[idx].meaning = el.value;
+                });
+            });
+            variablesList.querySelectorAll('[data-var-remove]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.varRemove);
+                    if (!isNaN(idx)) { variables.splice(idx, 1); renderVariables(); }
+                });
+            });
+        }
+
+        function renderExamples() {
+            examplesList.innerHTML = examples.map((ex, i) => `
+                <div class="array-item" style="flex-direction:column;align-items:stretch;gap:0.3rem;">
+                    <div style="display:flex;gap:0.5rem;">
+                        <input type="text" placeholder="Example title" value="${escapeHtml(ex.title || '')}" data-ex-title="${i}" style="flex:1;" />
+                        <button type="button" class="btn-remove" data-ex-remove="${i}"><i class="fas fa-times"></i></button>
+                    </div>
+                    <textarea rows="2" placeholder="Explanation" data-ex-explain="${i}">${escapeHtml(ex.explanation || '')}</textarea>
+                </div>
+            `).join('');
+
+            examplesList.querySelectorAll('[data-ex-title]').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = parseInt(el.dataset.exTitle);
+                    if (!isNaN(idx) && examples[idx]) examples[idx].title = el.value;
+                });
+            });
+            examplesList.querySelectorAll('[data-ex-explain]').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = parseInt(el.dataset.exExplain);
+                    if (!isNaN(idx) && examples[idx]) examples[idx].explanation = el.value;
+                });
+            });
+            examplesList.querySelectorAll('[data-ex-remove]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.exRemove);
+                    if (!isNaN(idx)) { examples.splice(idx, 1); renderExamples(); }
+                });
+            });
+        }
+
+        function renderPoints() {
+            pointsList.innerHTML = importantPoints.map((p, i) => `
+                <div class="array-item">
+                    <input type="text" placeholder="Important point" value="${escapeHtml(p)}" data-point="${i}" />
+                    <button type="button" class="btn-remove" data-point-remove="${i}"><i class="fas fa-times"></i></button>
+                </div>
+            `).join('');
+
+            pointsList.querySelectorAll('[data-point]').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = parseInt(el.dataset.point);
+                    if (!isNaN(idx)) importantPoints[idx] = el.value;
+                });
+            });
+            pointsList.querySelectorAll('[data-point-remove]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.pointRemove);
+                    if (!isNaN(idx)) { importantPoints.splice(idx, 1); renderPoints(); }
+                });
+            });
+        }
+
+        function renderKeywords() {
+            keywordsList.innerHTML = keywords.map((k, i) => `
+                <span style="display:inline-flex;align-items:center;gap:0.3rem;background:#e5e7eb;padding:0.2rem 0.5rem;border-radius:9999px;font-size:0.8rem;margin:0.2rem;">
+                    ${escapeHtml(k)}
+                    <button type="button" class="btn-remove" data-keyword-remove="${i}" style="background:transparent;border:none;color:#6b7280;cursor:pointer;padding:0;font-size:0.7rem;"><i class="fas fa-times"></i></button>
+                </span>
+            `).join('');
+            keywordsList.querySelectorAll('[data-keyword-remove]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.keywordRemove);
+                    if (!isNaN(idx)) { keywords.splice(idx, 1); renderKeywords(); }
+                });
+            });
+        }
+
+        function renderRelated() {
+            relatedList.innerHTML = relatedContentIds.map((id, i) => {
+                const item = allContents.find(c => c.id === id);
+                return `
+                    <div class="array-item">
+                        <span style="flex:1;font-size:0.85rem;">${item ? escapeHtml(item.title) : 'Unknown'}</span>
+                        <button type="button" class="btn-remove" data-related-remove="${i}"><i class="fas fa-times"></i></button>
+                    </div>
+                `;
+            }).join('');
+            relatedList.querySelectorAll('[data-related-remove]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = parseInt(el.dataset.relatedRemove);
+                    if (!isNaN(idx)) { relatedContentIds.splice(idx, 1); renderRelated(); }
+                });
+            });
+        }
+
+        function renderAssetPreview() {
+            if (!assetUrl) { assetPreviewContainer.innerHTML = ''; return; }
+            const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(assetUrl);
+            assetPreviewContainer.innerHTML = `
+                <div class="asset-preview">
+                    ${isImage ? `<img src="${escapeHtml(assetUrl)}" alt="Asset preview" />` : `<i class="fas fa-file" style="font-size:2rem;color:#6b7280;"></i>`}
+                    <div class="asset-info">
+                        <div>${isImage ? 'Image' : 'File'}</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">${escapeHtml(assetStorageProvider || '')}</div>
+                    </div>
+                    <div class="asset-actions">
+                        <button type="button" class="btn btn-outline" id="copyAssetUrlBtn"><i class="fas fa-copy"></i></button>
+                        <button type="button" class="btn btn-outline" id="removeAssetBtn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            const copyBtn = assetPreviewContainer.querySelector('#copyAssetUrlBtn');
+            if (copyBtn) copyBtn.addEventListener('click', () => copyAssetUrl());
+            const removeBtn = assetPreviewContainer.querySelector('#removeAssetBtn');
+            if (removeBtn) removeBtn.addEventListener('click', () => { assetUrl = ''; renderAssetPreview(); });
+        }
+
+        function copyAssetUrl() {
+            if (!assetUrl) return;
+            navigator.clipboard?.writeText(assetUrl).then(() => {
+                showToast('URL copied to clipboard', 'success');
+            }).catch(() => {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = assetUrl;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('URL copied', 'success');
+            });
+        }
+
+        // --- Formula Preview ---
+        function updateFormulaPreview() {
+            renderFormula(formFormula.value);
+        }
+
+        // --- Upload Asset ---
+        async function uploadAsset(file) {
+            if (!file) return;
+            const storageId = formStorage.value || 'firebase';
+            if (storageId === '') {
+                showToast('Please select a storage provider', 'warning');
+                return;
+            }
+
+            try {
+                const path = `content/${Date.now()}_${file.name}`;
+                const ref = storage.ref(path);
+                const snapshot = await ref.put(file);
+                const url = await snapshot.ref.getDownloadURL();
+
+                assetUrl = url;
+                assetStorageId = path;
+                assetStorageProvider = storageId;
+                renderAssetPreview();
+                showToast('Asset uploaded successfully', 'success');
+            } catch (e) {
+                console.error('Upload error:', e);
+                showToast('Upload failed: ' + e.message, 'error');
+            }
+        }
+
+        // --- Save Content ---
+        async function saveContent(e) {
+            e.preventDefault();
+
+            const subjectId = formSubject.value;
+            const chapterId = formChapter.value;
+            const topicId = formTopic.value;
+            const type = formType.value;
+            const status = formStatus.value;
+            const title = formTitle.value.trim();
+            const slug = formSlug.value.trim() || slugify(title);
+            const shortDescription = formShortDesc.value.trim();
+            const definition = formDefinition.value.trim();
+            const explanation = formExplanation.value.trim();
+            const formula = formFormula.value.trim();
+
+            // Validation
+            if (!subjectId || !chapterId || !topicId || !type || !title) {
+                formError.textContent = 'Please fill in all required fields (Subject, Chapter, Topic, Type, Title)';
+                formError.style.display = 'block';
+                return;
+            }
+
+            // Validate hierarchy
+            const subject = allSubjects.find(s => s.id === subjectId);
+            const chapter = allChapters.find(c => c.id === chapterId);
+            const topic = allTopics.find(t => t.id === topicId);
+            if (!subject || !chapter || !topic) {
+                formError.textContent = 'Invalid hierarchy. Please select valid parent entities.';
+                formError.style.display = 'block';
+                return;
+            }
+            if (chapter.subjectId !== subjectId) {
+                formError.textContent = 'Chapter does not belong to selected Subject.';
+                formError.style.display = 'block';
+                return;
+            }
+            if (topic.subjectId !== subjectId || topic.chapterId !== chapterId) {
+                formError.textContent = 'Topic does not belong to selected Subject/Chapter.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            // Check slug uniqueness within topic
+            const existing = allContents.filter(c =>
+                c.topicId === topicId &&
+                c.slug === slug &&
+                c.id !== editingId
+            );
+            if (existing.length > 0) {
+                formError.textContent = 'A content with this slug already exists in this topic. Please use a different slug.';
+                formError.style.display = 'block';
+                return;
+            }
+
+            formError.style.display = 'none';
+
+            const data = {
+                subjectId,
+                chapterId,
+                topicId,
+                type,
+                title,
+                slug: slug || slugify(title),
+                shortDescription,
+                definition,
+                explanation,
+                formula,
+                variables: variables.filter(v => v.symbol || v.meaning),
+                examples: examples.filter(e => e.title || e.explanation),
+                importantPoints: importantPoints.filter(p => p.trim()),
+                keywords: keywords.filter(k => k.trim()),
+                relatedContentIds: relatedContentIds.filter(id => id),
+                imageUrl: assetUrl || '',
+                assetUrl: assetUrl || '',
+                storageId: assetStorageId || '',
+                storageProvider: assetStorageProvider || '',
+                status,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            if (!editingId) {
+                data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                data.views = 0;
+                data.bookmarks = 0;
+                data.shares = 0;
+            }
+
+            try {
+                if (editingId) {
+                    await db.collection('contents').doc(editingId).update(data);
+                    showToast('Content updated successfully', 'success');
+                } else {
+                    await db.collection('contents').add(data);
+                    showToast('Content created successfully', 'success');
+                }
+                modal.classList.remove('active');
+                await refreshContentList();
+            } catch (e) {
+                console.error('Save error:', e);
+                showToast('Error saving content: ' + e.message, 'error');
+            }
+        }
+
+        // --- Actions ---
+        function previewContent(content) {
+            if (content.status !== 'published') {
+                showToast('Preview is only available for published content', 'warning');
+                return;
+            }
+            const topic = allTopics.find(t => t.id === content.topicId);
+            const chapter = allChapters.find(c => c.id === content.chapterId);
+            const subject = allSubjects.find(s => s.id === content.subjectId);
+            if (topic && chapter && subject) {
+                const url = `../content.html?subject=${encodeURIComponent(subject.slug || subject.id)}&chapter=${encodeURIComponent(chapter.slug || chapter.id)}&topic=${encodeURIComponent(topic.slug || topic.id)}&slug=${encodeURIComponent(content.slug || content.id)}`;
+                window.open(url, '_blank');
+            } else {
+                showToast('Cannot preview: missing hierarchy data', 'error');
+            }
+        }
+
+        async function archiveContent(content) {
+            if (!confirm(`Archive "${content.title}"? Archived content will not appear publicly.`)) return;
+            try {
+                await db.collection('contents').doc(content.id).update({
+                    status: 'archived',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('Content archived', 'success');
+                await refreshContentList();
+            } catch (e) {
+                showToast('Error archiving: ' + e.message, 'error');
+            }
+        }
+
+        async function deleteContent(content) {
+            if (!confirm(`Delete "${content.title}" permanently? This cannot be undone.`)) return;
+            try {
+                await db.collection('contents').doc(content.id).delete();
+                showToast('Content deleted', 'success');
+                await refreshContentList();
+            } catch (e) {
+                showToast('Error deleting: ' + e.message, 'error');
+            }
+        }
+
+        // --- Refresh ---
+        async function refreshContentList() {
+            const subjectId = filterSubject.value || null;
+            const chapterId = filterChapter.value || null;
+            const topicId = filterTopic.value || null;
+            const type = filterType.value || null;
+            const status = filterStatus.value || null;
+            const search = filterSearch.value || '';
+            const sort = filterSort.value || 'updated';
+
+            const result = await loadContents(subjectId, chapterId, topicId, type, status, search, sort);
+            allContents = result.contents;
+            filteredContents = result.contents;
+            renderContents(filteredContents);
+            paginationInfo.textContent = `Showing ${filteredContents.length} items`;
+        }
+
+        // --- Init ---
+        async function init() {
+            try {
+                await requireAdmin();
+
+                // Load data
+                await loadSubjects();
+                await loadChapters();
+                await loadTopics();
+                await refreshContentList();
+
+                // Populate filter dropdowns
+                populateFormSelects();
+
+                // Filter chapter based on subject
+                filterSubject.addEventListener('change', async () => {
+                    const subjectId = filterSubject.value;
+                    await loadChapters(subjectId || null);
+                    const options = allChapters.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+                    filterChapter.innerHTML = `<option value="">All Chapters</option>${options}`;
+                    filterChapter.value = '';
+                    filterTopic.innerHTML = `<option value="">All Topics</option>`;
+                    refreshContentList();
+                });
+
+                filterChapter.addEventListener('change', async () => {
+                    const chapterId = filterChapter.value;
+                    const subjectId = filterSubject.value;
+                    await loadTopics(subjectId || null, chapterId || null);
+                    const options = allTopics.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+                    filterTopic.innerHTML = `<option value="">All Topics</option>${options}`;
+                    filterTopic.value = '';
+                    refreshContentList();
+                });
+
+                // All filters trigger refresh
+                [filterSubject, filterChapter, filterTopic, filterType, filterStatus, filterSearch, filterSort].forEach(el => {
+                    el.addEventListener('change', () => refreshContentList());
+                });
+                filterSearch.addEventListener('input', debounce(refreshContentList, 300));
+
+                clearFiltersBtn.addEventListener('click', () => {
+                    filterSubject.value = '';
+                    filterChapter.value = '';
+                    filterTopic.value = '';
+                    filterType.value = '';
+                    filterStatus.value = '';
+                    filterSearch.value = '';
+                    filterSort.value = 'updated';
+                    refreshContentList();
+                });
+
+                // Form events
+                formSubject.addEventListener('change', onSubjectChange);
+                formChapter.addEventListener('change', onChapterChange);
+                formFormula.addEventListener('input', updateFormulaPreview);
+
+                generateSlugBtn.addEventListener('click', () => {
+                    const title = formTitle.value.trim();
+                    if (title) formSlug.value = slugify(title);
+                });
+
+                formTitle.addEventListener('input', () => {
+                    if (!formSlug.value) formSlug.value = slugify(formTitle.value);
+                });
+
+                // Array add buttons
+                addVariableBtn.addEventListener('click', () => {
+                    variables.push({ symbol: '', meaning: '' });
+                    renderVariables();
+                });
+                addExampleBtn.addEventListener('click', () => {
+                    examples.push({ title: '', explanation: '' });
+                    renderExamples();
+                });
+                addPointBtn.addEventListener('click', () => {
+                    importantPoints.push('');
+                    renderPoints();
+                });
+                addKeywordBtn.addEventListener('click', () => {
+                    keywords.push('');
+                    renderKeywords();
+                });
+
+                addRelatedBtn.addEventListener('click', () => {
+                    const searchTerm = relatedSearch.value.trim();
+                    if (!searchTerm) { showToast('Enter a search term to find related content', 'warning'); return; }
+                    const found = allContents.find(c =>
+                        c.title?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                        c.id !== editingId &&
+                        !relatedContentIds.includes(c.id)
+                    );
+                    if (found) {
+                        relatedContentIds.push(found.id);
+                        renderRelated();
+                        relatedSearch.value = '';
+                    } else {
+                        showToast('No matching content found (or already added)', 'warning');
+                    }
+                });
+
+                // Upload
+                uploadAssetBtn.addEventListener('click', () => formAssetFile.click());
+                formAssetFile.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) uploadAsset(e.target.files[0]);
+                    formAssetFile.value = '';
+                });
+
+                dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.classList.add('dragover'); });
+                dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+                dropArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length > 0) uploadAsset(e.dataTransfer.files[0]);
+                });
+                dropArea.addEventListener('click', () => formAssetFile.click());
+
+                // Modal
+                addContentBtn.addEventListener('click', openAddModal);
+                document.getElementById('emptyAddBtn')?.addEventListener('click', openAddModal);
+
+                modalCancelBtn.addEventListener('click', () => modal.classList.remove('active'));
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('active');
+                });
+
+                contentForm.addEventListener('submit', saveContent);
+
+                // Pagination
+                prevPageBtn.addEventListener('click', () => {
+                    if (currentPage > 0) { currentPage--; refreshContentList(); }
+                });
+                nextPageBtn.addEventListener('click', () => {
+                    currentPage++;
+                    refreshContentList();
+                });
+
+                // Sidebar toggle
+                $('#sidebarToggle').addEventListener('click', () => {
+                    document.getElementById('adminSidebar').classList.toggle('open');
+                });
+
+                // Logout
+                $('#sidebarLogout').addEventListener('click', () => {
+                    auth.signOut().then(() => window.location.href = '../login.html');
+                });
+
+                // Admin user email
+                auth.onAuthStateChanged(user => {
+                    if (user) document.getElementById('adminUserEmail').textContent = user.email || 'admin';
+                });
+
+                // Keyboard shortcut: Escape closes modal
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                    }
+                });
+
+            } catch (e) {
+                console.error('Init error:', e);
+                showToast('Failed to initialize: ' + e.message, 'error');
+            }
+        }
+
+        // Debounce helper
+        function debounce(fn, ms) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn(...args), ms);
+            };
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

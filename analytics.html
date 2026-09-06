@@ -1,0 +1,1876 @@
+<!-- admin/analytics.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics — Eco Lab Admin</title>
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../css/admin.css" />
+
+    <style>
+        /* Analytics specific styles */
+        .analytics-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .analytics-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .analytics-header .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .analytics-header .breadcrumb span {
+            color: var(--text-primary, #111827);
+        }
+        .analytics-header .subtitle {
+            margin: 0.25rem 0 0;
+            font-size: 0.875rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .analytics-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+        }
+        .filter-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .filter-bar label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary, #374151);
+            white-space: nowrap;
+        }
+        .filter-bar select,
+        .filter-bar input[type="text"],
+        .filter-bar input[type="date"] {
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--border-light, #d1d5db);
+            font-size: 0.8rem;
+            background: #fff;
+            min-width: 120px;
+        }
+        .filter-bar select:focus,
+        .filter-bar input:focus {
+            outline: none;
+            border-color: var(--primary, #2563eb);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .filter-bar .btn-clear {
+            background: transparent;
+            border: 1px solid var(--border-light, #d1d5db);
+            padding: 0.35rem 0.8rem;
+            border-radius: 0.4rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--text-secondary, #374151);
+            transition: 0.2s;
+        }
+        .filter-bar .btn-clear:hover {
+            background: #f3f4f6;
+        }
+        .filter-bar .date-presets {
+            display: flex;
+            gap: 0.3rem;
+        }
+        .filter-bar .date-presets .btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+        }
+        .filter-bar .date-presets .btn.active {
+            background: var(--primary, #2563eb);
+            color: #fff;
+            border-color: var(--primary, #2563eb);
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .kpi-card {
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .kpi-card .kpi-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted, #6b7280);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .kpi-card .kpi-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 0.15rem;
+            color: var(--text-primary, #111827);
+        }
+        .kpi-card .kpi-change {
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 0.15rem;
+        }
+        .kpi-card .kpi-change.positive { color: #16a34a; }
+        .kpi-card .kpi-change.negative { color: #dc2626; }
+        .kpi-card .kpi-change.neutral { color: var(--text-muted, #6b7280); }
+
+        /* Chart container */
+        .chart-container {
+            background: var(--bg-card, #ffffff);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .chart-container .chart-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary, #111827);
+        }
+        .chart-container .chart-wrapper {
+            width: 100%;
+            min-height: 250px;
+            position: relative;
+        }
+        .chart-container .chart-wrapper svg {
+            width: 100%;
+            height: 100%;
+        }
+        .chart-container .chart-summary {
+            font-size: 0.8rem;
+            color: var(--text-muted, #6b7280);
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        /* Analytics tables */
+        .analytics-section {
+            margin-bottom: 1.5rem;
+        }
+        .analytics-section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .analytics-section .section-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary, #111827);
+        }
+        .analytics-section .section-header .section-actions {
+            display: flex;
+            gap: 0.3rem;
+            font-size: 0.8rem;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-light, #e5e7eb);
+            background: #fff;
+        }
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .analytics-table th {
+            text-align: left;
+            padding: 0.6rem 1rem;
+            background: #f9fafb;
+            font-weight: 600;
+            color: var(--text-secondary, #374151);
+            border-bottom: 1px solid var(--border-light, #e5e7eb);
+            white-space: nowrap;
+        }
+        .analytics-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        .analytics-table tr:last-child td {
+            border-bottom: none;
+        }
+        .analytics-table .rank-number {
+            font-weight: 600;
+            color: var(--text-muted, #6b7280);
+            text-align: center;
+            width: 40px;
+        }
+        .analytics-table .clickable {
+            cursor: pointer;
+            color: var(--primary, #2563eb);
+        }
+        .analytics-table .clickable:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading skeletons */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.25rem;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .skeleton-text { height: 1rem; margin: 0.25rem 0; }
+        .skeleton-title { height: 1.5rem; width: 60%; }
+        .skeleton-value { height: 2rem; width: 40%; }
+
+        /* State placeholder */
+        .state-placeholder {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-muted, #6b7280);
+        }
+        .state-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #d1d5db;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 0.7rem 1rem;
+            border-radius: 0.5rem;
+            background: #1f2937;
+            color: #fff;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: #065f46; }
+        .toast.error { background: #991b1b; }
+        .toast.warning { background: #78350f; }
+        .toast i { font-size: 1rem; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted, #6b7280);
+            border-top: 1px solid #f3f4f6;
+        }
+        .pagination .page-controls {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-bar .filter-group {
+                flex-wrap: wrap;
+            }
+            .filter-bar select,
+            .filter-bar input {
+                min-width: 100%;
+            }
+            .filter-bar .date-presets {
+                flex-wrap: wrap;
+            }
+            .analytics-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .analytics-actions {
+                justify-content: stretch;
+            }
+            .analytics-actions .btn {
+                flex: 1;
+                justify-content: center;
+            }
+            .chart-container .chart-wrapper {
+                min-height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .kpi-card {
+                padding: 0.75rem;
+            }
+            .kpi-card .kpi-value {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin Navigation">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-text">Eco Lab</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="chapters.html"><i class="fas fa-layer-group"></i> Chapters</a>
+            <a href="topics.html"><i class="fas fa-tag"></i> Topics</a>
+            <a href="content.html"><i class="fas fa-file-alt"></i> Content</a>
+            <a href="analytics.html" class="active"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="storage.html"><i class="fas fa-database"></i> Storage</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main" id="adminMain">
+        <header class="admin-topbar">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="topbar-right">
+                <span class="admin-user" id="adminUserEmail">admin@example.com</span>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Header -->
+            <div class="analytics-header">
+                <div>
+                    <h1><i class="fas fa-chart-line" style="color:var(--primary);"></i> Analytics</h1>
+                    <div class="breadcrumb">Admin <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i> <span>Analytics</span></div>
+                    <div class="subtitle">Understand how students discover and use your academic content.</div>
+                </div>
+                <div class="analytics-actions">
+                    <button class="btn btn-outline" id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    <button class="btn btn-outline" id="exportBtn"><i class="fas fa-file-export"></i> Export CSV</button>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filterBar">
+                <div class="filter-group">
+                    <label for="filterDatePreset">Date</label>
+                    <div class="date-presets">
+                        <button class="btn btn-sm active" data-preset="7d">7D</button>
+                        <button class="btn btn-sm" data-preset="30d">30D</button>
+                        <button class="btn btn-sm" data-preset="90d">90D</button>
+                        <button class="btn btn-sm" data-preset="1y">1Y</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="filterDateStart">From</label>
+                    <input type="date" id="filterDateStart" />
+                </div>
+                <div class="filter-group">
+                    <label for="filterDateEnd">To</label>
+                    <input type="date" id="filterDateEnd" />
+                </div>
+                <div class="filter-group">
+                    <label for="filterSubject">Subject</label>
+                    <select id="filterSubject"><option value="">All Subjects</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterChapter">Chapter</label>
+                    <select id="filterChapter"><option value="">All Chapters</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterTopic">Topic</label>
+                    <select id="filterTopic"><option value="">All Topics</option></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterType">Content Type</label>
+                    <select id="filterType">
+                        <option value="">All Types</option>
+                        <option value="formula">Formula</option>
+                        <option value="law">Law</option>
+                        <option value="definition">Definition</option>
+                        <option value="concept">Concept</option>
+                        <option value="theorem">Theorem</option>
+                        <option value="rule">Rule</option>
+                        <option value="identity">Identity</option>
+                        <option value="constant">Constant</option>
+                        <option value="graph">Graph</option>
+                        <option value="example">Example</option>
+                    </select>
+                </div>
+                <button class="btn-clear" id="clearFiltersBtn"><i class="fas fa-times"></i> Clear</button>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid" id="kpiGrid">
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-eye"></i> Total Views</div><div class="kpi-value" id="kpiViews">—</div><div class="kpi-change" id="kpiViewsChange"></div></div>
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-users"></i> Unique Visitors</div><div class="kpi-value" id="kpiVisitors">—</div><div class="kpi-change" id="kpiVisitorsChange"></div></div>
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-bookmark"></i> Bookmarks</div><div class="kpi-value" id="kpiBookmarks">—</div><div class="kpi-change" id="kpiBookmarksChange"></div></div>
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-share-alt"></i> Shares</div><div class="kpi-value" id="kpiShares">—</div><div class="kpi-change" id="kpiSharesChange"></div></div>
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-search"></i> Searches</div><div class="kpi-value" id="kpiSearches">—</div><div class="kpi-change" id="kpiSearchesChange"></div></div>
+                <div class="kpi-card"><div class="kpi-label"><i class="fas fa-times-circle"></i> Zero-Result</div><div class="kpi-value" id="kpiZeroResults">—</div><div class="kpi-change" id="kpiZeroResultsChange"></div></div>
+            </div>
+
+            <!-- Views Trend Chart -->
+            <div class="chart-container" id="viewsChartContainer">
+                <div class="chart-title"><i class="fas fa-chart-area"></i> Views Over Time</div>
+                <div class="chart-wrapper" id="viewsChartWrapper">
+                    <svg id="viewsChart" viewBox="0 0 800 250" preserveAspectRatio="xMidYMid meet">
+                        <text x="400" y="125" text-anchor="middle" fill="#9ca3af" font-size="14">Loading chart...</text>
+                    </svg>
+                </div>
+                <div class="chart-summary" id="viewsChartSummary">Loading analytics data...</div>
+            </div>
+
+            <!-- Popular Content -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-fire"></i> Popular Content</h3>
+                    <div class="section-actions">
+                        <span id="popularCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="popularTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Content</th>
+                                <th>Type</th>
+                                <th>Subject</th>
+                                <th>Views</th>
+                                <th>Bookmarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popularBody"></tbody>
+                    </table>
+                    <div id="popularState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Most Bookmarked -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-star"></i> Most Bookmarked</h3>
+                    <div class="section-actions">
+                        <span id="bookmarkedCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="bookmarkedTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Content</th>
+                                <th>Type</th>
+                                <th>Bookmarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookmarkedBody"></tbody>
+                    </table>
+                    <div id="bookmarkedState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Subject Performance -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-book"></i> Subject Performance</h3>
+                    <div class="section-actions">
+                        <span id="subjectCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="subjectTable">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Views</th>
+                                <th>Bookmarks</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectBody"></tbody>
+                    </table>
+                    <div id="subjectState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Chapter Performance -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-layer-group"></i> Chapter Performance</h3>
+                    <div class="section-actions">
+                        <span id="chapterCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="chapterTable">
+                        <thead>
+                            <tr>
+                                <th>Chapter</th>
+                                <th>Subject</th>
+                                <th>Views</th>
+                                <th>Bookmarks</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chapterBody"></tbody>
+                    </table>
+                    <div id="chapterState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Topic Performance -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-tag"></i> Topic Performance</h3>
+                    <div class="section-actions">
+                        <span id="topicCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="topicTable">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Chapter</th>
+                                <th>Subject</th>
+                                <th>Views</th>
+                                <th>Bookmarks</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topicBody"></tbody>
+                    </table>
+                    <div id="topicState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Content Type Analytics -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-file-alt"></i> Content Type Performance</h3>
+                    <div class="section-actions">
+                        <span id="typeCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="typeTable">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Views</th>
+                                <th>Bookmarks</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody id="typeBody"></tbody>
+                    </table>
+                    <div id="typeState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Search Analytics -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-search"></i> Top Search Queries</h3>
+                    <div class="section-actions">
+                        <span id="searchCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="searchTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Search Query</th>
+                                <th>Searches</th>
+                                <th>Avg Results</th>
+                            </tr>
+                        </thead>
+                        <tbody id="searchBody"></tbody>
+                    </table>
+                    <div id="searchState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Zero-Result Searches -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-times-circle"></i> Zero-Result Searches</h3>
+                    <div class="section-actions">
+                        <span id="zeroCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="zeroTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Search Query</th>
+                                <th>Searches</th>
+                                <th>Last Searched</th>
+                            </tr>
+                        </thead>
+                        <tbody id="zeroBody"></tbody>
+                    </table>
+                    <div id="zeroState" class="state-placeholder" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="analytics-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-clock"></i> Recent Activity</h3>
+                    <div class="section-actions">
+                        <span id="activityCount" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="analytics-table" id="activityTable">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Action</th>
+                                <th>Item</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityBody"></tbody>
+                    </table>
+                    <div id="activityState" class="state-placeholder" style="display:none;"></div>
+                    <div class="pagination" id="activityPagination">
+                        <span id="activityInfo">Showing 0 items</span>
+                        <div class="page-controls">
+                            <button class="btn btn-sm btn-outline" id="activityPrev" disabled><i class="fas fa-chevron-left"></i></button>
+                            <button class="btn btn-sm btn-outline" id="activityNext">Next <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer" role="alert" aria-live="polite"></div>
+
+    <!-- Firebase & Admin JS -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-functions-compat.js"></script>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script type="module">
+        // Firebase setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGMAmDqACu2QfHJ3Ms5-amyOajqzQgUZg",
+            authDomain: "eco-lab-e2f48.firebaseapp.com",
+            projectId: "eco-lab-e2f48",
+            storageBucket: "eco-lab-e2f48.firebasestorage.app",
+            messagingSenderId: "836995560981",
+            appId: "1:836995560981:web:fc790ecae541525db0401c"
+        };
+
+        let app;
+        try { app = firebase.app(); } catch (_) { app = firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const functions = firebase.functions();
+
+        // DOM refs
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        // --- Helper functions ---
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'success') {
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-triangle-exclamation' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${escapeHtml(message)}`;
+            const container = $('#toastContainer');
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 4000);
+            }, 4000);
+        }
+
+        function formatNumber(num) {
+            if (num === undefined || num === null || isNaN(num)) return '—';
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function formatDate(ts) {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatTime(ts) {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getDateRange(days) {
+            const end = new Date();
+            const start = new Date();
+            start.setDate(end.getDate() - days);
+            return { start, end };
+        }
+
+        function dateToStr(d) {
+            return d.toISOString().split('T')[0];
+        }
+
+        function strToDate(s) {
+            const parts = s.split('-');
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+
+        // --- Auth Guard ---
+        async function requireAdmin() {
+            return new Promise((resolve, reject) => {
+                const unsubscribe = auth.onAuthStateChanged(async (user) => {
+                    unsubscribe();
+                    if (!user) { window.location.href = '../login.html'; reject(); return; }
+                    try {
+                        const token = await user.getIdTokenResult();
+                        if (token.claims.admin !== true) { window.location.href = '../access-denied.html'; reject(); return; }
+                        resolve(user);
+                    } catch (e) { window.location.href = '../login.html'; reject(e); }
+                });
+            });
+        }
+
+        // --- State ---
+        const state = {
+            datePreset: '7d',
+            startDate: null,
+            endDate: null,
+            subjectId: '',
+            chapterId: '',
+            topicId: '',
+            contentType: '',
+            loading: false,
+            data: null
+        };
+
+        // --- Data Loaders ---
+        let allSubjects = [];
+        let allChapters = [];
+        let allTopics = [];
+        let allContent = [];
+
+        async function loadSubjects() {
+            const snap = await db.collection('subjects').orderBy('name').get();
+            allSubjects = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allSubjects;
+        }
+
+        async function loadChapters(subjectId = null) {
+            let q = db.collection('chapters').orderBy('name');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            const snap = await q.get();
+            allChapters = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allChapters;
+        }
+
+        async function loadTopics(subjectId = null, chapterId = null) {
+            let q = db.collection('topics').orderBy('name');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            if (chapterId) q = q.where('chapterId', '==', chapterId);
+            const snap = await q.get();
+            allTopics = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allTopics;
+        }
+
+        async function loadContentList(subjectId = null, chapterId = null, topicId = null) {
+            let q = db.collection('contents').orderBy('title');
+            if (subjectId) q = q.where('subjectId', '==', subjectId);
+            if (chapterId) q = q.where('chapterId', '==', chapterId);
+            if (topicId) q = q.where('topicId', '==', topicId);
+            const snap = await q.get();
+            allContent = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            return allContent;
+        }
+
+        // --- Analytics Aggregation ---
+        async function fetchAnalytics() {
+            const { startDate, endDate, subjectId, chapterId, topicId, contentType } = state;
+
+            if (!startDate || !endDate) {
+                showToast('Please select a valid date range', 'warning');
+                return null;
+            }
+
+            const startTimestamp = firebase.firestore.Timestamp.fromDate(startDate);
+            const endTimestamp = firebase.firestore.Timestamp.fromDate(endDate);
+
+            // Build query for analytics data
+            let query = db.collection('analyticsDaily');
+
+            // Apply date range filter
+            query = query.where('date', '>=', startTimestamp)
+                .where('date', '<=', endTimestamp);
+
+            // Apply filters (note: these would need to be aggregated)
+            // For simplicity, we'll fetch and filter client-side for demo
+            // In production, use proper aggregation
+
+            const snap = await query.orderBy('date', 'asc').get();
+
+            const dailyData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+            // Aggregate
+            const totals = {
+                views: 0,
+                visitors: 0,
+                bookmarks: 0,
+                shares: 0,
+                searches: 0,
+                zeroResults: 0
+            };
+
+            const viewsByDate = {};
+            const contentViews = {};
+            const contentBookmarks = {};
+            const subjectStats = {};
+            const chapterStats = {};
+            const topicStats = {};
+            const typeStats = {};
+            const searchStats = {};
+
+            dailyData.forEach(d => {
+                totals.views += d.views || 0;
+                totals.visitors += d.uniqueVisitors || 0;
+                totals.bookmarks += d.bookmarks || 0;
+                totals.shares += d.shares || 0;
+                totals.searches += d.searches || 0;
+                totals.zeroResults += d.zeroResultSearches || 0;
+
+                const dateKey = d.date.toDate ? d.date.toDate().toISOString().split('T')[0] : 'unknown';
+                viewsByDate[dateKey] = (viewsByDate[dateKey] || 0) + (d.views || 0);
+
+                // Content-level stats from dailyContent sub-collection would be ideal
+                // For now, we'll aggregate from the main doc
+                if (d.contentStats) {
+                    Object.entries(d.contentStats).forEach(([contentId, stats]) => {
+                        contentViews[contentId] = (contentViews[contentId] || 0) + (stats.views || 0);
+                        contentBookmarks[contentId] = (contentBookmarks[contentId] || 0) + (stats.bookmarks || 0);
+                    });
+                }
+            });
+
+            // Get search data
+            let searchData = [];
+            try {
+                const searchSnap = await db.collection('searches')
+                    .where('timestamp', '>=', startTimestamp)
+                    .where('timestamp', '<=', endTimestamp)
+                    .orderBy('timestamp', 'desc')
+                    .limit(100)
+                    .get();
+
+                searchData = searchSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                // Aggregate search queries
+                searchData.forEach(s => {
+                    const q = (s.query || '').toLowerCase().trim();
+                    if (q) {
+                        if (!searchStats[q]) searchStats[q] = { count: 0, totalResults: 0, lastSeen: s.timestamp };
+                        searchStats[q].count++;
+                        searchStats[q].totalResults += s.resultCount || 0;
+                        if (s.timestamp && (!searchStats[q].lastSeen || s.timestamp > searchStats[q].lastSeen)) {
+                            searchStats[q].lastSeen = s.timestamp;
+                        }
+                    }
+                });
+            } catch (e) {
+                // Search collection may not exist yet
+                console.log('Search data not available:', e.message);
+            }
+
+            // Get activity
+            let activityData = [];
+            try {
+                const activitySnap = await db.collection('analyticsActivity')
+                    .where('timestamp', '>=', startTimestamp)
+                    .where('timestamp', '<=', endTimestamp)
+                    .orderBy('timestamp', 'desc')
+                    .limit(50)
+                    .get();
+
+                activityData = activitySnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (e) {
+                console.log('Activity data not available:', e.message);
+            }
+
+            // Compute subject/chapter/topic stats from content
+            const contentMap = {};
+            allContent.forEach(c => { contentMap[c.id] = c; });
+
+            Object.entries(contentViews).forEach(([contentId, views]) => {
+                const content = contentMap[contentId];
+                if (!content) return;
+
+                const subjectId = content.subjectId || 'unknown';
+                const chapterId = content.chapterId || 'unknown';
+                const topicId = content.topicId || 'unknown';
+                const type = content.type || 'unknown';
+
+                if (!subjectStats[subjectId]) subjectStats[subjectId] = { views: 0, bookmarks: 0, content: new Set() };
+                subjectStats[subjectId].views += views;
+                subjectStats[subjectId].bookmarks += (contentBookmarks[contentId] || 0);
+                subjectStats[subjectId].content.add(contentId);
+
+                if (!chapterStats[chapterId]) chapterStats[chapterId] = { views: 0, bookmarks: 0, content: new Set(), subjectId };
+                chapterStats[chapterId].views += views;
+                chapterStats[chapterId].bookmarks += (contentBookmarks[contentId] || 0);
+                chapterStats[chapterId].content.add(contentId);
+
+                if (!topicStats[topicId]) topicStats[topicId] = { views: 0, bookmarks: 0, content: new Set(), chapterId, subjectId };
+                topicStats[topicId].views += views;
+                topicStats[topicId].bookmarks += (contentBookmarks[contentId] || 0);
+                topicStats[topicId].content.add(contentId);
+
+                if (!typeStats[type]) typeStats[type] = { views: 0, bookmarks: 0, content: new Set() };
+                typeStats[type].views += views;
+                typeStats[type].bookmarks += (contentBookmarks[contentId] || 0);
+                typeStats[type].content.add(contentId);
+            });
+
+            // Convert Sets to counts
+            Object.values(subjectStats).forEach(s => s.content = s.content.size);
+            Object.values(chapterStats).forEach(c => c.content = c.content.size);
+            Object.values(topicStats).forEach(t => t.content = t.content.size);
+            Object.values(typeStats).forEach(t => t.content = t.content.size);
+
+            return {
+                totals,
+                viewsByDate,
+                contentViews,
+                contentBookmarks,
+                subjectStats,
+                chapterStats,
+                topicStats,
+                typeStats,
+                searchStats,
+                activityData,
+                dailyData
+            };
+        }
+
+        // --- Render Functions ---
+        function renderKPIs(data) {
+            const { totals, previousTotals } = data;
+
+            const kpis = [
+                { id: 'kpiViews', label: 'Total Views', value: totals.views, prev: previousTotals?.views },
+                { id: 'kpiVisitors', label: 'Unique Visitors', value: totals.visitors, prev: previousTotals?.visitors },
+                { id: 'kpiBookmarks', label: 'Bookmarks', value: totals.bookmarks, prev: previousTotals?.bookmarks },
+                { id: 'kpiShares', label: 'Shares', value: totals.shares, prev: previousTotals?.shares },
+                { id: 'kpiSearches', label: 'Searches', value: totals.searches, prev: previousTotals?.searches },
+                { id: 'kpiZeroResults', label: 'Zero-Result', value: totals.zeroResults, prev: previousTotals?.zeroResults }
+            ];
+
+            kpis.forEach(kpi => {
+                const el = document.getElementById(kpi.id);
+                if (el) el.textContent = formatNumber(kpi.value);
+
+                const changeEl = document.getElementById(kpi.id + 'Change');
+                if (changeEl) {
+                    if (kpi.prev !== undefined && kpi.prev !== null && kpi.prev > 0) {
+                        const change = ((kpi.value - kpi.prev) / kpi.prev) * 100;
+                        const rounded = Math.round(change);
+                        const cls = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
+                        const sign = change > 0 ? '↑' : change < 0 ? '↓' : '→';
+                        changeEl.textContent = `${sign} ${Math.abs(rounded)}%`;
+                        changeEl.className = `kpi-change ${cls}`;
+                    } else if (kpi.prev === 0 && kpi.value > 0) {
+                        changeEl.textContent = '↑ New';
+                        changeEl.className = 'kpi-change positive';
+                    } else {
+                        changeEl.textContent = '';
+                        changeEl.className = 'kpi-change neutral';
+                    }
+                }
+            });
+        }
+
+        function renderViewsChart(data) {
+            const { viewsByDate } = data;
+            const dates = Object.keys(viewsByDate).sort();
+            const values = dates.map(d => viewsByDate[d]);
+
+            const svg = document.getElementById('viewsChart');
+            const width = 800;
+            const height = 250;
+            const padding = { top: 20, right: 20, bottom: 40, left: 50 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const maxVal = Math.max(...values, 1);
+
+            let pathD = '';
+            let tooltipPoints = '';
+
+            if (dates.length === 0) {
+                svg.innerHTML = `<text x="${width/2}" y="${height/2}" text-anchor="middle" fill="#9ca3af" font-size="14">No data available</text>`;
+                return;
+            }
+
+            dates.forEach((date, i) => {
+                const x = padding.left + (i / Math.max(dates.length - 1, 1)) * chartWidth;
+                const y = padding.top + chartHeight - (values[i] / maxVal) * chartHeight;
+                if (i === 0) {
+                    pathD += `M ${x} ${y}`;
+                } else {
+                    pathD += `L ${x} ${y}`;
+                }
+                tooltipPoints += `<circle cx="${x}" cy="${y}" r="4" fill="#2563eb" />`;
+                tooltipPoints += `<title>${date}: ${values[i]} views</title>`;
+            });
+
+            // Add baseline
+            const baseY = padding.top + chartHeight;
+
+            // Build chart
+            svg.innerHTML = `
+                <!-- Grid lines -->
+                ${[0, 0.25, 0.5, 0.75, 1].map(pct => `
+                    <line x1="${padding.left}" y1="${padding.top + chartHeight * (1 - pct)}" 
+                          x2="${width - padding.right}" y2="${padding.top + chartHeight * (1 - pct)}" 
+                          stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4" />
+                    <text x="${padding.left - 8}" y="${padding.top + chartHeight * (1 - pct) + 4}" 
+                          text-anchor="end" fill="#9ca3af" font-size="10">${Math.round(maxVal * pct)}</text>
+                `).join('')}
+
+                <!-- Area fill -->
+                <path d="${pathD} L ${padding.left + (dates.length - 1) / Math.max(dates.length - 1, 1) * chartWidth} ${baseY} L ${padding.left} ${baseY} Z" 
+                      fill="rgba(37, 99, 235, 0.15)" />
+
+                <!-- Line -->
+                <path d="${pathD}" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Data points -->
+                ${tooltipPoints}
+
+                <!-- X-axis labels -->
+                ${dates.filter((d, i) => i % Math.max(1, Math.floor(dates.length / 10)) === 0 || i === dates.length - 1)
+                    .map((date, i) => {
+                        const idx = dates.indexOf(date);
+                        const x = padding.left + (idx / Math.max(dates.length - 1, 1)) * chartWidth;
+                        return `<text x="${x}" y="${baseY + 16}" text-anchor="middle" fill="#6b7280" font-size="9">${date.slice(5)}</text>`;
+                    }).join('')}
+            `;
+
+            // Update summary
+            const total = values.reduce((a, b) => a + b, 0);
+            const avg = total / values.length;
+            const summary = document.getElementById('viewsChartSummary');
+            summary.textContent = `Total ${total.toLocaleString()} views across ${values.length} days · Average ${Math.round(avg).toLocaleString()} views/day · Peak ${Math.max(...values).toLocaleString()} views on ${dates[values.indexOf(Math.max(...values))]}`;
+        }
+
+        function renderPopularContent(data) {
+            const { contentViews, contentBookmarks } = data;
+            const contentMap = {};
+            allContent.forEach(c => { contentMap[c.id] = c; });
+
+            const items = Object.entries(contentViews)
+                .map(([id, views]) => {
+                    const content = contentMap[id];
+                    if (!content) return null;
+                    const subject = allSubjects.find(s => s.id === content.subjectId);
+                    return {
+                        id,
+                        title: content.title,
+                        type: content.type,
+                        subject: subject ? subject.name : 'Unknown',
+                        views,
+                        bookmarks: contentBookmarks[id] || 0
+                    };
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 20);
+
+            const tbody = document.getElementById('popularBody');
+            const stateEl = document.getElementById('popularState');
+            const countEl = document.getElementById('popularCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No content views recorded for this period.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} items`;
+
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td class="rank-number">${i + 1}</td>
+                    <td class="clickable" data-content-id="${item.id}">${escapeHtml(item.title)}</td>
+                    <td><span class="type-badge ${item.type || ''}">${escapeHtml(item.type || '')}</span></td>
+                    <td>${escapeHtml(item.subject)}</td>
+                    <td>${item.views.toLocaleString()}</td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                </tr>
+            `).join('');
+
+            // Click handlers
+            tbody.querySelectorAll('[data-content-id]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const content = contentMap[el.dataset.contentId];
+                    if (content) {
+                        const subject = allSubjects.find(s => s.id === content.subjectId);
+                        const chapter = allChapters.find(c => c.id === content.chapterId);
+                        const topic = allTopics.find(t => t.id === content.topicId);
+                        if (subject && chapter && topic) {
+                            const url = `../content.html?subject=${encodeURIComponent(subject.slug || subject.id)}&chapter=${encodeURIComponent(chapter.slug || chapter.id)}&topic=${encodeURIComponent(topic.slug || topic.id)}&slug=${encodeURIComponent(content.slug || content.id)}`;
+                            window.open(url, '_blank');
+                        }
+                    }
+                });
+            });
+        }
+
+        function renderBookmarkedContent(data) {
+            const { contentBookmarks } = data;
+            const contentMap = {};
+            allContent.forEach(c => { contentMap[c.id] = c; });
+
+            const items = Object.entries(contentBookmarks)
+                .map(([id, bookmarks]) => {
+                    const content = contentMap[id];
+                    if (!content) return null;
+                    return { id, title: content.title, type: content.type, bookmarks };
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.bookmarks - a.bookmarks)
+                .slice(0, 20);
+
+            const tbody = document.getElementById('bookmarkedBody');
+            const stateEl = document.getElementById('bookmarkedState');
+            const countEl = document.getElementById('bookmarkedCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No bookmarks recorded for this period.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} items`;
+
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td class="rank-number">${i + 1}</td>
+                    <td class="clickable" data-content-id="${item.id}">${escapeHtml(item.title)}</td>
+                    <td><span class="type-badge ${item.type || ''}">${escapeHtml(item.type || '')}</span></td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                </tr>
+            `).join('');
+
+            tbody.querySelectorAll('[data-content-id]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const content = contentMap[el.dataset.contentId];
+                    if (content) {
+                        const subject = allSubjects.find(s => s.id === content.subjectId);
+                        const chapter = allChapters.find(c => c.id === content.chapterId);
+                        const topic = allTopics.find(t => t.id === content.topicId);
+                        if (subject && chapter && topic) {
+                            const url = `../content.html?subject=${encodeURIComponent(subject.slug || subject.id)}&chapter=${encodeURIComponent(chapter.slug || chapter.id)}&topic=${encodeURIComponent(topic.slug || topic.id)}&slug=${encodeURIComponent(content.slug || content.id)}`;
+                            window.open(url, '_blank');
+                        }
+                    }
+                });
+            });
+        }
+
+        function renderSubjectPerformance(data) {
+            const { subjectStats } = data;
+            const subjectMap = {};
+            allSubjects.forEach(s => { subjectMap[s.id] = s; });
+
+            const items = Object.entries(subjectStats)
+                .map(([id, stats]) => {
+                    const subject = subjectMap[id];
+                    return {
+                        id,
+                        name: subject ? subject.name : 'Unknown',
+                        views: stats.views || 0,
+                        bookmarks: stats.bookmarks || 0,
+                        content: stats.content || 0
+                    };
+                })
+                .sort((a, b) => b.views - a.views);
+
+            const tbody = document.getElementById('subjectBody');
+            const stateEl = document.getElementById('subjectState');
+            const countEl = document.getElementById('subjectCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No subject data available.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `${items.length} subjects`;
+
+            tbody.innerHTML = items.map(item => `
+                <tr>
+                    <td class="clickable" data-subject-id="${item.id}">${escapeHtml(item.name)}</td>
+                    <td>${item.views.toLocaleString()}</td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                    <td>${item.content}</td>
+                </tr>
+            `).join('');
+
+            tbody.querySelectorAll('[data-subject-id]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const subject = subjectMap[el.dataset.subjectId];
+                    if (subject) {
+                        window.open(`../subject.html?slug=${encodeURIComponent(subject.slug || subject.id)}`, '_blank');
+                    }
+                });
+            });
+        }
+
+        function renderChapterPerformance(data) {
+            const { chapterStats } = data;
+            const chapterMap = {};
+            allChapters.forEach(c => { chapterMap[c.id] = c; });
+            const subjectMap = {};
+            allSubjects.forEach(s => { subjectMap[s.id] = s; });
+
+            const items = Object.entries(chapterStats)
+                .map(([id, stats]) => {
+                    const chapter = chapterMap[id];
+                    return {
+                        id,
+                        name: chapter ? chapter.name : 'Unknown',
+                        subject: chapter && subjectMap[chapter.subjectId] ? subjectMap[chapter.subjectId].name : 'Unknown',
+                        views: stats.views || 0,
+                        bookmarks: stats.bookmarks || 0,
+                        content: stats.content || 0
+                    };
+                })
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 30);
+
+            const tbody = document.getElementById('chapterBody');
+            const stateEl = document.getElementById('chapterState');
+            const countEl = document.getElementById('chapterCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No chapter data available.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} chapters`;
+
+            tbody.innerHTML = items.map(item => `
+                <tr>
+                    <td>${escapeHtml(item.name)}</td>
+                    <td>${escapeHtml(item.subject)}</td>
+                    <td>${item.views.toLocaleString()}</td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                    <td>${item.content}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTopicPerformance(data) {
+            const { topicStats } = data;
+            const topicMap = {};
+            allTopics.forEach(t => { topicMap[t.id] = t; });
+            const chapterMap = {};
+            allChapters.forEach(c => { chapterMap[c.id] = c; });
+            const subjectMap = {};
+            allSubjects.forEach(s => { subjectMap[s.id] = s; });
+
+            const items = Object.entries(topicStats)
+                .map(([id, stats]) => {
+                    const topic = topicMap[id];
+                    const chapter = topic && chapterMap[topic.chapterId];
+                    const subject = chapter && subjectMap[chapter.subjectId];
+                    return {
+                        id,
+                        name: topic ? topic.name : 'Unknown',
+                        chapter: chapter ? chapter.name : 'Unknown',
+                        subject: subject ? subject.name : 'Unknown',
+                        views: stats.views || 0,
+                        bookmarks: stats.bookmarks || 0,
+                        content: stats.content || 0
+                    };
+                })
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 30);
+
+            const tbody = document.getElementById('topicBody');
+            const stateEl = document.getElementById('topicState');
+            const countEl = document.getElementById('topicCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No topic data available.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} topics`;
+
+            tbody.innerHTML = items.map(item => `
+                <tr>
+                    <td>${escapeHtml(item.name)}</td>
+                    <td>${escapeHtml(item.chapter)}</td>
+                    <td>${escapeHtml(item.subject)}</td>
+                    <td>${item.views.toLocaleString()}</td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                    <td>${item.content}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTypePerformance(data) {
+            const { typeStats } = data;
+
+            const items = Object.entries(typeStats)
+                .map(([type, stats]) => ({
+                    type,
+                    views: stats.views || 0,
+                    bookmarks: stats.bookmarks || 0,
+                    content: stats.content || 0
+                }))
+                .sort((a, b) => b.views - a.views);
+
+            const tbody = document.getElementById('typeBody');
+            const stateEl = document.getElementById('typeState');
+            const countEl = document.getElementById('typeCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No content type data available.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `${items.length} types`;
+
+            tbody.innerHTML = items.map(item => `
+                <tr>
+                    <td><span class="type-badge ${item.type}">${escapeHtml(item.type)}</span></td>
+                    <td>${item.views.toLocaleString()}</td>
+                    <td>${item.bookmarks.toLocaleString()}</td>
+                    <td>${item.content}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderSearchAnalytics(data) {
+            const { searchStats } = data;
+
+            const items = Object.entries(searchStats)
+                .map(([query, stats]) => ({
+                    query,
+                    count: stats.count || 0,
+                    avgResults: stats.totalResults > 0 ? Math.round(stats.totalResults / stats.count) : 0,
+                    lastSeen: stats.lastSeen
+                }))
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 20);
+
+            const tbody = document.getElementById('searchBody');
+            const stateEl = document.getElementById('searchState');
+            const countEl = document.getElementById('searchCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No search data available for this period.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} queries`;
+
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td class="rank-number">${i + 1}</td>
+                    <td>${escapeHtml(item.query)}</td>
+                    <td>${item.count.toLocaleString()}</td>
+                    <td>${item.avgResults}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderZeroResultSearches(data) {
+            const { searchStats } = data;
+
+            const items = Object.entries(searchStats)
+                .filter(([_, stats]) => stats.totalResults === 0 || stats.totalResults < 1)
+                .map(([query, stats]) => ({
+                    query,
+                    count: stats.count || 0,
+                    lastSeen: stats.lastSeen
+                }))
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 20);
+
+            const tbody = document.getElementById('zeroBody');
+            const stateEl = document.getElementById('zeroState');
+            const countEl = document.getElementById('zeroCount');
+
+            if (items.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-check-circle"></i><p>No zero-result searches found. Great content coverage!</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `Showing ${items.length} queries`;
+
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td class="rank-number">${i + 1}</td>
+                    <td><span style="color:#dc2626;">${escapeHtml(item.query)}</span></td>
+                    <td>${item.count.toLocaleString()}</td>
+                    <td>${formatTime(item.lastSeen)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderActivity(data) {
+            const { activityData } = data;
+
+            const tbody = document.getElementById('activityBody');
+            const stateEl = document.getElementById('activityState');
+            const countEl = document.getElementById('activityCount');
+
+            if (!activityData || activityData.length === 0) {
+                tbody.innerHTML = '';
+                stateEl.style.display = 'block';
+                stateEl.innerHTML = '<i class="fas fa-inbox"></i><p>No recent activity recorded.</p>';
+                countEl.textContent = '';
+                return;
+            }
+
+            stateEl.style.display = 'none';
+            countEl.textContent = `${activityData.length} activities`;
+
+            const actionIcons = {
+                'view': 'fa-eye',
+                'bookmark': 'fa-bookmark',
+                'share': 'fa-share-alt',
+                'search': 'fa-search'
+            };
+
+            tbody.innerHTML = activityData.slice(0, 30).map(item => `
+                <tr>
+                    <td>${formatTime(item.timestamp)}</td>
+                    <td><i class="fas ${actionIcons[item.action] || 'fa-clock'}"></i> ${escapeHtml(item.action || 'Unknown')}</td>
+                    <td>${escapeHtml(item.itemName || item.contentId || '—')}</td>
+                </tr>
+            `).join('');
+        }
+
+        // --- Main Load Function ---
+        async function loadAnalytics() {
+            if (state.loading) return;
+            state.loading = true;
+
+            const refreshBtn = document.getElementById('refreshBtn');
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+            try {
+                // Load all reference data first
+                await loadSubjects();
+                await loadChapters(state.subjectId || null);
+                await loadTopics(state.subjectId || null, state.chapterId || null);
+                await loadContentList(state.subjectId || null, state.chapterId || null, state.topicId || null);
+
+                // Fetch analytics
+                const data = await fetchAnalytics();
+
+                if (!data) {
+                    showToast('No analytics data available for the selected period.', 'warning');
+                    return;
+                }
+
+                // Store for CSV export
+                window._analyticsData = data;
+
+                // Render all sections
+                renderKPIs(data);
+                renderViewsChart(data);
+                renderPopularContent(data);
+                renderBookmarkedContent(data);
+                renderSubjectPerformance(data);
+                renderChapterPerformance(data);
+                renderTopicPerformance(data);
+                renderTypePerformance(data);
+                renderSearchAnalytics(data);
+                renderZeroResultSearches(data);
+                renderActivity(data);
+
+            } catch (e) {
+                console.error('Analytics error:', e);
+                showToast('Unable to load analytics: ' + e.message, 'error');
+                // Show error states
+                document.querySelectorAll('.state-placeholder').forEach(el => {
+                    el.style.display = 'block';
+                    el.innerHTML = `<i class="fas fa-exclamation-triangle"></i><p>Unable to load data. Please try again.</p>
+                                   <button class="btn btn-primary" onclick="location.reload()">Retry</button>`;
+                });
+            } finally {
+                state.loading = false;
+                refreshBtn.disabled = false;
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+            }
+        }
+
+        // --- Export CSV ---
+        function exportCSV() {
+            const data = window._analyticsData;
+            if (!data) {
+                showToast('No data to export. Load analytics first.', 'warning');
+                return;
+            }
+
+            let csv = 'Content Analytics Report\n';
+            csv += `Generated: ${new Date().toISOString()}\n`;
+            csv += `Period: ${formatDate(state.startDate)} - ${formatDate(state.endDate)}\n\n`;
+
+            // Popular Content
+            csv += 'Popular Content\n';
+            csv += 'Rank,Content,Type,Subject,Views,Bookmarks\n';
+            const contentMap = {};
+            allContent.forEach(c => { contentMap[c.id] = c; });
+            const popularItems = Object.entries(data.contentViews)
+                .map(([id, views]) => {
+                    const content = contentMap[id];
+                    if (!content) return null;
+                    const subject = allSubjects.find(s => s.id === content.subjectId);
+                    return { title: content.title, type: content.type, subject: subject ? subject.name : 'Unknown', views, bookmarks: data.contentBookmarks[id] || 0 };
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 20);
+
+            popularItems.forEach((item, i) => {
+                csv += `${i + 1},"${item.title}","${item.type}","${item.subject}",${item.views},${item.bookmarks}\n`;
+            });
+
+            csv += '\n';
+
+            // Subject Performance
+            csv += 'Subject Performance\n';
+            csv += 'Subject,Views,Bookmarks,Content\n';
+            Object.entries(data.subjectStats)
+                .sort((a, b) => b[1].views - a[1].views)
+                .forEach(([id, stats]) => {
+                    const subject = allSubjects.find(s => s.id === id);
+                    csv += `"${subject ? subject.name : 'Unknown'}",${stats.views},${stats.bookmarks},${stats.content}\n`;
+                });
+
+            csv += '\n';
+
+            // Search Queries
+            csv += 'Top Search Queries\n';
+            csv += 'Rank,Query,Searches,Avg Results\n';
+            const searchItems = Object.entries(data.searchStats)
+                .map(([query, stats]) => ({ query, count: stats.count, avgResults: stats.totalResults > 0 ? Math.round(stats.totalResults / stats.count) : 0 }))
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 20);
+            searchItems.forEach((item, i) => {
+                csv += `${i + 1},"${item.query}",${item.count},${item.avgResults}\n`;
+            });
+
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `analytics-${dateToStr(state.startDate)}-${dateToStr(state.endDate)}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+
+            showToast('CSV exported successfully', 'success');
+        }
+
+        // --- Date Presets ---
+        function setDatePreset(days) {
+            const { start, end } = getDateRange(days);
+            state.startDate = start;
+            state.endDate = end;
+            document.getElementById('filterDateStart').value = dateToStr(start);
+            document.getElementById('filterDateEnd').value = dateToStr(end);
+
+            // Update preset buttons
+            document.querySelectorAll('.date-presets .btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.preset === days + 'd');
+            });
+
+            loadAnalytics();
+        }
+
+        // --- Filters ---
+        function populateFilters() {
+            // Subjects
+            const subjectSelect = document.getElementById('filterSubject');
+            const options = allSubjects.map(s =>
+                `<option value="${s.id}" ${s.id === state.subjectId ? 'selected' : ''}>${escapeHtml(s.name)}</option>`
+            ).join('');
+            subjectSelect.innerHTML = `<option value="">All Subjects</option>${options}`;
+
+            // Chapters
+            const chapterSelect = document.getElementById('filterChapter');
+            const chapterOptions = allChapters
+                .filter(c => !state.subjectId || c.subjectId === state.subjectId)
+                .map(c => `<option value="${c.id}" ${c.id === state.chapterId ? 'selected' : ''}>${escapeHtml(c.name)}</option>`)
+                .join('');
+            chapterSelect.innerHTML = `<option value="">All Chapters</option>${chapterOptions}`;
+
+            // Topics
+            const topicSelect = document.getElementById('filterTopic');
+            const topicOptions = allTopics
+                .filter(t => !state.chapterId || t.chapterId === state.chapterId)
+                .map(t => `<option value="${t.id}" ${t.id === state.topicId ? 'selected' : ''}>${escapeHtml(t.name)}</option>`)
+                .join('');
+            topicSelect.innerHTML = `<option value="">All Topics</option>${topicOptions}`;
+        }
+
+        // --- Init ---
+        async function init() {
+            try {
+                await requireAdmin();
+
+                // Set default date range
+                setDatePreset(7);
+
+                // Load initial data
+                await loadSubjects();
+                await loadChapters();
+                await loadTopics();
+                populateFilters();
+
+                // Load analytics
+                await loadAnalytics();
+
+                // --- Event Listeners ---
+
+                // Date presets
+                document.querySelectorAll('.date-presets .btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const days = parseInt(btn.dataset.preset);
+                        if (days) setDatePreset(days);
+                    });
+                });
+
+                // Custom date range
+                document.getElementById('filterDateStart').addEventListener('change', (e) => {
+                    if (e.target.value) {
+                        state.startDate = strToDate(e.target.value);
+                        // Clear preset active state
+                        document.querySelectorAll('.date-presets .btn').forEach(b => b.classList.remove('active'));
+                        loadAnalytics();
+                    }
+                });
+
+                document.getElementById('filterDateEnd').addEventListener('change', (e) => {
+                    if (e.target.value) {
+                        state.endDate = strToDate(e.target.value);
+                        document.querySelectorAll('.date-presets .btn').forEach(b => b.classList.remove('active'));
+                        loadAnalytics();
+                    }
+                });
+
+                // Subject filter
+                document.getElementById('filterSubject').addEventListener('change', async (e) => {
+                    state.subjectId = e.target.value;
+                    state.chapterId = '';
+                    state.topicId = '';
+                    await loadChapters(state.subjectId || null);
+                    await loadTopics(state.subjectId || null);
+                    populateFilters();
+                    loadAnalytics();
+                });
+
+                // Chapter filter
+                document.getElementById('filterChapter').addEventListener('change', async (e) => {
+                    state.chapterId = e.target.value;
+                    state.topicId = '';
+                    await loadTopics(state.subjectId || null, state.chapterId || null);
+                    populateFilters();
+                    loadAnalytics();
+                });
+
+                // Topic filter
+                document.getElementById('filterTopic').addEventListener('change', (e) => {
+                    state.topicId = e.target.value;
+                    loadAnalytics();
+                });
+
+                // Content type filter
+                document.getElementById('filterType').addEventListener('change', (e) => {
+                    state.contentType = e.target.value;
+                    loadAnalytics();
+                });
+
+                // Clear filters
+                document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+                    state.subjectId = '';
+                    state.chapterId = '';
+                    state.topicId = '';
+                    state.contentType = '';
+                    document.getElementById('filterSubject').value = '';
+                    document.getElementById('filterChapter').value = '';
+                    document.getElementById('filterTopic').value = '';
+                    document.getElementById('filterType').value = '';
+                    populateFilters();
+                    loadAnalytics();
+                });
+
+                // Refresh
+                document.getElementById('refreshBtn').addEventListener('click', loadAnalytics);
+
+                // Export
+                document.getElementById('exportBtn').addEventListener('click', exportCSV);
+
+                // Sidebar toggle
+                document.getElementById('sidebarToggle').addEventListener('click', () => {
+                    document.getElementById('adminSidebar').classList.toggle('open');
+                });
+
+                // Logout
+                document.getElementById('sidebarLogout').addEventListener('click', () => {
+                    auth.signOut().then(() => window.location.href = '../login.html');
+                });
+
+                // Admin user email
+                auth.onAuthStateChanged(user => {
+                    if (user) document.getElementById('adminUserEmail').textContent = user.email || 'admin';
+                });
+
+            } catch (e) {
+                console.error('Init error:', e);
+                showToast('Failed to initialize analytics: ' + e.message, 'error');
+            }
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

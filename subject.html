@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subject | Academic Knowledge Library</title>
+    <meta name="description" content="Explore academic subjects and their chapters, topics, formulas, laws, and resources." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/subject.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Subject | Academic Knowledge Library" />
+    <meta property="og:description" content="Explore academic subjects and their chapters, topics, formulas, laws, and resources." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/subject.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Subject | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Explore academic subjects and their chapters, topics, formulas, laws, and resources." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== SUBJECT HERO ===== */
+        .subject-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .subject-hero .hero-grid {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+        .subject-hero .hero-image {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        .subject-hero .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .subject-hero .hero-content {
+            flex: 1;
+        }
+        .subject-hero .hero-content h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .subject-hero .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+        .subject-hero .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .subject-hero .hero-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .subject-hero .hero-stats .stat-item i {
+            font-size: 1.1rem;
+        }
+        .subject-hero .hero-stats .stat-item .num {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .subject-hero .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .subject-hero .hero-actions .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .subject-hero .hero-actions .btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .subject-hero .hero-actions .btn-primary-action {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+        .subject-hero .hero-actions .btn-primary-action:hover {
+            background: var(--primary-bg);
+            transform: translateY(-2px);
+        }
+
+        /* ===== QUICK NAV CARDS ===== */
+        .quick-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .quick-nav .quick-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .quick-nav .quick-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .quick-nav .quick-card .quick-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .quick-nav .quick-card .quick-info span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .quick-nav .quick-card .quick-info strong {
+            font-size: 1rem;
+        }
+        .quick-nav .quick-card i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .quick-nav .quick-card a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        /* ===== CHAPTER DIRECTORY ===== */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .chapter-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .chapter-card .chapter-number {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+        }
+        .chapter-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+        }
+        .chapter-card h3 a {
+            color: var(--text);
+        }
+        .chapter-card h3 a:hover {
+            color: var(--primary);
+        }
+        .chapter-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+        .chapter-card .chapter-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .chapter-card .chapter-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .chapter-card .chapter-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: gap var(--transition);
+            margin-top: auto;
+        }
+        .chapter-card .chapter-cta:hover {
+            gap: 12px;
+        }
+        .chapter-card .chapter-cta i {
+            transition: transform var(--transition);
+        }
+        .chapter-card .chapter-cta:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ===== SEARCH WITHIN SUBJECT ===== */
+        .subject-search-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        .subject-search-section .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+        .subject-search-section .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .subject-search-section .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .subject-search-section .search-wrapper input {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .subject-search-section .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .subject-search-section .filter-chips .chip {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            transition: all var(--transition);
+        }
+        .subject-search-section .filter-chips .chip:hover {
+            background: var(--primary-bg);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+        .subject-search-section .filter-chips .chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        .subject-search-section .search-results {
+            margin-top: 16px;
+            display: none;
+        }
+        .subject-search-section .search-results.visible {
+            display: block;
+        }
+        .subject-search-section .search-results .result-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .subject-search-section .search-results .result-item:last-child {
+            border-bottom: none;
+        }
+        .subject-search-section .search-results .result-item .result-type {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-bg);
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+        .subject-search-section .search-results .result-item a {
+            color: var(--text);
+            font-weight: 500;
+        }
+        .subject-search-section .search-results .result-item a:hover {
+            color: var(--primary);
+        }
+        .subject-search-section .search-results .empty-results {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        /* ===== RESOURCE SECTIONS ===== */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .resource-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .resource-card .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        .resource-card h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .resource-card h4 a {
+            color: var(--text);
+        }
+        .resource-card h4 a:hover {
+            color: var(--primary);
+        }
+        .resource-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .resource-card .resource-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .resource-card .resource-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-hero {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+        .skeleton-hero .skeleton-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
+        }
+        .skeleton-hero .skeleton-content {
+            flex: 1;
+        }
+        .skeleton-hero .skeleton-content .skeleton-line {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            animation: pulse-light 1.5s ease-in-out infinite;
+        }
+        .skeleton-hero .skeleton-content .skeleton-line.short {
+            width: 60%;
+        }
+        .skeleton-hero .skeleton-content .skeleton-line.medium {
+            width: 80%;
+        }
+        .skeleton-hero .skeleton-content .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-hero .skeleton-content .skeleton-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+        }
+        .skeleton-hero .skeleton-content .skeleton-stats .skeleton-line {
+            width: 80px;
+            height: 16px;
+        }
+        @keyframes pulse-light {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .skeleton-chapter {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .skeleton-chapter .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-chapter .skeleton-line.short {
+            width: 30%;
+        }
+        .skeleton-chapter .skeleton-line.medium {
+            width: 70%;
+        }
+        .skeleton-chapter .skeleton-line.long {
+            width: 100%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== EMPTY / ERROR / NOT FOUND ===== */
+        .empty-state,
+        .error-state,
+        .not-found-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 300px;
+        }
+        .empty-state i,
+        .error-state i,
+        .not-found-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .not-found-state i {
+            color: var(--border);
+        }
+        .empty-state .btn,
+        .error-state .btn,
+        .not-found-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .subject-hero .hero-grid {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .subject-hero .hero-content p {
+                max-width: 100%;
+            }
+            .subject-hero .hero-stats {
+                justify-content: center;
+            }
+            .subject-hero .hero-actions {
+                justify-content: center;
+            }
+            .chapter-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subject-hero .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .subject-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .subject-hero .hero-image {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            .subject-hero .hero-stats {
+                gap: 16px;
+                font-size: 0.85rem;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .quick-nav {
+                grid-template-columns: 1fr 1fr;
+            }
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .skeleton-hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .skeleton-hero .skeleton-content .skeleton-stats {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .quick-nav {
+                grid-template-columns: 1fr;
+            }
+            .subject-hero .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .subject-search-section .filter-chips {
+                gap: 6px;
+            }
+            .subject-search-section .filter-chips .chip {
+                font-size: 0.7rem;
+                padding: 3px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <a href="subjects.html">Subjects</a>
+            <span>›</span>
+            <span class="current" id="breadcrumbSubject">Loading...</span>
+        </nav>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- ===== SUBJECT HERO ===== -->
+        <section class="subject-hero" id="subjectHero">
+            <div class="container">
+                <div id="heroContent">
+                    <!-- Dynamically rendered -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUICK NAV ===== -->
+        <section class="container" id="quickNavSection">
+            <div class="quick-nav" id="quickNav">
+                <!-- Dynamically rendered -->
+            </div>
+        </section>
+
+        <!-- ===== SEARCH WITHIN SUBJECT ===== -->
+        <section class="container" id="subjectSearchSection">
+            <div class="subject-search-section">
+                <h3 style="margin-bottom:12px;font-size:1.2rem;">
+                    <i class="fas fa-search" style="color:var(--primary);"></i>
+                    Search in <span id="searchSubjectName">this subject</span>
+                </h3>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="subjectSearchInput" placeholder="Search chapters, topics, formulas, laws..." aria-label="Search within this subject" />
+                </div>
+                <div class="filter-chips" id="filterChips">
+                    <button class="chip active" data-filter="all">All</button>
+                    <button class="chip" data-filter="formula">Formulas</button>
+                    <button class="chip" data-filter="law">Laws</button>
+                    <button class="chip" data-filter="definition">Definitions</button>
+                    <button class="chip" data-filter="concept">Concepts</button>
+                    <button class="chip" data-filter="example">Examples</button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- Dynamic results -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CHAPTER DIRECTORY ===== -->
+        <section class="container" id="chaptersSection">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Chapters</h2>
+            <p class="section-subtitle" id="chaptersSubtitle">Explore the chapters and topics available in this subject.</p>
+            <div class="chapter-grid" id="chapterGrid">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+
+        <!-- ===== POPULAR RESOURCES ===== -->
+        <section class="container" id="popularSection">
+            <h2 class="section-title"><i class="fas fa-fire"></i> Popular Resources</h2>
+            <div class="resource-grid" id="popularGrid">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+
+        <!-- ===== RECENTLY ADDED ===== -->
+        <section class="container" id="recentSection">
+            <h2 class="section-title"><i class="fas fa-clock"></i> Recently Added</h2>
+            <div class="resource-grid" id="recentGrid">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Import shared Firebase services and data-layer functions
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth } from "../js/firebase-config.js";
+        import { getSubjectBySlug, getChapters, getContents, getContentBySlug } from "../js/firestore.js";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const heroContent = document.getElementById('heroContent');
+        const chapterGrid = document.getElementById('chapterGrid');
+        const chaptersSubtitle = document.getElementById('chaptersSubtitle');
+        const popularGrid = document.getElementById('popularGrid');
+        const recentGrid = document.getElementById('recentGrid');
+        const quickNav = document.getElementById('quickNav');
+        const breadcrumbSubject = document.getElementById('breadcrumbSubject');
+        const searchSubjectName = document.getElementById('searchSubjectName');
+        const searchInput = document.getElementById('subjectSearchInput');
+        const searchResults = document.getElementById('searchResults');
+        const filterChips = document.getElementById('filterChips');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            subject: null,
+            chapters: [],
+            allResources: [],
+            popularResources: [],
+            recentResources: [],
+            loading: true,
+            error: null,
+            notFound: false,
+            searchQuery: '',
+            filter: 'all'
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Get page parameters
+        // ------------------------------------------------------------------
+        function getPageParameters() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const id = params.get('id');
+            return { slug, id };
+        }
+
+        // ------------------------------------------------------------------
+        // Render loading state (hero skeleton + chapter skeletons)
+        // ------------------------------------------------------------------
+        function renderLoadingState() {
+            // Hero skeleton
+            heroContent.innerHTML = `
+                <div class="skeleton-hero">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line long"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-stats">
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Chapter skeletons
+            let chapterSkeletons = '';
+            for (let i = 0; i < 6; i++) {
+                chapterSkeletons += `
+                    <div class="skeleton-chapter">
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line long"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            chapterGrid.innerHTML = chapterSkeletons;
+            chaptersSubtitle.textContent = 'Loading chapters...';
+
+            // Resource skeletons
+            let resourceSkeletons = '';
+            for (let i = 0; i < 4; i++) {
+                resourceSkeletons += `
+                    <div class="skeleton-chapter" style="min-height:100px;">
+                        <div class="skeleton-line short" style="width:30%;"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line long"></div>
+                    </div>
+                `;
+            }
+            popularGrid.innerHTML = resourceSkeletons;
+            recentGrid.innerHTML = resourceSkeletons;
+
+            breadcrumbSubject.textContent = 'Loading...';
+            searchSubjectName.textContent = 'this subject';
+        }
+
+        // ------------------------------------------------------------------
+        // Render subject not found
+        // ------------------------------------------------------------------
+        function renderNotFoundState() {
+            heroContent.innerHTML = `
+                <div class="not-found-state" style="color:white;padding:20px;">
+                    <i class="fas fa-book" style="color:rgba(255,255,255,0.4);"></i>
+                    <h2 style="color:white;font-size:1.8rem;">Subject Not Found</h2>
+                    <p style="opacity:0.8;max-width:500px;margin:0 auto;">
+                        The subject you're looking for may have been removed, unpublished, or doesn't exist.
+                    </p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px;">
+                        <a href="subjects.html" class="btn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Browse All Subjects</a>
+                        <a href="../index.html" class="btn" style="background:white;color:var(--primary-dark);">Go Home</a>
+                    </div>
+                </div>
+            `;
+            chapterGrid.innerHTML = '';
+            chaptersSubtitle.textContent = '';
+            popularGrid.innerHTML = '';
+            recentGrid.innerHTML = '';
+            quickNav.innerHTML = '';
+            breadcrumbSubject.textContent = 'Not Found';
+            searchSubjectName.textContent = 'this subject';
+            document.title = 'Subject Not Found | Academic Knowledge Library';
+        }
+
+        // ------------------------------------------------------------------
+        // Render error state
+        // ------------------------------------------------------------------
+        function renderErrorState(message = 'Unable to load this subject. Please try again.') {
+            heroContent.innerHTML = `
+                <div class="error-state" style="color:white;padding:20px;">
+                    <i class="fas fa-exclamation-circle" style="color:rgba(255,255,255,0.5);"></i>
+                    <p style="opacity:0.9;max-width:500px;margin:0 auto;">${message}</p>
+                    <button class="btn" id="retryBtn" style="background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.3);">Try Again</button>
+                </div>
+            `;
+            document.getElementById('retryBtn')?.addEventListener('click', loadSubjectPage);
+            chapterGrid.innerHTML = '';
+            popularGrid.innerHTML = '';
+            recentGrid.innerHTML = '';
+            quickNav.innerHTML = '';
+        }
+
+        // ------------------------------------------------------------------
+        // Render subject hero
+        // ------------------------------------------------------------------
+        function renderSubjectHero(subject, stats) {
+            const imageHtml = subject.imageUrl ?
+                `<img src="${subject.imageUrl}" alt="${subject.name}" loading="eager" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-book\\'></i>'" />` :
+                subject.icon ?
+                `<i class="${subject.icon}"></i>` :
+                `<i class="fas fa-book"></i>`;
+
+            const statsHtml = stats ? `
+                <div class="hero-stats">
+                    ${stats.chapterCount !== undefined && stats.chapterCount !== null ? `<span class="stat-item"><i class="fas fa-book-open"></i> <span class="num">${stats.chapterCount}</span> Chapters</span>` : ''}
+                    ${stats.topicCount !== undefined && stats.topicCount !== null ? `<span class="stat-item"><i class="fas fa-tags"></i> <span class="num">${stats.topicCount}</span> Topics</span>` : ''}
+                    ${stats.contentCount !== undefined && stats.contentCount !== null ? `<span class="stat-item"><i class="fas fa-file-alt"></i> <span class="num">${stats.contentCount}</span> Resources</span>` : ''}
+                </div>
+            ` : '';
+
+            heroContent.innerHTML = `
+                <div class="hero-grid">
+                    <div class="hero-image">${imageHtml}</div>
+                    <div class="hero-content">
+                        <h1>${subject.name}</h1>
+                        <p>${subject.description || 'Explore the concepts, laws, formulas, definitions and examples of ' + subject.name + '.'}</p>
+                        ${statsHtml}
+                        <div class="hero-actions">
+                            <a href="#chaptersSection" class="btn btn-primary-action"><i class="fas fa-book-open"></i> Browse Chapters</a>
+                            <a href="formulas.html?subject=${subject.slug}" class="btn"><i class="fas fa-calculator"></i> Formulas</a>
+                            <a href="laws.html?subject=${subject.slug}" class="btn"><i class="fas fa-gavel"></i> Laws</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render quick nav cards
+        // ------------------------------------------------------------------
+        function renderQuickNav(subject) {
+            quickNav.innerHTML = `
+                <div class="quick-card">
+                    <a href="formulas.html?subject=${subject.slug}">
+                        <div class="quick-info">
+                            <span>Explore</span>
+                            <strong>Formulas</strong>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="quick-card">
+                    <a href="laws.html?subject=${subject.slug}">
+                        <div class="quick-info">
+                            <span>Explore</span>
+                            <strong>Laws</strong>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="quick-card">
+                    <a href="search.html?subject=${subject.slug}">
+                        <div class="quick-info">
+                            <span>Search</span>
+                            <strong>This Subject</strong>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render chapters
+        // ------------------------------------------------------------------
+        function renderChapters(chapters, subjectSlug) {
+            if (!chapters || chapters.length === 0) {
+                chapterGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;min-height:auto;padding:40px 20px;">
+                        <i class="fas fa-inbox"></i>
+                        <p>No chapters available yet. Content for this subject is being organized.</p>
+                    </div>
+                `;
+                chaptersSubtitle.textContent = 'No chapters available yet.';
+                return;
+            }
+
+            chaptersSubtitle.textContent = `${chapters.length} chapter${chapters.length > 1 ? 's' : ''} available.`;
+
+            chapterGrid.innerHTML = chapters.map((chapter, index) => {
+                const number = String(index + 1).padStart(2, '0');
+                const statsHtml = chapter._topicCount !== undefined && chapter._topicCount !== null ?
+                    `<span><i class="fas fa-tags"></i> ${chapter._topicCount} Topics</span>` : '';
+                const contentStat = chapter._contentCount !== undefined && chapter._contentCount !== null ?
+                    `<span><i class="fas fa-file-alt"></i> ${chapter._contentCount} Resources</span>` : '';
+
+                return `
+                    <div class="chapter-card">
+                        <div class="chapter-number">Chapter ${number}</div>
+                        <h3><a href="chapter.html?subject=${subjectSlug}&slug=${chapter.slug}">${chapter.name}</a></h3>
+                        <p>${chapter.description || ''}</p>
+                        <div class="chapter-stats">
+                            ${statsHtml}
+                            ${contentStat}
+                        </div>
+                        <a href="chapter.html?subject=${subjectSlug}&slug=${chapter.slug}" class="chapter-cta">
+                            Explore Chapter <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ------------------------------------------------------------------
+        // Render resource cards
+        // ------------------------------------------------------------------
+        function renderResourceCard(resource) {
+            const typeLabels = {
+                formula: 'Formula',
+                law: 'Law',
+                definition: 'Definition',
+                concept: 'Concept',
+                theorem: 'Theorem',
+                rule: 'Rule',
+                identity: 'Identity',
+                constant: 'Constant',
+                graph: 'Graph',
+                example: 'Example'
+            };
+            const label = typeLabels[resource.type] || resource.type || 'Content';
+            const desc = resource.shortDescription || resource.definition || '';
+
+            return `
+                <div class="resource-card">
+                    <span class="badge">${label}</span>
+                    <h4><a href="content.html?slug=${resource.slug}">${resource.title}</a></h4>
+                    <p>${desc}</p>
+                    <div class="resource-meta">
+                        <span><i class="fas fa-eye"></i> ${resource.views || 0}</span>
+                        <span><i class="fas fa-bookmark"></i> ${resource.bookmarks || 0}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render popular and recent resources
+        // ------------------------------------------------------------------
+        function renderResources() {
+            // Popular
+            if (state.popularResources && state.popularResources.length > 0) {
+                popularGrid.innerHTML = state.popularResources.map(renderResourceCard).join('');
+            } else {
+                popularGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;min-height:auto;padding:20px;"><p>No popular resources yet.</p></div>`;
+            }
+
+            // Recent
+            if (state.recentResources && state.recentResources.length > 0) {
+                recentGrid.innerHTML = state.recentResources.map(renderResourceCard).join('');
+            } else {
+                recentGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;min-height:auto;padding:20px;"><p>No recent resources yet.</p></div>`;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update SEO
+        // ------------------------------------------------------------------
+        function updateSEO(subject) {
+            if (!subject) return;
+            const title = `${subject.name} | Academic Knowledge Library`;
+            const description = subject.description || `Explore ${subject.name} - chapters, topics, formulas, laws, definitions, and concepts.`;
+            const url = `https://eco-lab-e2f48.web.app/pages/subject.html?slug=${subject.slug}`;
+            const image = subject.imageUrl || 'https://eco-lab-e2f48.web.app/assets/og-image.jpg';
+
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+            document.querySelector('meta[property="og:image"]')?.setAttribute('content', image);
+            document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', image);
+
+            // Update JSON-LD
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (jsonLd) {
+                try {
+                    const data = JSON.parse(jsonLd.textContent);
+                    data.name = title;
+                    data.description = description;
+                    data.url = url;
+                    data.mainEntity.itemListElement = state.chapters.map((ch, i) => ({
+                        '@type': 'ListItem',
+                        'position': i + 1,
+                        'name': ch.name,
+                        'url': `https://eco-lab-e2f48.web.app/pages/chapter.html?subject=${subject.slug}&slug=${ch.slug}`
+                    }));
+                    jsonLd.textContent = JSON.stringify(data);
+                } catch (e) { /* ignore */ }
+            }
+
+            // Update breadcrumb
+            breadcrumbSubject.textContent = subject.name;
+            searchSubjectName.textContent = subject.name;
+        }
+
+        // ------------------------------------------------------------------
+        // Search within subject (client-side)
+        // ------------------------------------------------------------------
+        function performSubjectSearch() {
+            const query = state.searchQuery.trim().toLowerCase();
+            const filter = state.filter;
+
+            if (!query || query.length < 2) {
+                searchResults.classList.remove('visible');
+                return;
+            }
+
+            // Search through all resources (chapters + contents)
+            const results = [];
+            const allItems = [...state.chapters, ...state.allResources];
+
+            for (const item of allItems) {
+                const name = (item.name || item.title || '').toLowerCase();
+                const desc = (item.description || item.shortDescription || item.definition || '').toLowerCase();
+                const type = (item.type || 'chapter').toLowerCase();
+
+                if (filter !== 'all' && type !== filter) continue;
+
+                if (name.includes(query) || desc.includes(query)) {
+                    results.push(item);
+                }
+            }
+
+            if (results.length === 0) {
+                searchResults.innerHTML = `<div class="empty-results">No results found for "${query}".</div>`;
+                searchResults.classList.add('visible');
+                return;
+            }
+
+            searchResults.innerHTML = results.slice(0, 20).map(item => {
+                const typeLabel = item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : 'Chapter';
+                const link = item.slug ?
+                    (item.type ? `content.html?slug=${item.slug}` : `chapter.html?subject=${state.subject?.slug}&slug=${item.slug}`) :
+                    '#';
+                const name = item.name || item.title || 'Untitled';
+                return `
+                    <div class="result-item">
+                        <a href="${link}">${name}</a>
+                        <span class="result-type">${typeLabel}</span>
+                    </div>
+                `;
+            }).join('');
+            searchResults.classList.add('visible');
+        }
+
+        // ------------------------------------------------------------------
+        // Load subject page
+        // ------------------------------------------------------------------
+        async function loadSubjectPage() {
+            state.loading = true;
+            state.error = null;
+            state.notFound = false;
+            renderLoadingState();
+
+            const { slug, id } = getPageParameters();
+
+            try {
+                let subject = null;
+
+                // Try slug first, then id
+                if (slug) {
+                    subject = await getSubjectBySlug(slug);
+                } else if (id) {
+                    // Fallback: if we have an id, we could fetch by id
+                    // For now, we'll try to use a generic getSubjectById if it exists
+                    // but we'll use the existing getSubjectBySlug and if that fails, try id
+                    // Since we don't have getSubjectById in the shared module, we'll use a workaround
+                    // We'll fetch all subjects and find by id (not ideal but works for fallback)
+                    try {
+                        const { getSubjects } = await import('../js/firestore.js');
+                        const allSubjects = await getSubjects();
+                        subject = allSubjects.find(s => s.id === id) || null;
+                    } catch (e) {
+                        console.warn('ID fallback failed:', e);
+                    }
+                }
+
+                if (!subject || subject.status !== 'published') {
+                    state.notFound = true;
+                    renderNotFoundState();
+                    state.loading = false;
+                    return;
+                }
+
+                state.subject = subject;
+
+                // Load chapters for this subject
+                const chapters = await getChapters(subject.id, 'published');
+                state.chapters = chapters;
+
+                // Load resources for stats and previews (limited)
+                // We'll load a limited set of content for this subject
+                let allContent = [];
+                try {
+                    const { getContentsBySubject } = await import('../js/firestore.js');
+                    allContent = await getContentsBySubject(subject.id, 'published');
+                    state.allResources = allContent;
+                } catch (e) {
+                    console.warn('Could not load content for subject:', e);
+                    state.allResources = [];
+                }
+
+                // Compute stats from loaded data
+                const stats = {
+                    chapterCount: chapters.length,
+                    topicCount: 0,
+                    contentCount: allContent.length
+                };
+
+                // Calculate topic count from chapters if not available
+                // We'll count unique topics from content
+                const topicSet = new Set();
+                for (const content of allContent) {
+                    if (content.topicId) topicSet.add(content.topicId);
+                }
+                stats.topicCount = topicSet.size;
+
+                // Popular: sort by views descending, take 4
+                const popular = [...allContent].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 4);
+                state.popularResources = popular;
+
+                // Recent: sort by createdAt descending, take 4
+                const recent = [...allContent].sort((a, b) => {
+                    const aTime = a.createdAt?.toMillis?.() || 0;
+                    const bTime = b.createdAt?.toMillis?.() || 0;
+                    return bTime - aTime;
+                }).slice(0, 4);
+                state.recentResources = recent;
+
+                // Render everything
+                renderSubjectHero(subject, stats);
+                renderQuickNav(subject);
+                renderChapters(chapters, subject.slug);
+                renderResources();
+                updateSEO(subject);
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Error loading subject page:', err);
+                state.error = 'Unable to load this subject. Please try again.';
+                state.loading = false;
+                renderErrorState(state.error);
+                showToast('Failed to load subject.', 'error');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        observeAuthState((user) => {
+            renderAuthUI(user);
+        });
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // Search input handling
+        // ------------------------------------------------------------------
+        searchInput.addEventListener('input', () => {
+            state.searchQuery = searchInput.value;
+            performSubjectSearch();
+        });
+
+        // Filter chips
+        filterChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            filterChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            state.filter = chip.dataset.filter;
+            performSubjectSearch();
+        });
+
+        // ------------------------------------------------------------------
+        // Init: Load subject page
+        // ------------------------------------------------------------------
+        loadSubjectPage();
+
+        console.log('✅ Subject page loaded.');
+    </script>
+</body>
+</html>

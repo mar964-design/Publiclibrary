@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authors & Contributors | Academic Knowledge Library</title>
+    <meta name="description" content="Browse the authors and contributors behind the academic resources in the Academic Knowledge Library." />
+    <link rel="canonical" href="https://eco-lab-e2f48.web.app/pages/authors.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Authors & Contributors | Academic Knowledge Library" />
+    <meta property="og:description" content="Browse the authors and contributors behind the academic resources in the Academic Knowledge Library." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eco-lab-e2f48.web.app/pages/authors.html" />
+    <meta property="og:image" content="https://eco-lab-e2f48.web.app/assets/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Authors & Contributors | Academic Knowledge Library" />
+    <meta name="twitter:description" content="Browse the authors and contributors behind the academic resources in the Academic Knowledge Library." />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --primary-bg: #d8f3dc;
+            --secondary: #1e6091;
+            --accent: #d4a373;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --max-width: 1280px;
+            --header-height: 70px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--primary);
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+        .logo i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
+            color: var(--text-light);
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+        }
+        .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-links a.active:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        .nav-auth .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition);
+        }
+        .nav-auth .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-auth .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition);
+        }
+        .nav-auth .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .nav-auth .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color var(--transition);
+            overflow: hidden;
+        }
+        .nav-auth .user-avatar:hover {
+            border-color: var(--primary);
+        }
+        .nav-auth .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            padding: 4px 8px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            padding: 16px 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+        .breadcrumb .current {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 48px 0 40px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+        .page-hero h1 {
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+        .page-hero .hero-stats {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-hero .hero-stats i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== SEARCH & FILTERS ===== */
+        .filters-bar {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .filters-bar .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+            margin-bottom: 12px;
+        }
+        .filters-bar .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .search-wrapper i {
+            color: var(--text-light);
+            margin-right: 12px;
+        }
+        .filters-bar .search-wrapper input {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: var(--font);
+        }
+        .filters-bar .search-wrapper .clear-btn {
+            display: none;
+            padding: 4px 6px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .filters-bar .search-wrapper .clear-btn.visible {
+            display: block;
+        }
+        .filters-bar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            align-items: flex-end;
+        }
+        .filters-bar .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+            flex: 1 0 auto;
+        }
+        .filters-bar .filter-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .filters-bar .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .filters-bar .filter-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+        }
+        .filters-bar .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filters-bar .sort-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .filters-bar .sort-group select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filters-bar .filter-chips .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+        .filters-bar .filter-chips .chip .remove-chip {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .chip .remove-chip:hover {
+            color: var(--primary);
+        }
+        .filters-bar .filter-chips .clear-all {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .filters-bar .filter-chips .clear-all:hover {
+            color: var(--primary);
+        }
+        .filters-bar .mobile-filter-toggle {
+            display: none;
+            margin-top: 8px;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            width: 100%;
+        }
+        .filters-bar .mobile-filter-toggle i {
+            margin-right: 6px;
+        }
+
+        /* ===== AUTHOR GRID ===== */
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* ===== AUTHOR CARD ===== */
+        .author-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .author-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .author-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            overflow: hidden;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .author-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .author-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .author-card h3 a {
+            color: var(--text);
+        }
+        .author-card h3 a:hover {
+            color: var(--primary);
+        }
+        .author-card .role {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--primary);
+            background: var(--primary-bg);
+            padding: 2px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .author-card .specialization {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+        .author-card .bio-preview {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 8px 0 12px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .author-card .stats {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .author-card .stats i {
+            margin-right: 4px;
+        }
+        .author-card .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            justify-content: center;
+        }
+        .author-card .card-actions .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .author-card .card-actions .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        .author-card .card-actions .btn-outline-sm:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .author-card .card-actions .share-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            padding: 4px 8px;
+            transition: color var(--transition);
+        }
+        .author-card .card-actions .share-btn:hover {
+            color: var(--primary);
+        }
+        .author-card .website-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-top: 4px;
+        }
+        .author-card .website-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SKELETONS ===== */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .skeleton-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .skeleton-card .skeleton-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 40%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 80%;
+        }
+        .skeleton-card .skeleton-line.bio {
+            height: 60px;
+            width: 90%;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+        .load-more-container .btn {
+            min-width: 160px;
+        }
+
+        /* ===== EMPTY / ERROR ===== */
+        .empty-state,
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            gap: 12px;
+            text-align: center;
+            min-height: 200px;
+        }
+        .empty-state i,
+        .error-state i {
+            font-size: 3.5rem;
+            color: var(--border);
+        }
+        .error-state i {
+            color: #dc3545;
+        }
+        .empty-state .btn,
+        .error-state .btn {
+            margin-top: 8px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+        .toast.success {
+            border-left-color: #28a745;
+        }
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== MOBILE FILTER DRAWER ===== */
+        .filter-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+        }
+        .filter-drawer-overlay.open {
+            display: block;
+        }
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 80vh;
+            background: var(--white);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 24px 20px;
+            z-index: 2001;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .filter-drawer.open {
+            transform: translateY(0);
+        }
+        .filter-drawer .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .filter-drawer .drawer-header h3 {
+            font-size: 1.2rem;
+        }
+        .filter-drawer .drawer-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+        .filter-drawer .filter-group {
+            margin-bottom: 16px;
+        }
+        .filter-drawer .filter-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .filter-drawer .filter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.95rem;
+        }
+        .filter-drawer .drawer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .filter-drawer .drawer-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .footer a {
+            display: block;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .author-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            .skeleton-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            .page-hero {
+                padding: 32px 0 28px;
+                border-radius: 0 0 24px 24px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                gap: 4px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 10px 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-auth {
+                margin-left: 0;
+            }
+            .filters-bar .filter-row {
+                display: none;
+            }
+            .filters-bar .mobile-filter-toggle {
+                display: block;
+            }
+            .filters-bar .filter-chips {
+                margin-top: 8px;
+            }
+            .filter-drawer-overlay.open,
+            .filter-drawer.open {
+                display: block;
+            }
+            .author-grid {
+                grid-template-columns: 1fr;
+            }
+            .skeleton-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-bar {
+                padding: 12px 16px;
+            }
+            .author-card .avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="appHeader">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Academic<span>Library</span>
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="authors.html" class="active">Authors</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="nav-auth" id="navAuth">
+                    <!-- populated by JS -->
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <span class="current">Authors</span>
+        </nav>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Authors &amp; Contributors</h1>
+            <p>Discover the authors and contributors behind the academic resources in the library.</p>
+            <div class="hero-stats" id="heroStats">
+                <i class="fas fa-users"></i>
+                <span id="authorCount">Loading...</span> Published Authors
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTERS BAR ===== -->
+    <section class="container">
+        <div class="filters-bar">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search authors..." aria-label="Search authors" />
+                <button class="clear-btn" id="clearSearch" aria-label="Clear search">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="name">Name A–Z</option>
+                        <option value="name_desc">Name Z–A</option>
+                        <option value="recent">Recently Updated</option>
+                        <option value="resources">Most Resources</option>
+                    </select>
+                </div>
+                <!-- Additional filters could go here if author metadata supports it -->
+            </div>
+            <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                <i class="fas fa-sliders-h"></i> Filters
+            </button>
+            <div class="filter-chips" id="filterChips"></div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container" id="resultsSection">
+        <div id="resultCount" class="result-count" style="margin-bottom:1rem;">Loading authors...</div>
+        <div class="author-grid" id="authorGrid">
+            <!-- Skeleton cards will be rendered here -->
+        </div>
+        <div class="load-more-container" id="loadMoreContainer">
+            <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+        </div>
+    </section>
+
+    <!-- ===== MOBILE FILTER DRAWER ===== -->
+    <div class="filter-drawer-overlay" id="filterDrawerOverlay"></div>
+    <div class="filter-drawer" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Filter authors">
+        <div class="drawer-header">
+            <h3>Sort &amp; Filters</h3>
+            <button class="drawer-close" id="drawerClose" aria-label="Close filters">&times;</button>
+        </div>
+        <div class="filter-group">
+            <label for="drawerSort">Sort</label>
+            <select id="drawerSort">
+                <option value="name">Name A–Z</option>
+                <option value="name_desc">Name Z–A</option>
+                <option value="recent">Recently Updated</option>
+                <option value="resources">Most Resources</option>
+            </select>
+        </div>
+        <!-- Additional filters could go here -->
+        <div class="drawer-actions">
+            <button class="btn btn-outline" id="drawerClear">Clear</button>
+            <button class="btn btn-primary" id="drawerApply">Apply</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div>
+                <h4 style="color:white;font-size:1.1rem;margin-bottom:12px;">
+                    <i class="fas fa-graduation-cap"></i> Academic Library
+                </h4>
+                <p style="max-width:300px;font-size:0.9rem;">
+                    Organizing academic knowledge for faster learning.
+                </p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="../index.html">Home</a>
+                <a href="subjects.html">Subjects</a>
+                <a href="formulas.html">Formulas</a>
+                <a href="laws.html">Laws</a>
+                <a href="search.html">Search</a>
+                <a href="authors.html">Authors</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="../auth/login.html">Login</a>
+                <a href="../auth/register.html">Register</a>
+                <a href="../auth/profile.html">Profile</a>
+                <a href="../auth/bookmarks.html">Bookmarks</a>
+            </div>
+            <div>
+                <h4>Information</h4>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> Academic Knowledge Library. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== IMPORT MAP & MODULES ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js",
+                "firebase/functions": "https://www.gstatic.com/firebasejs/12.18.0/firebase-functions.js"
+            }
+        }
+    </script>
+
+    <!-- ===== MAIN APPLICATION ===== -->
+    <script type="module">
+        // ------------------------------------------------------------------
+        // Imports from shared modules (assume they exist)
+        // ------------------------------------------------------------------
+        import { onAuthStateChanged, signOut } from "firebase/auth";
+        import { auth, db } from "../js/firebase-config.js";
+        import {
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            startAfter,
+            getDocs,
+            getCountFromServer,
+            doc,
+            getDoc
+        } from "firebase/firestore";
+        import { observeAuthState, logoutUser, getCurrentUser } from "../js/auth.js";
+        // If bookmarks are not used for authors, we may skip importing them, but we'll keep for consistency.
+        import { addBookmark, removeBookmark, isBookmarked, getUserBookmarks } from "../js/bookmarks.js";
+        // We may not need getSubjects, etc. but we'll import if needed.
+        import { getSubjects, getChapters, getTopics } from "../js/firestore.js";
+
+        // ------------------------------------------------------------------
+        // DOM References
+        // ------------------------------------------------------------------
+        const authorGrid = document.getElementById('authorGrid');
+        const resultCount = document.getElementById('resultCount');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const sortSelect = document.getElementById('sortSelect');
+        const filterChips = document.getElementById('filterChips');
+        const heroStats = document.getElementById('authorCount');
+        const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+        const filterDrawer = document.getElementById('filterDrawer');
+        const filterDrawerOverlay = document.getElementById('filterDrawerOverlay');
+        const drawerClose = document.getElementById('drawerClose');
+        const drawerSort = document.getElementById('drawerSort');
+        const drawerApply = document.getElementById('drawerApply');
+        const drawerClear = document.getElementById('drawerClear');
+        const navAuth = document.getElementById('navAuth');
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        // ------------------------------------------------------------------
+        // State
+        // ------------------------------------------------------------------
+        const state = {
+            authors: [],
+            filteredAuthors: [],
+            displayedAuthors: [],
+            searchQuery: '',
+            sortBy: 'name',
+            pageSize: 24,
+            lastDoc: null,
+            hasMore: true,
+            loading: false,
+            initialLoad: true,
+            totalCount: 0,
+            bookmarkMap: new Map(), // not used for authors but kept for consistency
+            user: null
+        };
+
+        // ------------------------------------------------------------------
+        // Toast helper
+        // ------------------------------------------------------------------
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: '#28a745',
+                error: '#dc3545',
+                warning: '#ffc107',
+                info: '#2d6a4f'
+            };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type] || icons.info}" style="color:${colors[type] || colors.info};"></i>
+                <span>${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ------------------------------------------------------------------
+        // Helper: sanitize HTML (basic)
+        // ------------------------------------------------------------------
+        function sanitizeHTML(html) {
+            if (!html) return '';
+            return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                .replace(/on\w+="[^"]*"/g, '')
+                .replace(/on\w+='[^']*'/g, '')
+                .replace(/javascript:/gi, '');
+        }
+
+        // ------------------------------------------------------------------
+        // Load authors with pagination
+        // ------------------------------------------------------------------
+        async function loadAuthors(reset = true) {
+            if (state.loading) return;
+            state.loading = true;
+
+            if (reset) {
+                state.authors = [];
+                state.filteredAuthors = [];
+                state.displayedAuthors = [];
+                state.lastDoc = null;
+                state.hasMore = true;
+                authorGrid.innerHTML = renderSkeletons(state.pageSize);
+                resultCount.textContent = 'Loading authors...';
+                loadMoreContainer.style.display = 'none';
+            }
+
+            try {
+                // Build query: authors with status == "published" or "active"
+                // We'll use a field "status" - if not present, we assume all are public.
+                // For safety, we'll query where status == "published" if we have that field, else fetch all and filter.
+                // We'll use the presence of 'status' field.
+                let constraints = [];
+                // We'll check if we have a status field by trying a sample query? Instead, we'll use a generic approach:
+                // Since we don't know the exact schema, we'll just query all authors and filter client-side if needed.
+                // But for efficiency, we'll try to query with status if we can.
+                // We'll just query all for now; we can later add a where clause if status field exists.
+                // We'll add a where clause for status if it's common.
+                // We'll assume we have a status field and we want status == "published" or "active".
+                // We'll use a combined approach: we'll query for status in ["published", "active"] using 'in' operator.
+                // We'll do that.
+                const statuses = ['published', 'active'];
+                // Check if any author has a status field? We'll just use the query and if no results, fallback to all.
+                // Actually, we'll just use a simple approach: query all and then filter.
+                // But to be safe, we'll query where status is in the list if we have that field.
+                // Since we can't know, we'll do a query with a where clause that might fail if field doesn't exist.
+                // Better: we'll query all authors and then filter client-side.
+                // This might be inefficient for large collections, but we'll implement a simple version.
+                // We'll use orderBy('name') as default for pagination.
+                let q = query(collection(db, 'authors'), orderBy('name'), limit(state.pageSize));
+                if (state.lastDoc && !reset) {
+                    q = query(q, startAfter(state.lastDoc));
+                }
+
+                const snapshot = await getDocs(q);
+                const authors = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    // Only include if status is 'published' or 'active' or if status is missing (assume public)
+                    const status = data.status || 'published';
+                    if (status !== 'published' && status !== 'active') return null;
+                    return { id: doc.id, ...data };
+                }).filter(Boolean);
+
+                state.lastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+                state.hasMore = snapshot.docs.length === state.pageSize;
+
+                if (reset) {
+                    state.authors = authors;
+                } else {
+                    state.authors = [...state.authors, ...authors];
+                }
+
+                // Apply client-side search and sort
+                applyClientSideFilters();
+
+                // Update total count (first time only)
+                if (reset && state.totalCount === 0) {
+                    // We'll count all authors with status published/active
+                    // For simplicity, we'll count all documents in authors collection
+                    // and assume all are public (or we'll filter client-side)
+                    const countSnap = await getCountFromServer(collection(db, 'authors'));
+                    state.totalCount = countSnap.data().count;
+                    heroStats.textContent = state.totalCount;
+                }
+
+                if (reset && state.authors.length === 0) {
+                    authorGrid.innerHTML = `
+                        <div class="empty-state" style="grid-column:1/-1;">
+                            <i class="fas fa-users"></i>
+                            <p>No authors found. Check back later.</p>
+                            <button class="btn btn-outline" id="clearFiltersBtn">Clear Filters</button>
+                        </div>
+                    `;
+                    document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
+                        clearAllFilters();
+                    });
+                    resultCount.textContent = '0 authors';
+                    loadMoreContainer.style.display = 'none';
+                }
+
+                state.loading = false;
+
+            } catch (err) {
+                console.error('Error loading authors:', err);
+                state.loading = false;
+                showToast('Failed to load authors. Please try again.', 'error');
+                authorGrid.innerHTML = `
+                    <div class="error-state" style="grid-column:1/-1;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Unable to load authors. Please check your connection and try again.</p>
+                        <button class="btn btn-primary" id="retryBtn">Try Again</button>
+                    </div>
+                `;
+                document.getElementById('retryBtn')?.addEventListener('click', () => loadAuthors(true));
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Client-side filtering (search) and sorting
+        // ------------------------------------------------------------------
+        function applyClientSideFilters() {
+            const query = state.searchQuery.trim().toLowerCase();
+            let filtered = state.authors;
+
+            if (query) {
+                filtered = filtered.filter(author => {
+                    const name = (author.name || '').toLowerCase();
+                    const bio = (author.bio || '').toLowerCase();
+                    const role = (author.role || '').toLowerCase();
+                    const specialization = (author.specialization || '').toLowerCase();
+                    return name.includes(query) || bio.includes(query) || role.includes(query) || specialization
+                        .includes(query);
+                });
+            }
+
+            // Sort
+            const sort = state.sortBy;
+            if (sort === 'name_desc') {
+                filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+            } else if (sort === 'recent') {
+                filtered.sort((a, b) => (b.updatedAt?.toMillis?.() || 0) - (a.updatedAt?.toMillis?.() || 0));
+            } else if (sort === 'resources') {
+                filtered.sort((a, b) => (b.contentCount || 0) - (a.contentCount || 0));
+            } else {
+                // default: name asc
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+            }
+
+            state.filteredAuthors = filtered;
+            renderAuthors(filtered);
+            updateResultCount(filtered.length);
+        }
+
+        // ------------------------------------------------------------------
+        // Render authors
+        // ------------------------------------------------------------------
+        function renderAuthors(authors) {
+            if (!authors || authors.length === 0) {
+                authorGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column:1/-1;">
+                        <i class="fas fa-search"></i>
+                        <p>No authors match your search.</p>
+                        <button class="btn btn-outline" id="clearSearchBtn">Clear Search</button>
+                    </div>
+                `;
+                document.getElementById('clearSearchBtn')?.addEventListener('click', () => {
+                    searchInput.value = '';
+                    state.searchQuery = '';
+                    clearSearch.classList.remove('visible');
+                    updateFilterChips();
+                    updateURL();
+                    applyClientSideFilters();
+                });
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            const cards = authors.map(author => renderAuthorCard(author)).join('');
+            authorGrid.innerHTML = cards;
+
+            // Update load more visibility
+            if (state.hasMore && authors.length < state.totalCount) {
+                loadMoreContainer.style.display = 'block';
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Render single author card
+        // ------------------------------------------------------------------
+        function renderAuthorCard(author) {
+            const photoUrl = author.photoURL || '';
+            const name = author.name || 'Anonymous';
+            const role = author.role || '';
+            const specialization = author.specialization || '';
+            const bio = author.bio || '';
+            const contentCount = author.contentCount !== undefined ? author.contentCount : null;
+            const website = author.website || '';
+            const slug = author.slug || author.id;
+
+            const avatarHtml = photoUrl ?
+                `<img src="${photoUrl}" alt="Portrait of ${sanitizeHTML(name)}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-user\\'></i>'" />` :
+                `<i class="fas fa-user"></i>`;
+
+            return `
+                <div class="author-card">
+                    <div class="avatar">${avatarHtml}</div>
+                    <h3><a href="author.html?slug=${slug}">${sanitizeHTML(name)}</a></h3>
+                    ${role ? `<span class="role">${sanitizeHTML(role)}</span>` : ''}
+                    ${specialization ? `<div class="specialization">${sanitizeHTML(specialization)}</div>` : ''}
+                    ${bio ? `<div class="bio-preview">${sanitizeHTML(bio)}</div>` : ''}
+                    ${contentCount !== null ? `<div class="stats"><i class="fas fa-file-alt"></i> ${contentCount} resources</div>` : ''}
+                    ${website ? `<a href="${website}" target="_blank" rel="noopener noreferrer" class="website-link"><i class="fas fa-globe"></i> Website</a>` : ''}
+                    <div class="card-actions">
+                        <a href="author.html?slug=${slug}" class="btn btn-sm btn-secondary">View Profile</a>
+                        <button class="share-btn" data-author-id="${author.id}" aria-label="Share"><i class="fas fa-share-alt"></i></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------------------------------
+        // Render skeleton cards
+        // ------------------------------------------------------------------
+        function renderSkeletons(count) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-avatar"></div>
+                        <div class="skeleton-line medium"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-line bio"></div>
+                        <div class="skeleton-line short" style="width:40%;"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // ------------------------------------------------------------------
+        // Update result count
+        // ------------------------------------------------------------------
+        function updateResultCount(count) {
+            const total = state.totalCount;
+            if (total === 0) {
+                resultCount.textContent = 'No authors found';
+            } else if (state.searchQuery) {
+                resultCount.textContent = `Showing ${count} of ${total} authors`;
+            } else {
+                resultCount.textContent = `${total} authors`;
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Update filter chips (only search)
+        // ------------------------------------------------------------------
+        function updateFilterChips() {
+            const chips = [];
+            if (state.searchQuery) {
+                chips.push({ type: 'search', label: `"${state.searchQuery}"` });
+            }
+
+            if (chips.length === 0) {
+                filterChips.innerHTML = '';
+                return;
+            }
+
+            filterChips.innerHTML = chips.map(chip => {
+                return `
+                    <span class="chip">
+                        ${chip.label}
+                        <button class="remove-chip" data-type="search" aria-label="Remove filter">&times;</button>
+                    </span>
+                `;
+            }).join('') + `<button class="clear-all" id="clearAllFilters">Clear All</button>`;
+
+            filterChips.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (btn.dataset.type === 'search') {
+                        searchInput.value = '';
+                        state.searchQuery = '';
+                        clearSearch.classList.remove('visible');
+                        updateFilterChips();
+                        updateURL();
+                        applyClientSideFilters();
+                    }
+                });
+            });
+
+            document.getElementById('clearAllFilters')?.addEventListener('click', () => {
+                searchInput.value = '';
+                state.searchQuery = '';
+                clearSearch.classList.remove('visible');
+                updateFilterChips();
+                updateURL();
+                applyClientSideFilters();
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // URL synchronization
+        // ------------------------------------------------------------------
+        function updateURL() {
+            const params = new URLSearchParams();
+            if (state.searchQuery) params.set('q', state.searchQuery);
+            if (state.sortBy !== 'name') params.set('sort', state.sortBy);
+            const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // ------------------------------------------------------------------
+        // Clear all filters
+        // ------------------------------------------------------------------
+        function clearAllFilters() {
+            state.searchQuery = '';
+            searchInput.value = '';
+            clearSearch.classList.remove('visible');
+            updateFilterChips();
+            updateURL();
+            applyClientSideFilters();
+        }
+
+        // ------------------------------------------------------------------
+        // Share author
+        // ------------------------------------------------------------------
+        async function shareAuthor(authorId) {
+            const author = state.authors.find(a => a.id === authorId);
+            if (!author) return;
+            const slug = author.slug || author.id;
+            const url = `${window.location.origin}/pages/author.html?slug=${slug}`;
+            const title = author.name || 'Author';
+            const text = `Check out ${title} on Academic Knowledge Library.`;
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title, text, url });
+                } catch (e) {
+                    if (e.name !== 'AbortError') {
+                        copyLink(url);
+                    }
+                }
+            } else {
+                copyLink(url);
+            }
+        }
+
+        async function copyLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard.', 'success');
+            } catch {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard.', 'success');
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Event Listeners
+        // ------------------------------------------------------------------
+        function setupEventListeners() {
+            // Search
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const val = searchInput.value;
+                    state.searchQuery = val;
+                    if (val.trim() === '') {
+                        clearSearch.classList.remove('visible');
+                    } else {
+                        clearSearch.classList.add('visible');
+                    }
+                    updateFilterChips();
+                    updateURL();
+                    applyClientSideFilters();
+                }, 300);
+            });
+
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                state.searchQuery = '';
+                clearSearch.classList.remove('visible');
+                updateFilterChips();
+                updateURL();
+                applyClientSideFilters();
+                searchInput.focus();
+            });
+
+            // Sort
+            sortSelect.addEventListener('change', () => {
+                state.sortBy = sortSelect.value;
+                drawerSort.value = state.sortBy;
+                updateURL();
+                applyClientSideFilters();
+            });
+
+            // Load more
+            loadMoreBtn.addEventListener('click', () => {
+                loadAuthors(false);
+            });
+
+            // Mobile filter toggle
+            mobileFilterToggle.addEventListener('click', () => {
+                openDrawer();
+            });
+
+            // Drawer close
+            drawerClose.addEventListener('click', closeDrawer);
+            filterDrawerOverlay.addEventListener('click', closeDrawer);
+
+            // Drawer apply
+            drawerApply.addEventListener('click', () => {
+                const sort = drawerSort.value;
+                state.sortBy = sort;
+                sortSelect.value = sort;
+                updateURL();
+                applyClientSideFilters();
+                closeDrawer();
+            });
+
+            drawerClear.addEventListener('click', () => {
+                drawerSort.value = 'name';
+                // We'll let apply do the work
+            });
+
+            // Share button delegation
+            authorGrid.addEventListener('click', async (e) => {
+                const shareBtn = e.target.closest('.share-btn');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const authorId = shareBtn.dataset.authorId;
+                    if (authorId) {
+                        await shareAuthor(authorId);
+                    }
+                    return;
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // Drawer functions
+        // ------------------------------------------------------------------
+        function openDrawer() {
+            filterDrawer.classList.add('open');
+            filterDrawerOverlay.classList.add('open');
+            drawerSort.value = state.sortBy;
+        }
+
+        function closeDrawer() {
+            filterDrawer.classList.remove('open');
+            filterDrawerOverlay.classList.remove('open');
+        }
+
+        // ------------------------------------------------------------------
+        // Auth UI
+        // ------------------------------------------------------------------
+        function renderAuthUI(user) {
+            state.user = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U')[0].toUpperCase();
+                const photo = user.photoURL;
+                navAuth.innerHTML = `
+                    <a href="../auth/profile.html" class="user-avatar" title="${user.displayName || user.email}">
+                        ${photo ? `<img src="${photo}" alt="${user.displayName || 'User'}" />` : initial}
+                    </a>
+                    <a href="../auth/bookmarks.html" class="btn btn-sm btn-outline"><i class="fas fa-bookmark"></i></a>
+                    <button class="btn btn-sm btn-primary" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                    try {
+                        await logoutUser();
+                        showToast('Logged out successfully.', 'success');
+                    } catch (e) {
+                        showToast('Logout failed.', 'error');
+                    }
+                });
+            } else {
+                navAuth.innerHTML = `
+                    <a href="../auth/login.html" class="btn-outline">Login</a>
+                    <a href="../auth/register.html" class="btn-primary">Register</a>
+                `;
+            }
+        }
+
+        observeAuthState((user) => {
+            renderAuthUI(user);
+        });
+
+        // ------------------------------------------------------------------
+        // Mobile menu toggle
+        // ------------------------------------------------------------------
+        mobileToggle.addEventListener('click', () => {
+            const expanded = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded', expanded);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // Header scroll shadow
+        // ------------------------------------------------------------------
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        });
+
+        // ------------------------------------------------------------------
+        // Set current year in footer
+        // ------------------------------------------------------------------
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // ------------------------------------------------------------------
+        // SEO / JSON-LD
+        // ------------------------------------------------------------------
+        function updateSEO() {
+            const title = 'Authors & Contributors | Academic Knowledge Library';
+            const description = 'Browse the authors and contributors behind the academic resources in the Academic Knowledge Library.';
+            const url = window.location.href;
+            document.title = title;
+            document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+            document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+            document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+        }
+
+        function updateStructuredData(authors) {
+            const jsonLd = document.querySelector('script[type="application/ld+json"]');
+            if (!jsonLd) return;
+            try {
+                const data = JSON.parse(jsonLd.textContent);
+                data.name = 'Authors & Contributors | Academic Knowledge Library';
+                data.description = 'Browse the authors and contributors behind the academic resources in the Academic Knowledge Library.';
+                data.url = window.location.href;
+                data.mainEntity.itemListElement = authors.slice(0, 10).map((author, i) => ({
+                    '@type': 'ListItem',
+                    'position': i + 1,
+                    'name': author.name || 'Author',
+                    'url': `https://eco-lab-e2f48.web.app/pages/author.html?slug=${author.slug || author.id}`
+                }));
+                jsonLd.textContent = JSON.stringify(data);
+            } catch (e) { /* ignore */ }
+        }
+
+        // ------------------------------------------------------------------
+        // Init
+        // ------------------------------------------------------------------
+        async function init() {
+            renderAuthUI(await getCurrentUser());
+            observeAuthState((user) => {
+                renderAuthUI(user);
+            });
+
+            // Restore from URL
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            if (q) {
+                searchInput.value = q;
+                state.searchQuery = q;
+                clearSearch.classList.add('visible');
+            }
+            const sort = params.get('sort');
+            if (sort && ['name', 'name_desc', 'recent', 'resources'].includes(sort)) {
+                sortSelect.value = sort;
+                state.sortBy = sort;
+                drawerSort.value = sort;
+            }
+
+            updateFilterChips();
+            setupEventListeners();
+            await loadAuthors(true);
+            updateSEO();
+
+            // Initial JSON-LD
+            const initialJsonLd = {
+                "@context": "https://schema.org",
+                "@type": "CollectionPage",
+                "name": "Authors & Contributors | Academic Knowledge Library",
+                "description": "Browse the authors and contributors behind the academic resources in the Academic Knowledge Library.",
+                "url": window.location.href,
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "itemListElement": []
+                }
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(initialJsonLd);
+            document.head.appendChild(script);
+
+            // Override renderAuthors to update structured data
+            const originalRender = renderAuthors;
+            renderAuthors = function(authors) {
+                originalRender(authors);
+                updateStructuredData(authors);
+            };
+
+            console.log('✅ Authors page loaded.');
+        }
+
+        init();
+    </script>
+</body>
+</html>
